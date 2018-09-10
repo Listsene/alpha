@@ -12,9 +12,12 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.k.hilaris.alpha.Front.FrontActivity"
+            android:label="Front Activity">
         </activity>
     </application>
 
