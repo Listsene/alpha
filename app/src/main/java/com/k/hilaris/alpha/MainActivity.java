@@ -20,6 +20,7 @@ import com.k.hilaris.alpha.Front.FrontActivity;
 
 public class MainActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
+    // Google's sign in code thing
     private static final int RC_SIGN_IN = 9001;
 
     @Override
@@ -36,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         // Set the dimensions of the sign-in button.
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
-        //signInButton.setSize(SignInButton.SIZE_STANDARD);
+        SignInButton signInButton = findViewById(R.id.google_sign_in);
+        //signInButton.setSize(SignInButton.SIZE_WIDE);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
