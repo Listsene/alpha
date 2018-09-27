@@ -8,14 +8,14 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="33dp"
         android:src="@drawable/logo" />
     <Button
-        android:layout_width="200dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="Sign In with Email"
         android:id="@+id/email_sign_in"
@@ -23,7 +23,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_marginTop="15dp"
         android:layout_centerHorizontal = "true" />
     <Button
-        android:layout_width="200dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:text="Sign Up"
         android:id="@+id/sign_up"
@@ -32,7 +32,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_centerHorizontal = "true" />
     <com.google.android.gms.common.SignInButton
         android:id="@+id/google_sign_in"
-        android:layout_width="200dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/email_sign_in"
