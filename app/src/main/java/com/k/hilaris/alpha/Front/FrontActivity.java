@@ -6,7 +6,6 @@ From here the user can navigate to the rest of the application
  */
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,13 +18,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.k.hilaris.alpha.MainActivity;
+import com.k.hilaris.alpha.MultiPlayer.MultiPlayerMenuActivity;
 import com.k.hilaris.alpha.R;
+import com.k.hilaris.alpha.SinglePlayer.SinglePlayerMenuActivity;
 
-public class FrontActivity extends AppCompatActivity {
-    private Button logoutbutton;
+public class FrontActivity extends AppCompatActivity implements View.OnClickListener {
+    private Button single, multi, logoutbutton;
     private GoogleApiClient mGoogleApiClient;
     private GoogleSignInClient mGoogleSignInClient;
     @Override
@@ -33,10 +32,29 @@ public class FrontActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_front);
 
+        single = findViewById(R.id.singleplayerbutton);
+        single.setOnClickListener(this);
+        multi = findViewById(R.id.multiplayerbutton);
+        multi.setOnClickListener(this);
         logoutbutton = findViewById(R.id.logoutbutton);
-        logoutbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        logoutbutton.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.singleplayerbutton:
+                Intent intent = new Intent(this, SinglePlayerMenuActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.multiplayerbutton:
+                intent = new Intent(this, MultiPlayerMenuActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.logoutbutton:
                 Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                         new ResultCallback<Status>() {
                             @Override
@@ -47,8 +65,8 @@ public class FrontActivity extends AppCompatActivity {
                                 startActivity(i);
                             }
                         });
-            }
-        });
+                break;
+        }
     }
 
     @Override

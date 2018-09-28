@@ -21,6 +21,14 @@
             android:name="com.k.hilaris.alpha.Front.FrontActivity"
             android:label="Main Menu">
         </activity>
+        <activity
+            android:name="com.k.hilaris.alpha.SinglePlayer.SinglePlayerMenuActivity"
+            android:label="Select Difficulty">
+        </activity>
+        <activity
+            android:name="com.k.hilaris.alpha.MultiPlayer.MultiPlayerMenuActivity"
+            android:label="Online Session">
+        </activity>
     </application>
 
 </manifest>

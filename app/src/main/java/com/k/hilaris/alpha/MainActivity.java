@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -36,10 +37,7 @@ public class MainActivity extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // Set the dimensions of the sign-in button.
         SignInButton signInButton = findViewById(R.id.google_sign_in);
-        //signInButton.setSize(SignInButton.SIZE_WIDE);
-
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
         if(account != null) {
             Intent intent = new Intent(this, FrontActivity.class);
             startActivity(intent);
+        }
+        else {
+            Toast.makeText(getBaseContext(), "Sign in Failed", Toast.LENGTH_SHORT).show();
         }
     }
 

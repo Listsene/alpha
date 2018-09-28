@@ -4,31 +4,21 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/singleplayerbutton"
+        android:id="@+id/search"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="153dp"
-        android:text="@string/single" />
+        android:text="@string/search" />
     <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="@string/multi"
-        android:id="@+id/multiplayerbutton"
-        android:layout_below="@+id/singleplayerbutton"
+        android:text="@string/create"
+        android:id="@+id/create"
+        android:layout_below="@+id/search"
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal = "true" />
-
-    <Button
-        android:id="@+id/logoutbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="13dp"
-        android:layout_marginEnd="26dp"
-        android:text="@string/logoutbutton" />
 
 
 </RelativeLayout>

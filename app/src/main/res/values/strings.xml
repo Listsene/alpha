@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">Sudoku Online</string>
 
-    <string name="google_api">QVUImj2z2TFe9FvZOj-HW4xC</string>
+    <!-- API Keys -->
+    <string name="google_api">AIzaSyCbo-WoI6Rhqr-sKlc4CzzD7cneeG1xvuQ</string>
+
+    <!-- Front Menu Options -->
+    <string name="single">Single Player</string>
+    <string name="multi">Muiltiplayer</string>
+    <string name="logoutbutton">Log Out</string>
+
+    <!-- SinglePlayer Options -->
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+
+    <!-- MultiPlayer Options -->
+    <string name="search">Search</string>
+    <string name="create">Create</string>
+
 </resources>
