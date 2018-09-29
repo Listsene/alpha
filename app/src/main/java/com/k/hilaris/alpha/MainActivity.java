@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -19,8 +20,10 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.k.hilaris.alpha.Front.FrontActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private GoogleSignInClient mGoogleSignInClient;
+    private SignInButton google_sign_in;
+    private Button login;
     // Google's sign in code thing
     private static final int RC_SIGN_IN = 9001;
 
@@ -37,18 +40,28 @@ public class MainActivity extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        SignInButton signInButton = findViewById(R.id.google_sign_in);
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIn();
-            }
-        });
+        google_sign_in = findViewById(R.id.google_sign_in);
+        google_sign_in.setOnClickListener(this);
+        login = findViewById(R.id.email_sign_in);
+        login.setOnClickListener(this);
     }
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.google_sign_in:
+                signIn();
+                break;
+            case R.id.email_sign_in:
+                Intent intent = new Intent(this, FrontActivity.class);
+                startActivity(intent);
+                break;
+        }
     }
 
     @Override
