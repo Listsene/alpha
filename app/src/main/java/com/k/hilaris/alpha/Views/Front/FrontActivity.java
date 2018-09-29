@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha.Front;
+package com.k.hilaris.alpha.Views.Front;
 /*
 This activity is the Front screen of the application seen after logging in.
 From here the user can navigate to the rest of the application
@@ -18,10 +18,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.k.hilaris.alpha.MainActivity;
-import com.k.hilaris.alpha.MultiPlayer.MultiPlayerMenuActivity;
+import com.k.hilaris.alpha.Views.MainActivity;
+import com.k.hilaris.alpha.Views.MultiPlayer.MultiPlayerMenuActivity;
 import com.k.hilaris.alpha.R;
-import com.k.hilaris.alpha.SinglePlayer.SinglePlayerMenuActivity;
+import com.k.hilaris.alpha.Views.SinglePlayer.SinglePlayerMenuActivity;
 
 public class FrontActivity extends AppCompatActivity implements View.OnClickListener {
     private Button single, multi, logoutbutton;

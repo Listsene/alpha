@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Views.MainActivity"
             android:label="Sudoku Online">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,15 +18,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.k.hilaris.alpha.Front.FrontActivity"
+            android:name=".Views.Front.FrontActivity"
             android:label="Main Menu">
         </activity>
         <activity
-            android:name="com.k.hilaris.alpha.SinglePlayer.SinglePlayerMenuActivity"
+            android:name=".Views.SinglePlayer.SinglePlayerMenuActivity"
             android:label="Select Difficulty">
         </activity>
         <activity
-            android:name="com.k.hilaris.alpha.MultiPlayer.MultiPlayerMenuActivity"
+            android:name=".Views.MultiPlayer.MultiPlayerMenuActivity"
             android:label="Online Session">
         </activity>
     </application>

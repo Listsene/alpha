@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha;
+package com.k.hilaris.alpha.Views;
 /*
 Login Activity through Google sign in
 
@@ -18,12 +18,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.k.hilaris.alpha.Front.FrontActivity;
+import com.k.hilaris.alpha.Views.Front.FrontActivity;
+import com.k.hilaris.alpha.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private GoogleSignInClient mGoogleSignInClient;
     private SignInButton google_sign_in;
-    private Button login;
+    private Button login, signUp;
     // Google's sign in code thing
     private static final int RC_SIGN_IN = 9001;
 
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         google_sign_in.setOnClickListener(this);
         login = findViewById(R.id.email_sign_in);
         login.setOnClickListener(this);
+        signUp = findViewById(R.id.sign_up);
+        signUp.setOnClickListener(this);
     }
 
     private void signIn() {
@@ -61,6 +64,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(this, FrontActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.sign_up:
+                // TODO
+                Toast.makeText(getBaseContext(), "Not yet Implemented", Toast.LENGTH_SHORT).show();
         }
     }
 
