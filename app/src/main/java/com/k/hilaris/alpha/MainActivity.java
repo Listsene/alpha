@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
         else {
-            Toast.makeText(getBaseContext(), "Sign in Failed", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getBaseContext(), "Sign in Failed", Toast.LENGTH_SHORT).show();
+            Log.e("Signed in Check", "Not Signed In");
         }
     }
 
