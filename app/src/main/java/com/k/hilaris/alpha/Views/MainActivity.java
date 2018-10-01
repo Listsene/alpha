@@ -1,6 +1,6 @@
 package com.k.hilaris.alpha.Views;
 /*
-Login Activity through Google sign in
+*Login Activity through Google sign in
 
  */
 import android.content.Intent;

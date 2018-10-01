@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.k.hilaris.alpha">
 
     <application
@@ -8,7 +9,8 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".Views.MainActivity"
             android:label="Sudoku Online">
@@ -28,6 +30,10 @@
         <activity
             android:name=".Views.MultiPlayer.MultiPlayerMenuActivity"
             android:label="Online Session">
+        </activity>
+        <activity
+            android:name=".Views.Sudoku.SudokuActivity"
+            android:label="Sudoku">
         </activity>
     </application>
 
