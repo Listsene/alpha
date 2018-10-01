@@ -16,8 +16,8 @@ public class SudokuGridAdapter extends BaseAdapter {
     private Context mContext;
     private SudokuGrid sudokuGrid;
 
-    public SudokuGridAdapter(Context c, SudokuGrid sudokuGrid) {
-        this.mContext = c;
+    public SudokuGridAdapter(Context mContext, SudokuGrid sudokuGrid) {
+        this.mContext = mContext;
         this.sudokuGrid = sudokuGrid;
     }
 
@@ -42,14 +42,17 @@ public class SudokuGridAdapter extends BaseAdapter {
 
         EditText cell = convertView.findViewById(R.id.cell);
 
-        if(number.isEmpty()) {
-            cell.setActivated(true);
-            cell.setBackgroundColor(ContextCompat.getColor(mContext, R.color.text_color_with_primary));
+        if(number.isEmpty() || number.matches("\\s")) { //checks for empty or white space
+            cell.setFocusable(true);
+            cell.setText(" ");
+            //cell.setTextColor(ContextCompat.getColor(mContext, R.color.primary));
+            //cell.setBackgroundColor(ContextCompat.getColor(mContext, R.color.text_color_with_primary));
         }
         else {
             cell.setText(number);
-            cell.setActivated(false);
-            cell.setBackgroundColor(ContextCompat.getColor(mContext, R.color.primary));
+            //cell.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_with_primary));
+            cell.setFocusable(false);
+            //cell.setBackgroundColor(ContextCompat.getColor(mContext, R.color.primary));
         }
 
         return convertView;
