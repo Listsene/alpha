@@ -50,8 +50,8 @@ public class SudokuGridAdapter extends BaseAdapter {
         }
         else {
             cell.setText(number);
-            //cell.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_with_primary));
             cell.setFocusable(false);
+            //cell.setTextColor(ContextCompat.getColor(mContext, R.color.text_color_with_primary));
             //cell.setBackgroundColor(ContextCompat.getColor(mContext, R.color.primary));
         }
 

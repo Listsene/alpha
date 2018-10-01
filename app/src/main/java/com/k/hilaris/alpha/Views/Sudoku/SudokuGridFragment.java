@@ -40,14 +40,15 @@ public class SudokuGridFragment extends Fragment {
     public SudokuGrid createSudoku() { // Create Sample Sudoku Board for testing
         grid = new SudokuGrid();
         List<String> cellList = new ArrayList<>();
-        String cells = "|5|3| | |7| | | | |" +
-                        "|6| | |1|9|5| | | |" +
-                        "|8| | | |6| | | |3|" +
-                        "|4| | |8| |3| | |1|" +
-                        "|7| | | |2| | | |6|" +
-                        "| |6| | | | |2|8| |" +
-                        "| | | |4|1|9| | |5|" +
-                        "| | | | |8| | |7|9|";
+        String cells =  "5|3| | |7| | | | |" +
+                        "6| | |1|9|5| | | |" +
+                        " |9|8| | | | |6| |" +
+                        "8| | | |6| | | |3|" +
+                        "4| | |8| |3| | |1|" +
+                        "7| | | |2| | | |6|" +
+                        " |6| | | | |2|8| |" +
+                        " | | |4|1|9| | |5|" +
+                        " | | | |8| | |7|9|";
         String[] array = cells.split("[|]", 0);
         for(int i = 0; i < array.length; i++) {
             String cell = array[i];
