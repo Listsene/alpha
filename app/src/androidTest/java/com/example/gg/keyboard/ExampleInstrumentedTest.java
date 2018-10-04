@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha;
+package com.example.gg.keyboard;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.k.hilaris.alpha", appContext.getPackageName());
+        assertEquals("com.example.gg.keyboard", appContext.getPackageName());
     }
 }

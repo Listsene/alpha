@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha;
+package com.example.gg.keyboard;
 
 import org.junit.Test;
 
