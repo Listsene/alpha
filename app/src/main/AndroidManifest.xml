@@ -27,11 +27,11 @@
             android:label="Main Menu">
         </activity>
         <activity
-            android:name="com.k.hilaris.alpha.views.singlePlayer.SinglePlayerMenuActivity"
+            android:name="com.k.hilaris.alpha.views.singleplayer.SinglePlayerMenuActivity"
             android:label="Select Difficulty">
         </activity>
         <activity
-            android:name="com.k.hilaris.alpha.views.multiPlayer.MultiPlayerMenuActivity"
+            android:name="com.k.hilaris.alpha.views.multiplayer.MultiPlayerMenuActivity"
             android:label="Online Session">
         </activity>
         <activity

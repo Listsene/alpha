@@ -28,4 +28,7 @@ dependencies {
 
     // Google login
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
+
+    // Picasso for image handling
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }

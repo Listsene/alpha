@@ -4,11 +4,14 @@ package com.k.hilaris.alpha.views.login;
 
  */
 import android.content.Intent;
+import android.content.res.Resources;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -20,11 +23,13 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.k.hilaris.alpha.views.front.FrontActivity;
 import com.k.hilaris.alpha.R;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private GoogleSignInClient mGoogleSignInClient;
     private SignInButton google_sign_in;
     private Button login, signUp;
+    private ImageView logo;
     // Google's sign in code thing
     private static final int RC_SIGN_IN = 9001;
 
@@ -39,7 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .requestEmail()
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        //mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        logo = findViewById(R.id.logo);
+        Picasso.get().load(R.drawable.logo).resize(300, 300).into(logo);
 
         google_sign_in = findViewById(R.id.google_sign_in);
         google_sign_in.setOnClickListener(this);

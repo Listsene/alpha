@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha.views.singlePlayer;
+package com.k.hilaris.alpha.views.singleplayer;
 
 import android.content.Intent;
 import android.os.Bundle;

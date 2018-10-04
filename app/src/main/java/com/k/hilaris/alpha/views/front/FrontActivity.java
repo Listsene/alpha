@@ -19,16 +19,16 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.k.hilaris.alpha.views.login.MainActivity;
-import com.k.hilaris.alpha.views.multiPlayer.MultiPlayerMenuActivity;
+import com.k.hilaris.alpha.views.multiplayer.MultiPlayerMenuActivity;
 import com.k.hilaris.alpha.R;
-import com.k.hilaris.alpha.views.singlePlayer.SinglePlayerMenuActivity;
+import com.k.hilaris.alpha.views.singleplayer.SinglePlayerMenuActivity;
 
 public class FrontActivity extends AppCompatActivity implements View.OnClickListener {
     private Button single, multi, logoutbutton;
     private GoogleApiClient mGoogleApiClient;
     private GoogleSignInClient mGoogleSignInClient;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_front);
 
