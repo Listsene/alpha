@@ -10,6 +10,7 @@ import android.widget.GridView;
 import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
 import com.k.hilaris.alpha.models.Sudoku;
 import com.k.hilaris.alpha.R;
+import com.k.hilaris.alpha.models.SudokuVariation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +55,39 @@ public class SudokuGridFragment extends Fragment {
             String cell = array[i];
             cellList.add(cell);
         }
-        //Adapter.notifyDataSetChanged();
         grid.setCells(cellList);
         return grid;
     }
+    public SudokuVariation createVariation(Sudoku sudoku) {
+        SudokuVariation sv = new SudokuVariation(sudoku);
+        sv.setGuid(createGUID(sv));
+        sv.setCells(randomizeTokens(sv));
+        sv.setCells(scrambleGrid(sv));
+        sv.setCells(rotate(sv));
+        return sv;
+    }
+    private String createGUID(SudokuVariation sv) {
+        String guid = "0710896a-1959-4d0d-87ba-dd3bcd02c948"; // example
+        // makes unique guid
+        return guid;
+    }
+    private List<String> randomizeTokens(SudokuVariation sv) {
+        List<String> tokensRandomized = sv.getCells();
+        // randomize tokens e.g. remap 123456789 to 356472189
+
+        return tokensRandomized;
+    }
+    private List<String> scrambleGrid(SudokuVariation sv) {
+        List<String> gridScrambled = sv.getCells();
+        // scrambles grid i.e. swap rows and cols
+
+        return gridScrambled;
+    }
+    private List<String> rotate(SudokuVariation sv) {
+        List<String> rotated = sv.getCells();
+        // rotates grid; 0, 90, 180, or 270 degrees
+
+        return rotated;
+    }
+
 }

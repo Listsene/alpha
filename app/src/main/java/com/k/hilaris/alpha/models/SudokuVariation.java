@@ -2,17 +2,15 @@ package com.k.hilaris.alpha.models;
 
 import java.util.List;
 
-public class SudokuGrid extends Sudoku {
+public class SudokuVariation extends Sudoku {
     public List<String> solution;
     public String guid;
 
-    public SudokuGrid() {
+    public SudokuVariation() {
     }
 
-    public SudokuGrid(List<String> cells, String id, List<String> solution, String guid) {
-        super(cells, id);
-        this.solution = solution;
-        this.guid = guid;
+    public SudokuVariation(Sudoku sudoku) {
+        super(sudoku.getCells(), sudoku.getid());
     }
 
     public List<String> getSolution() {

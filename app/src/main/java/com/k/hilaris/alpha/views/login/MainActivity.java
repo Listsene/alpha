@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .requestEmail()
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
-        //mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         logo = findViewById(R.id.logo);
         Picasso.get().load(R.drawable.logo).resize(756, 588).into(logo);
