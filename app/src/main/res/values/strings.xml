@@ -4,6 +4,10 @@
     <!-- API Keys -->
     <string name="google_api">AIzaSyCbo-WoI6Rhqr-sKlc4CzzD7cneeG1xvuQ</string>
 
+    <!-- Login Menu Options -->
+    <string name="email_signin">Sign In with Email</string>
+    <string name="email_signup">Sign Up</string>
+
     <!-- Front Menu Options -->
     <string name="single">Single Player</string>
     <string name="multi">Muiltiplayer</string>
