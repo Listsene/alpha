@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha.Views;
+package com.k.hilaris.alpha.views.login;
 /*
 *Login Activity through Google sign in
 
@@ -18,7 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.k.hilaris.alpha.Views.Front.FrontActivity;
+import com.k.hilaris.alpha.views.front.FrontActivity;
 import com.k.hilaris.alpha.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{

@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha.Views.Sudoku;
+package com.k.hilaris.alpha.views.sudoku;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;

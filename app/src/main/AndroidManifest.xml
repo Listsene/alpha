@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.k.hilaris.alpha">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -12,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".Views.MainActivity"
+            android:name="com.k.hilaris.alpha.views.login.MainActivity"
             android:label="Sudoku Online">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,19 +23,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Views.Front.FrontActivity"
+            android:name="com.k.hilaris.alpha.views.front.FrontActivity"
             android:label="Main Menu">
         </activity>
         <activity
-            android:name=".Views.SinglePlayer.SinglePlayerMenuActivity"
+            android:name="com.k.hilaris.alpha.views.singlePlayer.SinglePlayerMenuActivity"
             android:label="Select Difficulty">
         </activity>
         <activity
-            android:name=".Views.MultiPlayer.MultiPlayerMenuActivity"
+            android:name="com.k.hilaris.alpha.views.multiPlayer.MultiPlayerMenuActivity"
             android:label="Online Session">
         </activity>
         <activity
-            android:name=".Views.Sudoku.SudokuActivity"
+            android:name="com.k.hilaris.alpha.views.sudoku.SudokuActivity"
             android:label="Sudoku">
         </activity>
     </application>

@@ -4,7 +4,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Views.MainActivity">
+    tools:context=".views.login.MainActivity">
 
     <ImageView
         android:id="@+id/logo"
@@ -36,8 +36,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/google_sign_in"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
+        android:layout_below="@id/email_sign_in"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/email_sign_in"
         android:layout_marginTop="10dp"/>
-
 </RelativeLayout>

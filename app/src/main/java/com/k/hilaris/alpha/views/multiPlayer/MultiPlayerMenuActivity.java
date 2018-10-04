@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha.Views.MultiPlayer;
+package com.k.hilaris.alpha.views.multiPlayer;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

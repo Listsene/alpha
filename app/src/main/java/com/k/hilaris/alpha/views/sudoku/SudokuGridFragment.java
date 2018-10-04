@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha.Views.Sudoku;
+package com.k.hilaris.alpha.views.sudoku;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import com.k.hilaris.alpha.Adapters.SudokuGridAdapter;
-import com.k.hilaris.alpha.Models.SudokuGrid;
+import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
+import com.k.hilaris.alpha.models.Sudoku;
 import com.k.hilaris.alpha.R;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.List;
 
 public class SudokuGridFragment extends Fragment {
     private GridView gridView;
-    private SudokuGrid grid;
+    private Sudoku grid;
     private SudokuGridAdapter Adapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,8 +37,8 @@ public class SudokuGridFragment extends Fragment {
 
         return view;
     }
-    public SudokuGrid createSudoku() { // Create Sample Sudoku Board for testing
-        grid = new SudokuGrid();
+    public Sudoku createSudoku() { // Create Sample Sudoku Board for testing
+        grid = new Sudoku();
         List<String> cellList = new ArrayList<>();
         String cells =  "5|3| | |7| | | | |" +
                         "6| | |1|9|5| | | |" +

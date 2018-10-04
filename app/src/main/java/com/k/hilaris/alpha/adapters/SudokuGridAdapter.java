@@ -1,24 +1,23 @@
-package com.k.hilaris.alpha.Adapters;
+package com.k.hilaris.alpha.adapters;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 
-import com.k.hilaris.alpha.Models.SudokuGrid;
+import com.k.hilaris.alpha.models.Sudoku;
 import com.k.hilaris.alpha.R;
 
 
 public class SudokuGridAdapter extends BaseAdapter {
     private Context mContext;
-    private SudokuGrid sudokuGrid;
+    private Sudoku sudoku;
 
-    public SudokuGridAdapter(Context mContext, SudokuGrid sudokuGrid) {
+    public SudokuGridAdapter(Context mContext, Sudoku sudoku) {
         this.mContext = mContext;
-        this.sudokuGrid = sudokuGrid;
+        this.sudoku = sudoku;
     }
 
     @Override
@@ -33,7 +32,7 @@ public class SudokuGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        String number = sudokuGrid.getCells().get(position);
+        String number = sudoku.getCells().get(position);
 
         if (convertView == null) {
             final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
@@ -60,6 +59,6 @@ public class SudokuGridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return sudokuGrid.getCells().size();
+        return sudoku.getCells().size();
     }
 }
