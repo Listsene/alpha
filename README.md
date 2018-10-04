@@ -1,6 +1,8 @@
 # Team Alpha
 SW Capstone Design Fall 2018
+
 This repository is for our project Sudoku Online.
+
 Sudoku Online is a multiplayer Sudoku application for Android devices.
 
 There are three game modes planned for multiplayer
