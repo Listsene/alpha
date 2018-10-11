@@ -1,6 +1,7 @@
 package com.k.hilaris.alpha.views.login;
 /*
-*Login Activity through Google sign in
+First Activity opened upon App start.
+Login Activity through Google sign in
 
  */
 import android.content.Intent;
@@ -30,8 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SignInButton google_sign_in;
     private Button login, signUp;
     private ImageView logo;
-    // Google's sign in code thing
-    private static final int RC_SIGN_IN = 9001;
+    private static final int RC_SIGN_IN = 9001;  // Google's sign in code thing
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         logo = findViewById(R.id.logo);
-        Picasso.get().load(R.drawable.logo).resize(756, 588).into(logo);
+        Picasso.get().load(R.drawable.logo).resize(756, 588).into(logo); // original image is 1890x1417
 
         google_sign_in = findViewById(R.id.google_sign_in);
         google_sign_in.setOnClickListener(this);
