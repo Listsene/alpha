@@ -35,6 +35,5 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/email_sign_in"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/button_vertical_margin"
-        android:background="@color/primary_accent"/>
+        android:layout_marginTop="@dimen/button_vertical_margin"/>
 </RelativeLayout>
