@@ -10,7 +10,8 @@ public class SudokuVariation extends Sudoku {
     }
 
     public SudokuVariation(Sudoku sudoku) {
-        super(sudoku.getCells(), sudoku.getid());
+
+        super(sudoku.getCells(), sudoku.getId(), sudoku.getDifficulty());
     }
 
     public List<String> getSolution() {

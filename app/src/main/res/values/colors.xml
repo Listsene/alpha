@@ -24,6 +24,7 @@
     <color name="secondary_accent">#94D8D2</color>
     <color name="my_background">#F5F5F6</color>
     <color name="my_background_dark">#E1E2E1</color>
+    <color name="background_white">#F3F3E9</color>
     <color name="text_color_with_primary">#FFFFFF</color>
     <color name="default_text_color">#37474F</color>
     <color name="appbar_color_tint">#10000000</color>
