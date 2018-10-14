@@ -47,9 +47,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         logo = findViewById(R.id.logo);
-        //Picasso.get().load(R.drawable.logo).resize(756, 588).into(logo); // original image is 1890x1417
+        Picasso.get().load(R.drawable.logo).resize(800, 800).into(logo); // original image is 1890x1417
 
-        Picasso.get().load(R.drawable.logo).into(logo);
+        //Picasso.get().load(R.drawable.logo).into(logo);
 
 
         google_sign_in = findViewById(R.id.google_sign_in);
