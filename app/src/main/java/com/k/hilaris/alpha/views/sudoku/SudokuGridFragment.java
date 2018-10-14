@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
@@ -33,7 +34,6 @@ public class SudokuGridFragment extends Fragment {
         gridView = view.findViewById(R.id.SudokuGridView);
         Adapter = new SudokuGridAdapter(getContext(), grid);
         gridView.setAdapter(Adapter);
-
 
 
         return view;
