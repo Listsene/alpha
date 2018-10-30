@@ -6,19 +6,218 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    
 
     <TextView
-        android:background="#c9c9f1"
-        android:id="@+id/textView"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
+        android:id="@+id/textView11_"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="50dp"
-        android:padding="5dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/textview_border"
         android:textColor="@android:color/black"
-        android:textSize="20dp"
-        android:layout_centerInParent="true"
-        android:gravity="center_horizontal|center_vertical"/>
+        android:textSize="40sp"
+        android:onClick="onClick"/>
+
+
+    <TextView
+        android:id="@+id/textView11_1"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignStart="@+id/textView11_"
+        android:layout_alignTop="@+id/textView11_"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView11_2"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignTop="@+id/textView11_"
+        android:layout_toEndOf="@+id/textView11_1"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView11_3"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignEnd="@+id/textView11_"
+        android:layout_alignTop="@+id/textView11_"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView11_4"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignStart="@+id/textView11_"
+        android:layout_below="@+id/textView11_1"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView11_5"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_below="@+id/textView11_1"
+        android:layout_toEndOf="@+id/textView11_4"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView11_6"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignEnd="@+id/textView11_"
+        android:layout_below="@+id/textView11_1"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView11_7"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignBottom="@+id/textView11_"
+        android:layout_alignStart="@+id/textView11_"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView11_8"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignBottom="@+id/textView11_"
+        android:layout_toEndOf="@+id/textView11_7"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView11_9"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignBottom="@+id/textView11_"
+        android:layout_alignEnd="@+id/textView11_"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        android:layout_alignTop="@+id/textView11_"
+        android:layout_toEndOf="@+id/textView11_"
+        android:background="@drawable/textview_border"
+        android:textColor="@android:color/black"
+        android:textSize="40sp"
+        android:onClick="onClick"/>
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignStart="@+id/textView12"
+        android:layout_alignTop="@+id/textView12"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignTop="@+id/textView12"
+        android:layout_toEndOf="@+id/textView21"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignEnd="@+id/textView12"
+        android:layout_alignTop="@+id/textView12"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_below="@+id/textView21"
+        android:layout_alignStart="@+id/textView12"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_below="@+id/textView21"
+        android:layout_toEndOf="@+id/textView24"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignEnd="@+id/textView12"
+        android:layout_below="@+id/textView21"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignBottom="@+id/textView12"
+        android:layout_alignStart="@+id/textView12"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignBottom="@+id/textView12"
+        android:layout_toEndOf="@+id/textView27"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_alignBottom="@+id/textView12"
+        android:layout_alignEnd="@+id/textView12"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@android:color/black"
+        android:textSize="15sp" />
+
+    
+
+
+
 
 
     <LinearLayout
