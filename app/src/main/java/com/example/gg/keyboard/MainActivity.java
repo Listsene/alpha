@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView selectedCell;
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,108 +26,135 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.button_1:
-                bt = (Button)findViewById(R.id.button_1);
-                st = bt.getText().toString();
-                break;
             case R.id.button_2:
-                bt = (Button)findViewById(R.id.button_2);
-                st = bt.getText().toString();
-                break;
             case R.id.button_3:
-                bt = (Button)findViewById(R.id.button_3);
-                st = bt.getText().toString();
-                break;
             case R.id.button_4:
-                bt = (Button)findViewById(R.id.button_4);
-                st = bt.getText().toString();
-                break;
             case R.id.button_5:
-                bt = (Button)findViewById(R.id.button_5);
-                st = bt.getText().toString();
-                break;
             case R.id.button_6:
-                bt = (Button)findViewById(R.id.button_6);
-                st = bt.getText().toString();
-                break;
             case R.id.button_7:
-                bt = (Button)findViewById(R.id.button_7);
-                st = bt.getText().toString();
-                break;
             case R.id.button_8:
-                bt = (Button)findViewById(R.id.button_8);
-                st = bt.getText().toString();
-                break;
             case R.id.button_9:
-                bt = (Button)findViewById(R.id.button_9);
+                bt = (Button)v;
                 st = bt.getText().toString();
                 break;
 
             case R.id.button_submit:
-                clearMemo(selectedCell.getId());
-                tv=selectedCell;
-                tv.setText(st);
-                tv.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+                if(selectedCell!=null){
+                    clearMemo(selectedCell.getId());
+                    selectedCell.setText(st);
+                    selectedCell.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+                }
                 break;
 
             case R.id.button_memo:
-                if(v.getId()==R.id.button_memo && bt==null){
-
-                }else{
-                    inputMemo(selectedCell.getId(),Integer.parseInt(bt.getText().toString()));
+                if(v.getId()==R.id.button_memo && bt!=null){
+                    inputMemo(selectedCell.getId(),Integer.parseInt(st));
                 }
                 break;
 
             case R.id.button_clear:
-                tv=selectedCell;
-                tv.setText("");
-                clearMemo(selectedCell.getId());
+                if(selectedCell!=null){
+                    selectedCell.setText("");
+                    clearMemo(selectedCell.getId());
+                }
                 break;
 
             case R.id.textView11_:
-                selectedCell=findViewById(R.id.textView11_);
-                break;
             case R.id.textView12_:
-                selectedCell=findViewById(R.id.textView12_);
-                break;
             case R.id.textView13_:
-                selectedCell=findViewById(R.id.textView13_);
-                break;
             case R.id.textView14_:
-                selectedCell=findViewById(R.id.textView14_);
-                break;
             case R.id.textView15_:
-                selectedCell=findViewById(R.id.textView15_);
-                break;
             case R.id.textView16_:
-                selectedCell=findViewById(R.id.textView16_);
-                break;
             case R.id.textView17_:
-                selectedCell=findViewById(R.id.textView17_);
-                break;
             case R.id.textView18_:
-                selectedCell=findViewById(R.id.textView18_);
-                break;
             case R.id.textView19_:
-                selectedCell=findViewById(R.id.textView19_);
+            case R.id.textView21_:
+            case R.id.textView22_:
+            case R.id.textView23_:
+            case R.id.textView24_:
+            case R.id.textView25_:
+            case R.id.textView26_:
+            case R.id.textView27_:
+            case R.id.textView28_:
+            case R.id.textView29_:
+            case R.id.textView31_:
+            case R.id.textView32_:
+            case R.id.textView33_:
+            case R.id.textView34_:
+            case R.id.textView35_:
+            case R.id.textView36_:
+            case R.id.textView37_:
+            case R.id.textView38_:
+            case R.id.textView39_:
+            case R.id.textView41_:
+            case R.id.textView42_:
+            case R.id.textView43_:
+            case R.id.textView44_:
+            case R.id.textView45_:
+            case R.id.textView46_:
+            case R.id.textView47_:
+            case R.id.textView48_:
+            case R.id.textView49_:
+            case R.id.textView51_:
+            case R.id.textView52_:
+            case R.id.textView53_:
+            case R.id.textView54_:
+            case R.id.textView55_:
+            case R.id.textView56_:
+            case R.id.textView57_:
+            case R.id.textView58_:
+            case R.id.textView59_:
+            case R.id.textView61_:
+            case R.id.textView62_:
+            case R.id.textView63_:
+            case R.id.textView64_:
+            case R.id.textView65_:
+            case R.id.textView66_:
+            case R.id.textView67_:
+            case R.id.textView68_:
+            case R.id.textView69_:
+            case R.id.textView71_:
+            case R.id.textView72_:
+            case R.id.textView73_:
+            case R.id.textView74_:
+            case R.id.textView75_:
+            case R.id.textView76_:
+            case R.id.textView77_:
+            case R.id.textView78_:
+            case R.id.textView79_:
+            case R.id.textView81_:
+            case R.id.textView82_:
+            case R.id.textView83_:
+            case R.id.textView84_:
+            case R.id.textView85_:
+            case R.id.textView86_:
+            case R.id.textView87_:
+            case R.id.textView88_:
+            case R.id.textView89_:
+            case R.id.textView91_:
+            case R.id.textView92_:
+            case R.id.textView93_:
+            case R.id.textView94_:
+            case R.id.textView95_:
+            case R.id.textView96_:
+            case R.id.textView97_:
+            case R.id.textView98_:
+            case R.id.textView99_:
+                selectedCell=(TextView)v;
                 break;
-
 
             default:
                 break;
         }
-
     }
 
     public void inputMemo(int cellNum, int btNum){
         tv=findViewById(cellNum);
         tv.setText("");
-        for(int i=1; i<10; i++){
-            tv=findViewById(cellNum+btNum);
-            isThereMemo();
-        }
+        tv=findViewById(cellNum+btNum);
+        isThereMemo();
     }
 
     public void isThereMemo(){
@@ -143,6 +171,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tv.setText("");
         }
     }
-
-
 }
