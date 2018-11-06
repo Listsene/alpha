@@ -1,7 +1,9 @@
 package com.example.gg.keyboard;
 
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -9,19 +11,52 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.concurrent.TimeUnit;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
+    Toolbar mToolbar;
+    TextView timerTv;
     TextView tv;
     String st;
     Button bt;
     TextView selectedCell;
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Timer();
+    }
+
+    long timeRemaining = 300000;
+
+    public boolean Timer(){
+        new CountDownTimer(timeRemaining, 1000) {
+            public void onTick(long millisUntilFinished) {
+                long millis = millisUntilFinished;
+                String hms;
+                if((TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))<10)){
+                    hms =  ("0"+TimeUnit.MILLISECONDS.toHours(millis))+":0"+ (TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))+":0"+ (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+                }else{
+                    hms =  ("0"+TimeUnit.MILLISECONDS.toHours(millis))+":0"+ (TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))+":"+ (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+                }
+
+                timerTv=(TextView) findViewById(R.id.timerTextView);
+                timerTv.setText(hms);
+                timeRemaining = millis;
+            }
+            public void onFinish() {
+                timerTv.setText("done!");
+            }
+        }.start();
+        return true;
     }
 
     @Override
