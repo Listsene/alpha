@@ -26,7 +26,7 @@ import com.k.hilaris.alpha.views.front.FrontActivity;
 import com.k.hilaris.alpha.R;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private GoogleSignInClient mGoogleSignInClient;
     private SignInButton google_sign_in;
     private Button login, signUp;
@@ -131,5 +131,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Prevent user from going back to empty view
+        // Do nothing on back pressed
     }
 }
