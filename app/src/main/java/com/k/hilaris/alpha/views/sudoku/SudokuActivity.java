@@ -13,12 +13,10 @@ public class SudokuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sudoku);
 
-        //Routine routine= (Routine) getIntent().getSerializableExtra("routine");
-        //getIntent().putExtra("routine", routine);
-
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.SudokuGridFragment, new SudokuGridFragment());
+        ft.add(R.id.InputButtonsFragment, new InputButtonsFragment());
         ft.commit();
     }
 }
