@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#FF4081</color>
+    <color name="birthDate">#999999</color>
+    <color name="name">#222222</color>
+    <color name="black">#010510</color>
+    <color name="black_a20">#20010510</color>
+    <color name="black_a40">#40010510</color>
+    <color name="black_a80">#80010510</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_a40">#40FFFFFF</color>
+    <color name="white_a50">#50FFFFFF</color>
+    <color name="gray">#818590</color>
+    <color name="gray_a40">#40818590</color>
+    <color name="gray_light">#E0E0E0</color>
+    <color name="gray_dark">#505050</color>
+    <color name="red">#F44D2C</color>
+    <color name="AccentColor">#cc0000</color>
+    <color name="PopupColor">@color/AccentColor</color>
+    <color name="PopupTextColor">#ffffff</color>
+    <color name="ButtonTextColor">#ffffff</color>
+    <color name="BlurbColor">#a0a0a0</color>
+    <!--Theme Color-->
+    <color name="primary">#4A91CC</color>
+    <color name="primary_dark">#000B78</color>
+    <color name="primary_accent">#7CB9E0</color>
+    <color name="secondary">#7CD0C8</color>
+    <color name="secondary_accent">#94D8D2</color>
+    <color name="my_background">#F5F5F6</color>
+    <color name="my_background_dark">#E1E2E1</color>
+    <color name="text_color_with_primary">#FFFFFF</color>
+    <color name="default_text_color">#37474F</color>
+    <color name="appbar_color_tint">#10000000</color>
+
+    <!--Additional Colors-->
+    <color name="tertiary">#1F8A70</color>
+
+    <!--Named Colors-->
+    <color name="enabled_button_background">@color/secondary_accent</color>
+    <color name="enabled_button_text">@color/default_text_color</color>
+    <color name="disabled_button_background">@color/gray_a40</color>
+    <color name="disabled_button_text">@color/white_a40</color>
+    <color name="new_noti_icon_tint">@color/red</color>
+    <color name="noti_show_text_bg">@color/black_a20</color>
+    <color name="settings_show_text_bg">@color/black_a20</color>
+    <color name="reward_badge_unveiled">@color/white_a40</color>
+</resources>
