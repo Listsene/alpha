@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5c27181fc6d59574b14ad74ebb5caf61e7a4cc4a
 *.iml
 .gradle
 /local.properties
@@ -9,6 +12,9 @@
 /build
 /captures
 .externalNativeBuild
+<<<<<<< HEAD
 =======
 /build
 >>>>>>> google play
+=======
+>>>>>>> 5c27181fc6d59574b14ad74ebb5caf61e7a4cc4a
