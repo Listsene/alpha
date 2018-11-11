@@ -41,7 +41,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.k.hilaris.alpha.views.login.MainActivity;
+//import com.k.hilaris.alpha.views.login.MainActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
