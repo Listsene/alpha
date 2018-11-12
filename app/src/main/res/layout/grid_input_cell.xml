@@ -9,7 +9,7 @@
         android:id="@+id/inputButton"
         android:textColor="@color/black"
         android:layout_centerHorizontal="true"
-        android:focusableInTouchMode="true"
+        android:focusableInTouchMode="false"
         android:layout_margin="1dp"
         android:background="@drawable/input_button"/>
 </RelativeLayout>
