@@ -16,7 +16,7 @@ public class SudokuActivity extends AppCompatActivity {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.SudokuGridFragment, new SudokuGridFragment());
-        ft.add(R.id.InputButtonsFragment, new InputButtonsFragment());
+        ft.add(R.id.InputButtonsFragment, new InputButtonsGridFragment());
         ft.commit();
     }
 }
