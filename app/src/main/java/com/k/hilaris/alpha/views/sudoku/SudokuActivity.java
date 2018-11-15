@@ -6,19 +6,26 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.k.hilaris.alpha.R;
+import com.k.hilaris.alpha.models.Sudoku;
 
-public class SudokuActivity extends AppCompatActivity {
+import org.w3c.dom.Text;
+
+public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.TextClicked {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sudoku);
 
-        //Routine routine= (Routine) getIntent().getSerializableExtra("routine");
-        //getIntent().putExtra("routine", routine);
-
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.SudokuGridFragment, new SudokuGridFragment());
+        ft.add(R.id.InputButtonsFragment, new InputButtonsGridFragment());
         ft.commit();
+    }
+
+    @Override
+    public void sendText(String text){
+        SudokuGridFragment sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
+        sudokuGridFragment.getInput(text);
     }
 }

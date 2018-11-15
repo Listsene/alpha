@@ -15,6 +15,7 @@ import com.k.hilaris.alpha.R;
 public class SudokuGridAdapter extends BaseAdapter {
     private Context mContext;
     private Sudoku sudoku;
+    private int nSelectedPos =-1;
 
     public SudokuGridAdapter(Context mContext, Sudoku sudoku) {
         this.mContext = mContext;
@@ -32,7 +33,7 @@ public class SudokuGridAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
         String number = sudoku.getCells().get(position);
 
         if (convertView == null) {
@@ -41,7 +42,7 @@ public class SudokuGridAdapter extends BaseAdapter {
         }
 
         Button cell = convertView.findViewById(R.id.cell);
-        cell.requestFocus();
+        //cell.requestFocus();
         cell.setEnabled(true);
 
         if(number.isEmpty() || number.matches("\\s")) { //checks for empty or white space
@@ -51,7 +52,28 @@ public class SudokuGridAdapter extends BaseAdapter {
             cell.setText(number);
             //cell.setEnabled(false);
         }
+        cell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Button btn = (Button) view;
+                if(nSelectedPos != -1){
+                    Button preSelBtn = (Button)parent.getChildAt(nSelectedPos).findViewById(R.id.cell);
+                    preSelBtn.setSelected(false);
+                    if(nSelectedPos ==position){
+                        nSelectedPos = -1;
+                        return;
+                    }
+                    //nSelectedPos = -1;
+                }
+                btn.setSelected(!btn.isSelected());
+                nSelectedPos = position;
+            }
+        });
         return convertView;
+    }
+
+    public int getnSelectedPos(){
+        return nSelectedPos;
     }
 
     @Override

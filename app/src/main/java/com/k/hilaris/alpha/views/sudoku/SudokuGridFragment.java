@@ -58,6 +58,29 @@ public class SudokuGridFragment extends Fragment {
         grid.setCells(cellList);
         return grid;
     }
+
+    public Sudoku createCompleteSudoku() { // Create Sample Sudoku Board for testing
+        grid = new Sudoku();
+        List<String> cellList = new ArrayList<>();
+        String cells =
+                "4|6|9|8|2|5|7|1|3|" +
+                "8|1|3|6|7|4|2|9|5|" +
+                "2|7|5|9|3|1|4|6|8|" +
+                "6|8|4|1|5|3|9|7|2|" +
+                "9|5|2|7|4|6|3|8|1|" +
+                "7|3|1|2|9|8|6|5|4|" +
+                "5|9|7|4|1|2|8|3|6|" +
+                "1|2|6|3|8|7|5|4|9|" +
+                "3|4|8|5|6|9|1|2|7|";
+        String[] array = cells.split("[|]", 0);
+        for(int i = 0; i < array.length; i++) {
+            String cell = array[i];
+            cellList.add(cell);
+        }
+        grid.setCells(cellList);
+        return grid;
+    }
+
     public SudokuVariation createVariation(Sudoku sudoku) {
         SudokuVariation sv = new SudokuVariation(sudoku);
         sv.setGuid(createGUID(sv));
@@ -66,6 +89,14 @@ public class SudokuGridFragment extends Fragment {
         sv.setCells(rotate(sv));
         return sv;
     }
+
+    public void getInput(String input){
+        int nSelectedPos = Adapter.getnSelectedPos();
+        List<String> list = grid.getCells();
+        list.set(nSelectedPos, input);
+        Adapter.notifyDataSetChanged();
+    }
+
     private String createGUID(SudokuVariation sv) {
         String guid = "0710896a-1959-4d0d-87ba-dd3bcd02c948"; // example
         // makes unique guid

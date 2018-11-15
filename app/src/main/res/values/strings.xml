@@ -22,4 +22,9 @@
     <string name="search">Search</string>
     <string name="create">Create</string>
 
+    <!-- Input Buttons -->
+    <string name="Clear">Clear</string>
+    <string name="Memo">Memo</string>
+    <string name="Submit">Enter</string>
+
 </resources>
