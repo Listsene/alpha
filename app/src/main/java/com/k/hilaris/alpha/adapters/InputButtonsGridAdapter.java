@@ -9,16 +9,19 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 
 import com.k.hilaris.alpha.R;
+import com.k.hilaris.alpha.views.sudoku.InputButtonsGridFragment;
 
 import java.util.List;
 
 public class InputButtonsGridAdapter extends BaseAdapter {
     private Context mContext;
     List<String> inputs;
+    InputButtonsGridFragment.TextClicked textClicked;
 
-    public InputButtonsGridAdapter(Context mContext, List<String> inputs) {
+    public InputButtonsGridAdapter(Context mContext, List<String> inputs, InputButtonsGridFragment.TextClicked textClicked) {
         this.mContext = mContext;
         this.inputs = inputs;
+        this.textClicked = textClicked;
     }
 
     @Override
@@ -42,6 +45,15 @@ public class InputButtonsGridAdapter extends BaseAdapter {
 
         Button inputButton = convertView.findViewById(R.id.inputButton);
         inputButton.setText(input);
+
+        inputButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Button bt = (Button)view;
+                String text = bt.getText().toString();
+                textClicked.sendText(text);
+            }
+        });
 
         return convertView;
     }

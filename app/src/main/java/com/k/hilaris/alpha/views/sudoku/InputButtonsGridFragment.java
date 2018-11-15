@@ -12,12 +12,19 @@ import android.widget.GridView;
 import com.k.hilaris.alpha.R;
 import com.k.hilaris.alpha.adapters.InputButtonsGridAdapter;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class InputButtonsGridFragment extends Fragment {
     private GridView gridView;
     private InputButtonsGridAdapter Adapter;
+
+    TextClicked clickCB;
+    public interface TextClicked{
+        public void sendText(String text);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,7 +37,10 @@ public class InputButtonsGridFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_input_grid, container, false);
 
         gridView = view.findViewById(R.id.InputGrid);
-        Adapter = new InputButtonsGridAdapter(getContext(), prepareInputs());
+
+        clickCB = (TextClicked) getActivity();
+
+        Adapter = new InputButtonsGridAdapter(getContext(), prepareInputs(),clickCB);
         gridView.setAdapter(Adapter);
 
 

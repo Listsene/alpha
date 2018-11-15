@@ -15,7 +15,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="36dp"
         android:layout_marginBottom="12dp"
-        android:verticalSpacing="2dp"
+        android:verticalSpacing="1dp"
         android:horizontalSpacing="1dp"
         android:stretchMode="columnWidth" />
 
