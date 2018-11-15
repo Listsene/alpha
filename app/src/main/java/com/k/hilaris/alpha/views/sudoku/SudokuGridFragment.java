@@ -80,6 +80,7 @@ public class SudokuGridFragment extends Fragment {
         grid.setCells(cellList);
         return grid;
     }
+
     public SudokuVariation createVariation(Sudoku sudoku) {
         SudokuVariation sv = new SudokuVariation(sudoku);
         sv.setGuid(createGUID(sv));
@@ -88,6 +89,14 @@ public class SudokuGridFragment extends Fragment {
         sv.setCells(rotate(sv));
         return sv;
     }
+
+    public void getInput(String input){
+        int nSelectedPos = Adapter.getnSelectedPos();
+        List<String> list = grid.getCells();
+        list.set(nSelectedPos, input);
+        Adapter.notifyDataSetChanged();
+    }
+
     private String createGUID(SudokuVariation sv) {
         String guid = "0710896a-1959-4d0d-87ba-dd3bcd02c948"; // example
         // makes unique guid
