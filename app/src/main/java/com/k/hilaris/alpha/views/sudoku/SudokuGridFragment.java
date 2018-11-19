@@ -11,6 +11,7 @@ import android.widget.GridView;
 import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
 import com.k.hilaris.alpha.models.Sudoku;
 import com.k.hilaris.alpha.R;
+import com.k.hilaris.alpha.models.SudokuCellData;
 import com.k.hilaris.alpha.models.SudokuVariation;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class SudokuGridFragment extends Fragment {
     }
     public Sudoku createSudoku() { // Create Sample Sudoku Board for testing
         grid = new Sudoku();
-        List<String> cellList = new ArrayList<>();
+        List<SudokuCellData> cellList = new ArrayList<>();
         String cells =  "5|3| | |7| | | | |" +
                         "6| | |1|9|5| | | |" +
                         " |9|8| | | | |6| |" +
@@ -53,7 +54,7 @@ public class SudokuGridFragment extends Fragment {
         String[] array = cells.split("[|]", 0);
         for(int i = 0; i < array.length; i++) {
             String cell = array[i];
-            cellList.add(cell);
+            cellList.add(new SudokuCellData(cell));
         }
         grid.setCells(cellList);
         return grid;
@@ -61,7 +62,7 @@ public class SudokuGridFragment extends Fragment {
 
     public Sudoku createCompleteSudoku() { // Create Sample Sudoku Board for testing
         grid = new Sudoku();
-        List<String> cellList = new ArrayList<>();
+        List<SudokuCellData> cellList = new ArrayList<>();
         String cells =
                 "4|6|9|8|2|5|7|1|3|" +
                 "8|1|3|6|7|4|2|9|5|" +
@@ -75,26 +76,51 @@ public class SudokuGridFragment extends Fragment {
         String[] array = cells.split("[|]", 0);
         for(int i = 0; i < array.length; i++) {
             String cell = array[i];
-            cellList.add(cell);
+            cellList.add(new SudokuCellData(cell));
         }
         grid.setCells(cellList);
         return grid;
     }
 
-    public SudokuVariation createVariation(Sudoku sudoku) {
+   /* public SudokuVariation createVariation(Sudoku sudoku) {
         SudokuVariation sv = new SudokuVariation(sudoku);
         sv.setGuid(createGUID(sv));
         sv.setCells(randomizeTokens(sv));
         sv.setCells(scrambleGrid(sv));
         sv.setCells(rotate(sv));
         return sv;
-    }
+    }*/
 
     public void getInput(String input){
         int nSelectedPos = Adapter.getnSelectedPos();
-        List<String> list = grid.getCells();
-        list.set(nSelectedPos, input);
-        Adapter.notifyDataSetChanged();
+        List<SudokuCellData> list = grid.getCells();
+        SudokuCellData cellData = list.get(nSelectedPos);
+
+        switch(input)
+        {
+            case "Memo" :
+                if(cellData.getInput() != ""){
+                    String preInput = cellData.getInput();
+                    int pos = Integer.parseInt(preInput)-1;
+                    cellData.setbMemoByPos(pos);
+                }
+                Adapter.notifyDataSetChanged();
+                break;
+            case "Clear" :
+                cellData.clearMemo();
+                cellData.setInput("");
+                Adapter.notifyDataSetChanged();
+                break;
+            case "Enter" :
+                String preInput = cellData.getInput();
+                cellData.setInput(preInput);
+                cellData.clearMemo();
+                Adapter.notifyDataSetChanged();
+                break;
+            default:
+                cellData.setInput(input);
+        }
+        //Adapter.notifyDataSetChanged();
     }
 
     private String createGUID(SudokuVariation sv) {
@@ -102,7 +128,7 @@ public class SudokuGridFragment extends Fragment {
         // makes unique guid
         return guid;
     }
-    private List<String> randomizeTokens(SudokuVariation sv) {
+   /* private List<String> randomizeTokens(SudokuVariation sv) {
         List<String> tokensRandomized = sv.getCells();
         // randomize tokens e.g. remap 123456789 to 356472189
 
@@ -119,6 +145,6 @@ public class SudokuGridFragment extends Fragment {
         // rotates grid; 0, 90, 180, or 270 degrees
 
         return rotated;
-    }
+    }*/
 
 }

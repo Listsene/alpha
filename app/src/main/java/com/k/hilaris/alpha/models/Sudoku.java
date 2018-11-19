@@ -4,22 +4,22 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Sudoku implements Serializable {
-    List<String> cells; // 162 characters, |1| | |3| | | |7| |...etc.
+    List<SudokuCellData> cellDatas; // 162 characters, |1| | |3| | | |7| |...etc.
     String id;
     int difficulty; // 0,1,2,3: easy, medium, hard, insane
     public Sudoku() {
     }
-    public Sudoku(List<String> cells, String id, int difficulty) {
-        this.cells = cells;
+    public Sudoku(List<SudokuCellData> cellDatas, String id, int difficulty) {
+        this.cellDatas = cellDatas;
         this.id = id;
         this.difficulty = difficulty;
     }
 
-    public List<String> getCells() {
-        return cells;
+    public List<SudokuCellData> getCells() {
+        return cellDatas;
     }
-    public void setCells(List<String> cells) {
-        this.cells = cells;
+    public void setCells(List<SudokuCellData> cells) {
+        this.cellDatas = cells;
     }
     public String getId() {
         return id;

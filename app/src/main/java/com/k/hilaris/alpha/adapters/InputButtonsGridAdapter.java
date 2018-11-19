@@ -17,6 +17,7 @@ public class InputButtonsGridAdapter extends BaseAdapter {
     private Context mContext;
     List<String> inputs;
     InputButtonsGridFragment.TextClicked textClicked;
+    String btNum;
 
     public InputButtonsGridAdapter(Context mContext, List<String> inputs, InputButtonsGridFragment.TextClicked textClicked) {
         this.mContext = mContext;
@@ -51,6 +52,8 @@ public class InputButtonsGridAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Button bt = (Button)view;
                 String text = bt.getText().toString();
+                text = bt.getText().toString();
+                btNum = bt.getText().toString();
                 textClicked.sendText(text);
             }
         });
