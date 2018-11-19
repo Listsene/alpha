@@ -9,9 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.k.hilaris.alpha.R;
-import com.k.hilaris.alpha.models.Sudoku;
-
-import org.w3c.dom.Text;
 
 import java.util.concurrent.TimeUnit;
 
@@ -37,22 +34,22 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         Timer();
     }
 
-    long timeRemaining = 300000;
+    long fiveMinutes = 300000;
 
     public boolean Timer(){
-        new CountDownTimer(timeRemaining, 1000) {
+        new CountDownTimer(fiveMinutes, 1000) {
             public void onTick(long millisUntilFinished) {
                 long millis = millisUntilFinished;
-                String hms;
+                String time;
                 if((TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))<10)){
-                    hms =  ("0"+TimeUnit.MILLISECONDS.toHours(millis))+":0"+ (TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))+":0"+ (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+                    time =  "0"+ (TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))+":0"+ (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
                 }else{
-                    hms =  ("0"+TimeUnit.MILLISECONDS.toHours(millis))+":0"+ (TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))+":"+ (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+                    time =  "0"+ (TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))+":"+ (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
                 }
 
                 timerTv = findViewById(R.id.timerTextView);
-                timerTv.setText(hms);
-                timeRemaining = millis;
+                timerTv.setText(time);
+                fiveMinutes = millis;
             }
             public void onFinish() {
                 timerTv.setText("done!");
