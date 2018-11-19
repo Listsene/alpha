@@ -49,7 +49,7 @@ public class SudokuGridAdapter extends BaseAdapter {
         }
         else {
             cell.setText(number);
-            //cell.setEnabled(false);
+            cell.setEnabled(false);
         }
         cell.setOnClickListener(new View.OnClickListener() {
             @Override

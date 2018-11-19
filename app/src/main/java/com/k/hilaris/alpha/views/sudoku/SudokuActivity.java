@@ -52,7 +52,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 fiveMinutes = millis;
             }
             public void onFinish() {
-                timerTv.setText("done!");
+                timerTv.setText("0:00");
             }
         }.start();
         return true;
