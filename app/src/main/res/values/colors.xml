@@ -31,6 +31,7 @@
 
     <!--Additional Colors-->
     <color name="tertiary">#1F8A70</color>
+    <color name="yellow">#FFFF00</color>
 
     <!--Named Colors-->
     <color name="enabled_button_background">@color/secondary_accent</color>

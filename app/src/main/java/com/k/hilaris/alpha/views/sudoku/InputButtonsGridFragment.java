@@ -1,18 +1,14 @@
 package com.k.hilaris.alpha.views.sudoku;
 
 import android.app.Fragment;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.GridView;
 
 import com.k.hilaris.alpha.R;
 import com.k.hilaris.alpha.adapters.InputButtonsGridAdapter;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +19,7 @@ public class InputButtonsGridFragment extends Fragment {
 
     TextClicked clickCB;
     public interface TextClicked{
-        public void sendText(String text);
+        void sendText(String text);
     }
 
     @Override

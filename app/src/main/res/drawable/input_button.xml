@@ -4,8 +4,5 @@
         android:state_enabled="true" />
     <item android:drawable="@color/cell_background"
         android:state_enabled="false"/>
-    <stroke
-        android:color="@color/cell_border"
-        android:width="5dp" />
 
 </selector>
