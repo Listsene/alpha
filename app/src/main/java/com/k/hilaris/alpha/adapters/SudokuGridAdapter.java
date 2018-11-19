@@ -56,7 +56,7 @@ public class SudokuGridAdapter extends BaseAdapter {
         }
         else {
             cell.setText(number);
-            //cell.setEnabled(false);       //??
+            cell.setEnabled(false);       //??
         }
 
 
