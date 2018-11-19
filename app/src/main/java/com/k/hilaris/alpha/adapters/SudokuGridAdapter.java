@@ -42,7 +42,6 @@ public class SudokuGridAdapter extends BaseAdapter {
         }
 
         Button cell = convertView.findViewById(R.id.cell);
-        //cell.requestFocus();
         cell.setEnabled(true);
 
         if(number.isEmpty() || number.matches("\\s")) { //checks for empty or white space
@@ -57,9 +56,9 @@ public class SudokuGridAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Button btn = (Button) view;
                 if(nSelectedPos != -1){
-                    Button preSelBtn = (Button)parent.getChildAt(nSelectedPos).findViewById(R.id.cell);
+                    Button preSelBtn = parent.getChildAt(nSelectedPos).findViewById(R.id.cell);
                     preSelBtn.setSelected(false);
-                    if(nSelectedPos ==position){
+                    if(nSelectedPos == position){
                         nSelectedPos = -1;
                         return;
                     }
