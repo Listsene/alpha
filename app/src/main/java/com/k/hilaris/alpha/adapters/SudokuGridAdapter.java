@@ -7,15 +7,21 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.k.hilaris.alpha.models.Memo;
 import com.k.hilaris.alpha.models.Sudoku;
 import com.k.hilaris.alpha.R;
+import com.k.hilaris.alpha.models.SudokuCellData;
+
+import java.util.List;
 
 
 public class SudokuGridAdapter extends BaseAdapter {
     private Context mContext;
     private Sudoku sudoku;
-    private int nSelectedPos =-1;
+    private int nSelectedPos = -1;
+
 
     public SudokuGridAdapter(Context mContext, Sudoku sudoku) {
         this.mContext = mContext;
@@ -34,7 +40,10 @@ public class SudokuGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        String number = sudoku.getCells().get(position);
+        SudokuCellData cellData = sudoku.getCells().get(position);
+        String number = cellData.getInput();
+        List<Memo> memo = cellData.getMemo();
+
 
         if (convertView == null) {
             final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
@@ -42,7 +51,6 @@ public class SudokuGridAdapter extends BaseAdapter {
         }
 
         Button cell = convertView.findViewById(R.id.cell);
-        cell.setEnabled(true);
 
         if(number.isEmpty() || number.matches("\\s")) { //checks for empty or white space
             cell.setText(" ");
@@ -51,6 +59,20 @@ public class SudokuGridAdapter extends BaseAdapter {
             cell.setText(number);
             cell.setEnabled(false);
         }
+
+
+        for(int i = 0 ; i < memo.size() ; i++){
+            int memoId = mContext.getResources().getIdentifier("memo_cell_" + memo.get(i).getNumber(), "id", mContext.getPackageName());
+            TextView memoTextView = convertView.findViewById(memoId);
+            if(memo.get(i).getActive()) {
+                memoTextView.setVisibility(View.VISIBLE);
+                cell.setText(" ");
+            }
+            else
+                memoTextView.setVisibility(View.INVISIBLE);
+>>>>>>> dev
+        }
+
         cell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
