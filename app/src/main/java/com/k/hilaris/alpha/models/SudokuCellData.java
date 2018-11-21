@@ -1,8 +1,12 @@
 package com.k.hilaris.alpha.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SudokuCellData {
     String input;
-    Boolean[] bMemo = new Boolean[9];
+    List<Memo> memo = new ArrayList<>();
+    Boolean solved = false;
 
     public SudokuCellData(String input) {this.input = input;}
 
@@ -10,31 +14,20 @@ public class SudokuCellData {
 
     public void setInput(String input){ this.input = input; }
 
-    public Boolean[] getbMemo() { return bMemo; }
+    public List<Memo> getMemo() { return memo; }
 
-    public Boolean getbMemoByPos(int nPos) { return bMemo[nPos]; }
+    public Boolean getSolved() { return solved; }
 
-    public void clearMemo() { this.bMemo = new Boolean[9]; }
-
-    public void setbMemoByPos(int nPos){
-        Boolean bl = false;
-
-        if(this.bMemo[nPos] == null || !this.bMemo[nPos]){
-            this.bMemo[nPos] = true;
-        }else if(this.bMemo[nPos]){
-            this.bMemo[nPos] = false;
+    public void setSolved(Boolean solved) {
+        this.solved = solved;
+    }
+    public void clearMemo() {
+        for(int i = 0; i < memo.size(); i++) {
+            memo.get(i).setActive(false);
         }
+    }
 
-        for(int i=0; i<this.bMemo.length; i++){
-            if(this.bMemo[i] == null || !this.bMemo[i]){
-
-            }else if(this.bMemo[i]){
-                bl = true;
-            }
-        }
-
-        if(!bl){
-            setInput("");
-        }
+    public void addMemo(String number, Boolean active) {
+        memo.add(new Memo(number, active));
     }
 }

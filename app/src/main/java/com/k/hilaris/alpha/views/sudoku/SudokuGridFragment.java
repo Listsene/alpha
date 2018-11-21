@@ -10,6 +10,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
+import com.k.hilaris.alpha.models.Memo;
 import com.k.hilaris.alpha.models.Sudoku;
 import com.k.hilaris.alpha.R;
 import com.k.hilaris.alpha.models.SudokuCellData;
@@ -90,40 +91,71 @@ public class SudokuGridFragment extends Fragment {
 
     public void getInput(String input){
         int nSelectedPos = Adapter.getnSelectedPos();
-        List<SudokuCellData> cells = grid.getCells();
-        SudokuCellData cellData = new SudokuCellData("");
+        SudokuCellData cellData = new SudokuCellData(" ");
         try {
-            cellData = cells.get(nSelectedPos);
+            cellData = grid.getCells().get(nSelectedPos);
         } catch(ArrayIndexOutOfBoundsException exception) {
             Toast.makeText(getActivity(), "Click on a cell!", Toast.LENGTH_SHORT).show();
         }
+        String number = cellData.getInput();
 
-        switch(input)
-        {
-            case "Memo" :
-                if(!cellData.getInput().equals("")){
-                    String preInput = cellData.getInput();
-                    int pos = Integer.parseInt(preInput) - 1;
-                    cellData.setbMemoByPos(pos);
-                }
-                Adapter.notifyDataSetChanged();
-                break;
-            case "Clear" :
-                cellData.clearMemo();
-                cellData.setInput("");
-                Adapter.notifyDataSetChanged();
-                break;
-            case "Enter" :
-                if(cellData.getInput().equals(grid.getSolution().get(nSelectedPos))) {
+        if(!cellData.getSolved()) {
+            switch(input)
+            {
+                case "Memo" :
+                    List<Memo> memo = cellData.getMemo();
+                    Boolean exists = false;
+                    int position = 0;
+                    int memoActiveCount = 0;
+                    for(int i = 0; i < memo.size(); i++) {
+                        if(memo.get(i).getActive()) {
+                            memoActiveCount++;
+                        }
+                        if(memoExists(number, memo.get(i))) {
+                            position = i;
+                            exists = true;
+                        }
+                    }
+                    if(exists) {
+                        removeMemo(memo.get(position), memoActiveCount, cellData);
+                    }
+                    else {
+                        cellData.addMemo(number, true);
+                    }
+                    Adapter.notifyDataSetChanged();
+                    break;
+                case "Clear" :
                     cellData.clearMemo();
-                }
-                else {
-                    Toast.makeText(getActivity(), "Incorrect!", Toast.LENGTH_SHORT).show();
-                }
-                Adapter.notifyDataSetChanged();
-                break;
-            default:
-                cellData.setInput(input);
+                    cellData.setInput("");
+                    Adapter.notifyDataSetChanged();
+                    break;
+                case "Enter" :
+                    if(number.equals(grid.getSolution().get(nSelectedPos))) {
+                        cellData.clearMemo();
+                        cellData.setSolved(true);
+                    }
+                    else {
+                        Toast.makeText(getActivity(), "Incorrect!", Toast.LENGTH_SHORT).show();
+                        cellData.setInput("");
+                    }
+                    Adapter.notifyDataSetChanged();
+                    break;
+                default:
+                    cellData.setInput(input);
+            }
+        }
+    }
+
+    private boolean memoExists(String number, Memo memo) {
+        return memo.getNumber().equals(number);
+    }
+
+    private void removeMemo(Memo memo, int memoActiveCount, SudokuCellData cellData) {
+        memo.setActive(!memo.getActive()); // if memo is active then deactivate or vice-versa
+
+        if(memoActiveCount == 1 && !memo.getActive()) {
+            cellData.clearMemo();
+            cellData.setInput("");
         }
     }
 

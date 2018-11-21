@@ -1,5 +1,7 @@
 package com.k.hilaris.alpha.views.sudoku;
-
+/*
+This fragment holds the View for the Input Buttons used to Solve the Sudoku.
+ */
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;

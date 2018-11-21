@@ -9,9 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.k.hilaris.alpha.models.Memo;
 import com.k.hilaris.alpha.models.Sudoku;
 import com.k.hilaris.alpha.R;
 import com.k.hilaris.alpha.models.SudokuCellData;
+
+import java.util.List;
 
 
 public class SudokuGridAdapter extends BaseAdapter {
@@ -39,7 +42,7 @@ public class SudokuGridAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, final ViewGroup parent) {
         SudokuCellData cellData = sudoku.getCells().get(position);
         String number = cellData.getInput();
-        Boolean[] bMemo = cellData.getbMemo();
+        List<Memo> memo = cellData.getMemo();
 
 
         if (convertView == null) {
@@ -48,7 +51,6 @@ public class SudokuGridAdapter extends BaseAdapter {
         }
 
         Button cell = convertView.findViewById(R.id.cell);
-        cell.setEnabled(true);
 
         if(number.isEmpty() || number.matches("\\s")) { //checks for empty or white space
             cell.setText(" ");
@@ -59,15 +61,15 @@ public class SudokuGridAdapter extends BaseAdapter {
         }
 
 
-        for(int i = 0 ; i < bMemo.length ; i++){
-            int memoId = mContext.getResources().getIdentifier("memo_cell_" + (i+1), "id", mContext.getPackageName());
+        for(int i = 0 ; i < memo.size() ; i++){
+            int memoId = mContext.getResources().getIdentifier("memo_cell_" + memo.get(i).getNumber(), "id", mContext.getPackageName());
             TextView memoTextView = convertView.findViewById(memoId);
-            if(bMemo[i] == null || !bMemo[i])
-                memoTextView.setVisibility(View.INVISIBLE);
-            else{
+            if(memo.get(i).getActive()) {
                 memoTextView.setVisibility(View.VISIBLE);
-                cell.setText("");
+                cell.setText(" ");
             }
+            else
+                memoTextView.setVisibility(View.INVISIBLE);
         }
 
         cell.setOnClickListener(new View.OnClickListener() {
