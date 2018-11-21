@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
 import com.k.hilaris.alpha.models.Sudoku;
@@ -94,14 +95,19 @@ public class SudokuGridFragment extends Fragment {
     public void getInput(String input){
         int nSelectedPos = Adapter.getnSelectedPos();
         List<SudokuCellData> list = grid.getCells();
-        SudokuCellData cellData = list.get(nSelectedPos);
+        SudokuCellData cellData = new SudokuCellData("");
+        try {
+            cellData = list.get(nSelectedPos);
+        } catch(ArrayIndexOutOfBoundsException exception) {
+            Toast.makeText(getActivity(), "Click on a cell!", Toast.LENGTH_SHORT);
+        }
 
         switch(input)
         {
             case "Memo" :
-                if(cellData.getInput() != ""){
+                if(!cellData.getInput().equals("")){
                     String preInput = cellData.getInput();
-                    int pos = Integer.parseInt(preInput)-1;
+                    int pos = Integer.parseInt(preInput) - 1;
                     cellData.setbMemoByPos(pos);
                 }
                 Adapter.notifyDataSetChanged();
@@ -120,7 +126,6 @@ public class SudokuGridFragment extends Fragment {
             default:
                 cellData.setInput(input);
         }
-        //Adapter.notifyDataSetChanged();
     }
 
     private String createGUID(SudokuVariation sv) {

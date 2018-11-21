@@ -48,7 +48,6 @@ public class SudokuGridAdapter extends BaseAdapter {
         }
 
         Button cell = convertView.findViewById(R.id.cell);
-        //cell.requestFocus();
         cell.setEnabled(true);
 
         if(number.isEmpty() || number.matches("\\s")) { //checks for empty or white space
@@ -62,7 +61,7 @@ public class SudokuGridAdapter extends BaseAdapter {
 
         for(int i = 0 ; i < bMemo.length ; i++){
             int memoId = mContext.getResources().getIdentifier("memo_cell_" + (i+1), "id", mContext.getPackageName());
-            TextView memoTextView = (TextView) convertView.findViewById(memoId);
+            TextView memoTextView = convertView.findViewById(memoId);
             if(bMemo[i] == null || !bMemo[i])
                 memoTextView.setVisibility(View.INVISIBLE);
             else{
@@ -76,9 +75,9 @@ public class SudokuGridAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Button btn = (Button) view;
                 if(nSelectedPos != -1){
-                    Button preSelBtn = (Button)parent.getChildAt(nSelectedPos).findViewById(R.id.cell);
+                    Button preSelBtn = parent.getChildAt(nSelectedPos).findViewById(R.id.cell);
                     preSelBtn.setSelected(false);
-                    if(nSelectedPos ==position){
+                    if(nSelectedPos == position){
                         nSelectedPos = -1;
                         return;
                     }

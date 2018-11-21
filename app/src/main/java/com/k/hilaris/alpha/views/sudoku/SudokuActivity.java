@@ -10,7 +10,7 @@ import com.k.hilaris.alpha.models.Sudoku;
 
 import org.w3c.dom.Text;
 
-public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.TextClicked {
+public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +24,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     }
 
     @Override
-    public void sendText(String text){
+    public void sendInput(String text){
         SudokuGridFragment sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
         sudokuGridFragment.getInput(text);
     }

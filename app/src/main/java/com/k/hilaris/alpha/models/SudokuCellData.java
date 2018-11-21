@@ -6,8 +6,6 @@ public class SudokuCellData {
 
     public SudokuCellData(String input) {this.input = input;}
 
-
-
     public String getInput() {return input;}
 
     public void setInput(String input){ this.input = input; }
@@ -21,21 +19,21 @@ public class SudokuCellData {
     public void setbMemoByPos(int nPos){
         Boolean bl = false;
 
-        if(this.bMemo[nPos] == null || this.bMemo[nPos] == false){
+        if(this.bMemo[nPos] == null || !this.bMemo[nPos]){
             this.bMemo[nPos] = true;
-        }else if(this.bMemo[nPos] == true){
+        }else if(this.bMemo[nPos]){
             this.bMemo[nPos] = false;
         }
 
         for(int i=0; i<this.bMemo.length; i++){
-            if(this.bMemo[i] == null || this.bMemo[i] == false){
+            if(this.bMemo[i] == null || !this.bMemo[i]){
 
-            }else if(this.bMemo[i] == true){
+            }else if(this.bMemo[i]){
                 bl = true;
             }
         }
 
-        if(bl == false){
+        if(!bl){
             setInput("");
         }
     }
