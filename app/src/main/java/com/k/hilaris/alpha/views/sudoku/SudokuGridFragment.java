@@ -20,7 +20,7 @@ import java.util.List;
 
 public class SudokuGridFragment extends Fragment {
     private GridView gridView;
-    private Sudoku grid;
+    private SudokuVariation grid;
     private SudokuGridAdapter Adapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,46 +40,42 @@ public class SudokuGridFragment extends Fragment {
 
         return view;
     }
-    public Sudoku createSudoku() { // Create Sample Sudoku Board for testing
-        grid = new Sudoku();
+    public SudokuVariation createSudoku() { // Create Sample Sudoku Board for testing
+        grid = new SudokuVariation();
         List<SudokuCellData> cellList = new ArrayList<>();
-        String cells =  "5|3| | |7| | | | |" +
-                        "6| | |1|9|5| | | |" +
-                        " |9|8| | | | |6| |" +
-                        "8| | | |6| | | |3|" +
-                        "4| | |8| |3| | |1|" +
-                        "7| | | |2| | | |6|" +
-                        " |6| | | | |2|8| |" +
-                        " | | |4|1|9| | |5|" +
-                        " | | | |8| | |7|9|";
+        String cells =  "4|6| |8| |5| | |3|" +
+                        " | |3| |7| | | | |" +
+                        " |7|5|9| |1| |6| |" +
+                        " |8|4| | | | |7| |" +
+                        "9| | |7| |6| | |1|" +
+                        " |3| | |2| |6|5| |" +
+                        " |9| |4| |2|8|3| |" +
+                        " | | | |8| |5| | |" +
+                        "3| | |5| |9| |2|7|";
         String[] array = cells.split("[|]", 0);
         for(int i = 0; i < array.length; i++) {
             String cell = array[i];
             cellList.add(new SudokuCellData(cell));
         }
         grid.setCells(cellList);
-        return grid;
-    }
 
-    public Sudoku createCompleteSudoku() { // Create Sample Sudoku Board for testing
-        grid = new Sudoku();
-        List<SudokuCellData> cellList = new ArrayList<>();
-        String cells =
-                "4|6|9|8|2|5|7|1|3|" +
-                "8|1|3|6|7|4|2|9|5|" +
-                "2|7|5|9|3|1|4|6|8|" +
-                "6|8|4|1|5|3|9|7|2|" +
-                "9|5|2|7|4|6|3|8|1|" +
-                "7|3|1|2|9|8|6|5|4|" +
-                "5|9|7|4|1|2|8|3|6|" +
-                "1|2|6|3|8|7|5|4|9|" +
-                "3|4|8|5|6|9|1|2|7|";
-        String[] array = cells.split("[|]", 0);
+        List<String> solution = new ArrayList<>();
+        String solCells =
+                        "4|6|9|8|2|5|7|1|3|" +
+                        "8|1|3|6|7|4|2|9|5|" +
+                        "2|7|5|9|3|1|4|6|8|" +
+                        "6|8|4|1|5|3|9|7|2|" +
+                        "9|5|2|7|4|6|3|8|1|" +
+                        "7|3|1|2|9|8|6|5|4|" +
+                        "5|9|7|4|1|2|8|3|6|" +
+                        "1|2|6|3|8|7|5|4|9|" +
+                        "3|4|8|5|6|9|1|2|7|";
+        array = solCells.split("[|]", 0);
         for(int i = 0; i < array.length; i++) {
             String cell = array[i];
-            cellList.add(new SudokuCellData(cell));
+            solution.add(cell);
         }
-        grid.setCells(cellList);
+        grid.setSolution(solution);
         return grid;
     }
 
@@ -94,12 +90,12 @@ public class SudokuGridFragment extends Fragment {
 
     public void getInput(String input){
         int nSelectedPos = Adapter.getnSelectedPos();
-        List<SudokuCellData> list = grid.getCells();
+        List<SudokuCellData> cells = grid.getCells();
         SudokuCellData cellData = new SudokuCellData("");
         try {
-            cellData = list.get(nSelectedPos);
+            cellData = cells.get(nSelectedPos);
         } catch(ArrayIndexOutOfBoundsException exception) {
-            Toast.makeText(getActivity(), "Click on a cell!", Toast.LENGTH_SHORT);
+            Toast.makeText(getActivity(), "Click on a cell!", Toast.LENGTH_SHORT).show();
         }
 
         switch(input)
@@ -118,9 +114,12 @@ public class SudokuGridFragment extends Fragment {
                 Adapter.notifyDataSetChanged();
                 break;
             case "Enter" :
-                String preInput = cellData.getInput();
-                cellData.setInput(preInput);
-                cellData.clearMemo();
+                if(cellData.getInput().equals(grid.getSolution().get(nSelectedPos))) {
+                    cellData.clearMemo();
+                }
+                else {
+                    Toast.makeText(getActivity(), "Incorrect!", Toast.LENGTH_SHORT).show();
+                }
                 Adapter.notifyDataSetChanged();
                 break;
             default:

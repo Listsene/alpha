@@ -27,4 +27,7 @@
     <string name="Memo">Memo</string>
     <string name="Submit">Enter</string>
 
+    <!-- Sudoku Action Bar -->
+    <string name="Timer_Complete">END</string>
+
 </resources>
