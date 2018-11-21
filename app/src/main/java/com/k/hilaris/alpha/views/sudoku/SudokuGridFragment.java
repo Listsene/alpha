@@ -94,7 +94,7 @@ public class SudokuGridFragment extends Fragment {
 
     public void getInput(String input){
         int nSelectedPos = Adapter.getnSelectedPos();
-        SudokuCellData cellData = new SudokuCellData(" ");
+        SudokuCellData cellData = new SudokuCellData("");
         try {
             cellData = grid.getCells().get(nSelectedPos);
         } catch(ArrayIndexOutOfBoundsException exception) {
@@ -102,7 +102,7 @@ public class SudokuGridFragment extends Fragment {
         }
         String number = cellData.getInput();
 
-        if(!cellData.getSolved()) {
+        if(!(cellData.getSolved() || number.isEmpty() || number.matches("\\s"))) {
             switch(input)
             {
                 case "Memo" :
