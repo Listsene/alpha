@@ -43,22 +43,26 @@ public class SudokuGridFragment extends Fragment {
     }
     public SudokuVariation createSudoku() { // Create Sample Sudoku Board for testing
         grid = new SudokuVariation();
-        List<SudokuCellData> cellList = new ArrayList<>();
-        String cells =  "4|6| |8| |5| | |3|" +
-                        " | |3| |7| | | | |" +
-                        " |7|5|9| |1| |6| |" +
-                        " |8|4| | | | |7| |" +
-                        "9| | |7| |6| | |1|" +
-                        " |3| | |2| |6|5| |" +
-                        " |9| |4| |2|8|3| |" +
-                        " | | | |8| |5| | |" +
-                        "3| | |5| |9| |2|7|";
-        String[] array = cells.split("[|]", 0);
-        for(int i = 0; i < array.length; i++) {
-            String cell = array[i];
-            cellList.add(new SudokuCellData(cell));
+        List<SudokuCellData> cells = new ArrayList<>();
+        SudokuCellData cell;
+        String sudokuCells ="4|6| |8| |5| | |3|" +
+                            " | |3| |7| | | | |" +
+                            " |7|5|9| |1| |6| |" +
+                            " |8|4| | | | |7| |" +
+                            "9| | |7| |6| | |1|" +
+                            " |3| | |2| |6|5| |" +
+                            " |9| |4| |2|8|3| |" +
+                            " | | | |8| |5| | |" +
+                            "3| | |5| |9| |2|7|";
+        String[] sudoku = sudokuCells.split("[|]", 0);
+        for(int i = 0; i < sudoku.length; i++) {
+            cell = new SudokuCellData(sudoku[i]);
+            if(!cell.getInput().equals(" ")) {
+                cell.setSolved(true);
+            }
+            cells.add(cell);
         }
-        grid.setCells(cellList);
+        grid.setCells(cells);
 
         List<String> solution = new ArrayList<>();
         String solCells =
@@ -71,10 +75,9 @@ public class SudokuGridFragment extends Fragment {
                         "5|9|7|4|1|2|8|3|6|" +
                         "1|2|6|3|8|7|5|4|9|" +
                         "3|4|8|5|6|9|1|2|7|";
-        array = solCells.split("[|]", 0);
-        for(int i = 0; i < array.length; i++) {
-            String cell = array[i];
-            solution.add(cell);
+        sudoku = solCells.split("[|]", 0);
+        for(int i = 0; i < sudoku.length; i++) {
+            solution.add(sudoku[i]);
         }
         grid.setSolution(solution);
         return grid;

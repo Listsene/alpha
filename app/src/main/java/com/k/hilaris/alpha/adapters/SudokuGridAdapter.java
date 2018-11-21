@@ -1,6 +1,7 @@
 package com.k.hilaris.alpha.adapters;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class SudokuGridAdapter extends BaseAdapter {
         }
         else {
             cell.setText(number);
-            cell.setEnabled(false);       //??
+            //cell.setEnabled(false);
         }
 
 
