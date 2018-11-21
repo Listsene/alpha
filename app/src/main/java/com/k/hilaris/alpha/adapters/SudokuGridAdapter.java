@@ -1,6 +1,7 @@
 package com.k.hilaris.alpha.adapters;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,6 @@ public class SudokuGridAdapter extends BaseAdapter {
             }
             else
                 memoTextView.setVisibility(View.INVISIBLE);
->>>>>>> dev
         }
 
         cell.setOnClickListener(new View.OnClickListener() {

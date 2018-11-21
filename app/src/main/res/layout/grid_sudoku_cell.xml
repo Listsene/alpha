@@ -10,7 +10,8 @@
         android:textStyle="bold"
         android:textColor="@color/number_text"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/cell_button"/>
+        android:background="@drawable/cell_button"
+        />
 
     <TextView
         android:id="@+id/memo_cell_1"
