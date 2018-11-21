@@ -7,15 +7,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.k.hilaris.alpha.models.Sudoku;
 import com.k.hilaris.alpha.R;
+import com.k.hilaris.alpha.models.SudokuCellData;
 
 
 public class SudokuGridAdapter extends BaseAdapter {
     private Context mContext;
     private Sudoku sudoku;
     private int nSelectedPos =-1;
+
 
     public SudokuGridAdapter(Context mContext, Sudoku sudoku) {
         this.mContext = mContext;
@@ -34,7 +37,10 @@ public class SudokuGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        String number = sudoku.getCells().get(position);
+        SudokuCellData cellData = sudoku.getCells().get(position);
+        String number = cellData.getInput();
+        Boolean[] bMemo = cellData.getbMemo();
+
 
         if (convertView == null) {
             final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
@@ -49,8 +55,21 @@ public class SudokuGridAdapter extends BaseAdapter {
         }
         else {
             cell.setText(number);
-            //cell.setEnabled(false);
+            cell.setEnabled(false);       //??
         }
+
+
+        for(int i = 0 ; i < bMemo.length ; i++){
+            int memoId = mContext.getResources().getIdentifier("memo_cell_" + (i+1), "id", mContext.getPackageName());
+            TextView memoTextView = convertView.findViewById(memoId);
+            if(bMemo[i] == null || !bMemo[i])
+                memoTextView.setVisibility(View.INVISIBLE);
+            else{
+                memoTextView.setVisibility(View.VISIBLE);
+                cell.setText("");
+            }
+        }
+
         cell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

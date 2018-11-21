@@ -16,12 +16,13 @@ import java.util.List;
 public class InputButtonsGridAdapter extends BaseAdapter {
     private Context mContext;
     List<String> inputs;
-    InputButtonsGridFragment.TextClicked textClicked;
+    InputButtonsGridFragment.InputClicked inputClicked;
+    String btNum;
 
-    public InputButtonsGridAdapter(Context mContext, List<String> inputs, InputButtonsGridFragment.TextClicked textClicked) {
+    public InputButtonsGridAdapter(Context mContext, List<String> inputs, InputButtonsGridFragment.InputClicked inputClicked) {
         this.mContext = mContext;
         this.inputs = inputs;
-        this.textClicked = textClicked;
+        this.inputClicked = inputClicked;
     }
 
     @Override
@@ -36,7 +37,7 @@ public class InputButtonsGridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        String input = inputs.get(position);
+        final String input = inputs.get(position);
 
         if (convertView == null) {
             final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
@@ -51,7 +52,8 @@ public class InputButtonsGridAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Button bt = (Button)view;
                 String text = bt.getText().toString();
-                textClicked.sendText(text);
+                btNum = bt.getText().toString();
+                inputClicked.sendInput(text);
             }
         });
 
