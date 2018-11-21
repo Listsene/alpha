@@ -124,7 +124,7 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
                             }
                         }
                 ).addOnFailureListener(createFailureListener("There was a problem selecting opponents."));
-                break;
+               break;
         }
     }
 

@@ -15,14 +15,11 @@
     <color name="gray_light">#E0E0E0</color>
     <color name="gray_dark">#505050</color>
     <color name="red">#F44D2C</color>
-
-    <!--matchup colors-->
     <color name="AccentColor">#cc0000</color>
     <color name="PopupColor">@color/AccentColor</color>
     <color name="PopupTextColor">#ffffff</color>
     <color name="ButtonTextColor">#ffffff</color>
     <color name="BlurbColor">#a0a0a0</color>
-
     <!--Theme Color-->
     <color name="primary">#4A91CC</color>
     <color name="primary_dark">#000B78</color>
@@ -31,14 +28,12 @@
     <color name="secondary_accent">#94D8D2</color>
     <color name="my_background">#F5F5F6</color>
     <color name="my_background_dark">#E1E2E1</color>
-    <color name="background_white">#F3F3E9</color>
     <color name="text_color_with_primary">#FFFFFF</color>
     <color name="default_text_color">#37474F</color>
     <color name="appbar_color_tint">#10000000</color>
 
     <!--Additional Colors-->
     <color name="tertiary">#1F8A70</color>
-    <color name="yellow">#FFFF00</color>
 
     <!--Named Colors-->
     <color name="enabled_button_background">@color/secondary_accent</color>
@@ -49,9 +44,4 @@
     <color name="noti_show_text_bg">@color/black_a20</color>
     <color name="settings_show_text_bg">@color/black_a20</color>
     <color name="reward_badge_unveiled">@color/white_a40</color>
-
-    <!-- Sudoku Cell Colors-->
-    <color name="number_text">#0071BC</color>
-    <color name="cell_background">#A9DDF3</color>
-    <color name="cell_border">#29ABE2</color>
 </resources>
