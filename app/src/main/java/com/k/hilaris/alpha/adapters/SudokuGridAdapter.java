@@ -1,6 +1,7 @@
 package com.k.hilaris.alpha.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,6 @@ public class SudokuGridAdapter extends BaseAdapter {
         String number = cellData.getInput();
         List<Memo> memo = cellData.getMemo();
 
-
         if (convertView == null) {
             final LayoutInflater layoutInflater = LayoutInflater.from(mContext);
             convertView = layoutInflater.inflate(R.layout.grid_sudoku_cell, null);
@@ -55,10 +55,12 @@ public class SudokuGridAdapter extends BaseAdapter {
 
         if(number.isEmpty() || number.matches("\\s")) { //checks for empty or white space
             cell.setText(" ");
+            cell.setEnabled(true);
         }
         else {
             cell.setText(number);
-            cell.setEnabled(false);
+            cell.setBackgroundColor(convertView.getResources().getColor(R.color.cell_background));
+            //cell.setEnabled(false);
         }
 
 
@@ -68,6 +70,7 @@ public class SudokuGridAdapter extends BaseAdapter {
             if(memo.get(i).getActive()) {
                 memoTextView.setVisibility(View.VISIBLE);
                 cell.setText(" ");
+                cell.setBackgroundColor(convertView.getResources().getColor(R.color.transparent));
             }
             else
                 memoTextView.setVisibility(View.INVISIBLE);

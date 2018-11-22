@@ -47,4 +47,5 @@
     <color name="number_text">#0071BC</color>
     <color name="cell_background">#A9DDF3</color>
     <color name="cell_border">#29ABE2</color>
+    <color name="transparent">#0000</color>
 </resources>
