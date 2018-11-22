@@ -2,11 +2,14 @@ package com.k.hilaris.alpha.models;
 
 public class SudokuCellData {
     String input;
+    String number;
     Boolean[] bMemo = new Boolean[9];
 
     public SudokuCellData(String input) {this.input = input;}
 
+    public void setNumber(String number){ this.number = number; }
 
+    public String getNumber(){ return this.number; }
 
     public String getInput() {return input;}
 

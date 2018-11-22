@@ -11,6 +11,25 @@ import com.k.hilaris.alpha.models.Sudoku;
 import org.w3c.dom.Text;
 
 public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.TextClicked {
+
+    public interface onKeyBackPressedListener {
+        public void onBack();
+    }
+    private onKeyBackPressedListener mOnKeyBackPressedListener;
+
+    public void setOnKeyBackPressedListener(onKeyBackPressedListener listener){
+        mOnKeyBackPressedListener = listener;
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(mOnKeyBackPressedListener != null){
+            mOnKeyBackPressedListener.onBack();
+        }else{
+            super.onBackPressed();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
