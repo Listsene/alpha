@@ -2,6 +2,7 @@ package com.k.hilaris.alpha.views.sudoku;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
     private Toolbar mToolbar;
     TextView timerTv;
+    long fiveMinutes;
     private SudokuGridFragment sudokuGridFragment;
 
     public interface onKeyBackPressedListener {
@@ -40,6 +42,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sudoku);
 
+
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.SudokuGridFragment, new SudokuGridFragment());
@@ -53,7 +56,6 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         Timer();
     }
 
-    long fiveMinutes = 300000;
 
     public boolean Timer(){
         new CountDownTimer(fiveMinutes, 1000) {
@@ -68,6 +70,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
                 timerTv = findViewById(R.id.timerTextView);
                 timerTv.setText(time);
+
                 fiveMinutes = millis;
             }
             public void onFinish() {

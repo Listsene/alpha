@@ -1,6 +1,5 @@
 package com.k.hilaris.alpha.views.sudoku;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -33,7 +32,6 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     String serializedObject;
     List<SudokuCellData> cells = new ArrayList<>();
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +50,14 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
 
         Gson gson = new Gson();
         if(serializedObject != null){
+            Log.d("serial","!=null");
             Type type = new TypeToken<List<SudokuCellData>>(){}.getType();
             cells = gson.fromJson(serializedObject,type);
         }
 
 
         grid = createSudoku();
+
         gridView = view.findViewById(R.id.SudokuGridView);
         Adapter = new SudokuGridAdapter(getContext(), grid);
         gridView.setAdapter(Adapter);
@@ -69,44 +69,44 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
 
         SudokuCellData cell;
         String sudokuCells ="4|6| |8| |5| | |3|" +
-                            " | |3| |7| | | | |" +
-                            " |7|5|9| |1| |6| |" +
-                            " |8|4| | | | |7| |" +
-                            "9| | |7| |6| | |1|" +
-                            " |3| | |2| |6|5| |" +
-                            " |9| |4| |2|8|3| |" +
-                            " | | | |8| |5| | |" +
-                            "3| | |5| |9| |2|7|";
+                " | |3| |7| | | | |" +
+                " |7|5|9| |1| |6| |" +
+                " |8|4| | | | |7| |" +
+                "9| | |7| |6| | |1|" +
+                " |3| | |2| |6|5| |" +
+                " |9| |4| |2|8|3| |" +
+                " | | | |8| |5| | |" +
+                "3| | |5| |9| |2|7|";
         String[] sudoku = sudokuCells.split("[|]", 0);
-
-        if(serializedObject == null) {
-            for (int i = 0; i < sudoku.length; i++) {
+        if(serializedObject == null){
+            Log.d("serial","null");
+            for(int i = 0; i < sudoku.length; i++) {
                 cell = new SudokuCellData(sudoku[i]);
-                if (!cell.getInput().equals(" ")) {
+                if(!cell.getInput().equals(" ")) {
                     cell.setSolved(true);
                 }
                 cells.add(cell);
             }
         }
-            grid.setCells(cells);
+        grid.setCells(cells);
 
-            List<String> solution = new ArrayList<>();
-            String solCells =
-                            "4|6|9|8|2|5|7|1|3|" +
-                            "8|1|3|6|7|4|2|9|5|" +
-                                    "2|7|5|9|3|1|4|6|8|" +
-                                    "6|8|4|1|5|3|9|7|2|" +
-                                    "9|5|2|7|4|6|3|8|1|" +
-                                    "7|3|1|2|9|8|6|5|4|" +
-                                    "5|9|7|4|1|2|8|3|6|" +
-                                    "1|2|6|3|8|7|5|4|9|" +
-                                    "3|4|8|5|6|9|1|2|7|";
-                    sudoku = solCells.split("[|]", 0);
-                    for(int i = 0; i < sudoku.length; i++) {
-                        solution.add(sudoku[i]);
-                    }
-                    grid.setSolution(solution);
-                    return grid;
+        List<String> solution = new ArrayList<>();
+        String solCells =
+                "4|6|9|8|2|5|7|1|3|" +
+                        "8|1|3|6|7|4|2|9|5|" +
+                        "2|7|5|9|3|1|4|6|8|" +
+                        "6|8|4|1|5|3|9|7|2|" +
+                        "9|5|2|7|4|6|3|8|1|" +
+                        "7|3|1|2|9|8|6|5|4|" +
+                        "5|9|7|4|1|2|8|3|6|" +
+                        "1|2|6|3|8|7|5|4|9|" +
+                        "3|4|8|5|6|9|1|2|7|";
+        sudoku = solCells.split("[|]", 0);
+        for(int i = 0; i < sudoku.length; i++) {
+            solution.add(sudoku[i]);
+        }
+        grid.setSolution(solution);
+        return grid;
     }
 
    /* public SudokuVariation createVariation(Sudoku sudoku) {
@@ -118,108 +118,103 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         return sv;
     }*/
 
-                public void getInput(String input){
-                    int nSelectedPos = Adapter.getnSelectedPos();
-                    SudokuCellData cellData = new SudokuCellData("");
-                    try {
-                        cellData = grid.getCells().get(nSelectedPos);
-                    } catch(ArrayIndexOutOfBoundsException exception) {
-                        Toast.makeText(getActivity(), "Click on a cell!", Toast.LENGTH_SHORT).show();
-                    }
-                    String number = cellData.getInput();
+    public void getInput(String input){
+        int nSelectedPos = Adapter.getnSelectedPos();
+        SudokuCellData cellData = new SudokuCellData("");
+        try {
+            cellData = grid.getCells().get(nSelectedPos);
+        } catch(ArrayIndexOutOfBoundsException exception) {
+            Toast.makeText(getActivity(), "Click on a cell!", Toast.LENGTH_SHORT).show();
+        }
+        String number = cellData.getInput();
 
-                    if(solved(cellData) || !validInput(input, number)) {
-                        Log.d("solved","aa");
-                        // do nothing
-                    }else{
-                        switch(input)
-                        {
-                            case "Memo" :
-                                List<Memo> memo = cellData.getMemo();
-                                Boolean exists = false;
-                                int position = 0;
-                                int memoActiveCount = 0;
-                                for(int i = 0; i < memo.size(); i++) {
-                                    if(memo.get(i).getActive()) {
-                                        memoActiveCount++;
-                                    }
-                                    if(memoExists(number, memo.get(i))) {
-                                        position = i;
-                                        exists = true;
-                                    }
-                                }
-                                if(exists) {
-                                    removeMemo(memo.get(position), memoActiveCount, cellData);
-                                }
-                                else {
-                                    cellData.addMemo(number, true);
-                                }
-                                Adapter.notifyDataSetChanged();
-                                break;
-                            case "Clear" :
-                                cellData.clearMemo();
-                                cellData.setInput("");
-                                Adapter.notifyDataSetChanged();
-                                break;
-                            case "Enter" :
-                                if(number.equals(grid.getSolution().get(nSelectedPos))) {
-                                    cellData.clearMemo();
-                                    cellData.setSolved(true);
-                                }
-                                else {
-                                    Toast.makeText(getActivity(), "Incorrect!", Toast.LENGTH_SHORT).show();
-                                    cellData.setInput("");
-                                }
-                                Adapter.notifyDataSetChanged();
-                                break;
-                            case "9" :
-                                newGame();
-                                break;
-                            default:
-                                cellData.setInput(input);
+        if(solved(cellData) || !validInput(input, number)) {
+            // do nothing
+        }
+        else {
+            switch(input)
+            {
+                case "Memo" :
+                    List<Memo> memo = cellData.getMemo();
+                    Boolean exists = false;
+                    int position = 0;
+                    int memoActiveCount = 0;
+                    for(int i = 0; i < memo.size(); i++) {
+                        if(memo.get(i).getActive()) {
+                            memoActiveCount++;
+                        }
+                        if(memoExists(number, memo.get(i))) {
+                            position = i;
+                            exists = true;
                         }
                     }
-
-                }
-
-                private Boolean validInput(String input, String number) {
-                    switch(input) {
-                        case "Memo":
-                            if(number.isEmpty() || number.matches("\\s")) {
-                                return false;
-                            }
-                            else {
-                                break;
-                            }
-                        case "Enter":
-                            if(number.isEmpty() || number.matches("\\s")) {
-                                return false;
-                            }
-                            else {
-                                break;
-                            }
-                        default:
-                            break;
+                    if(exists) {
+                        removeMemo(memo.get(position), memoActiveCount, cellData);
                     }
-                    return true;
-                }
-                private Boolean solved(SudokuCellData cellData) {
-                    return cellData.getSolved();
-                }
-
-                private boolean memoExists(String number, Memo memo) {
-                    return memo.getNumber().equals(number);
-                }
-
-                private void removeMemo(Memo memo, int memoActiveCount, SudokuCellData cellData) {
-                    memo.setActive(!memo.getActive()); // if memo is active then deactivate or vice-versa
-
-                    if(memoActiveCount == 1 && !memo.getActive()) {
+                    else {
+                        cellData.addMemo(number, true);
+                    }
+                    Adapter.notifyDataSetChanged();
+                    break;
+                case "Clear" :
+                    cellData.clearMemo();
+                    cellData.setInput("");
+                    Adapter.notifyDataSetChanged();
+                    break;
+                case "Enter" :
+                    if(number.equals(grid.getSolution().get(nSelectedPos))) {
                         cellData.clearMemo();
+                        cellData.setSolved(true);
+                    }
+                    else {
+                        Toast.makeText(getActivity(), "Incorrect!", Toast.LENGTH_SHORT).show();
                         cellData.setInput("");
                     }
-                }
+                    Adapter.notifyDataSetChanged();
+                    break;
+                default:
+                    cellData.setInput(input);
+            }
+        }
+    }
 
+    private Boolean validInput(String input, String number) {
+        switch(input) {
+            case "Memo":
+                if(number.isEmpty() || number.matches("\\s")) {
+                    return false;
+                }
+                else {
+                    break;
+                }
+            case "Enter":
+                if(number.isEmpty() || number.matches("\\s")) {
+                    return false;
+                }
+                else {
+                    break;
+                }
+            default:
+                break;
+        }
+        return true;
+    }
+    private Boolean solved(SudokuCellData cellData) {
+        return cellData.getSolved();
+    }
+
+    private boolean memoExists(String number, Memo memo) {
+        return memo.getNumber().equals(number);
+    }
+
+    private void removeMemo(Memo memo, int memoActiveCount, SudokuCellData cellData) {
+        memo.setActive(!memo.getActive()); // if memo is active then deactivate or vice-versa
+
+        if(memoActiveCount == 1 && !memo.getActive()) {
+            cellData.clearMemo();
+            cellData.setInput("");
+        }
+    }
     @Override
     public void onBack(){
         SudokuActivity activity = (SudokuActivity) getActivity();
@@ -234,6 +229,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     }
 
     public void saveCellState(){
+        Log.d("aa","aaa");
         setList("cellDataList", cells);
     }
 
