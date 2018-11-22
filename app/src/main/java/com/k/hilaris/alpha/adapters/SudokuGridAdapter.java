@@ -64,16 +64,18 @@ public class SudokuGridAdapter extends BaseAdapter {
         }
 
 
-        for(int i = 0 ; i < memo.size() ; i++){
-            int memoId = mContext.getResources().getIdentifier("memo_cell_" + memo.get(i).getNumber(), "id", mContext.getPackageName());
-            TextView memoTextView = convertView.findViewById(memoId);
-            if(memo.get(i).getActive()) {
-                memoTextView.setVisibility(View.VISIBLE);
-                cell.setText(" ");
-                cell.setBackgroundColor(convertView.getResources().getColor(R.color.transparent));
+        if(memo != null){
+            for(int i = 0 ; i < memo.size() ; i++){
+                int memoId = mContext.getResources().getIdentifier("memo_cell_" + memo.get(i).getNumber(), "id", mContext.getPackageName());
+                TextView memoTextView = convertView.findViewById(memoId);
+                if(memo.get(i).getActive()) {
+                    memoTextView.setVisibility(View.VISIBLE);
+                    cell.setText(" ");
+                    cell.setBackgroundColor(convertView.getResources().getColor(R.color.transparent));
+                }
+                else
+                    memoTextView.setVisibility(View.INVISIBLE);
             }
-            else
-                memoTextView.setVisibility(View.INVISIBLE);
         }
 
         cell.setOnClickListener(new View.OnClickListener() {
