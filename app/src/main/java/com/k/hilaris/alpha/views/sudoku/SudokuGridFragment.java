@@ -38,7 +38,6 @@ public class SudokuGridFragment extends Fragment {
         Adapter = new SudokuGridAdapter(getContext(), grid);
         gridView.setAdapter(Adapter);
 
-
         return view;
     }
     public SudokuVariation createSudoku() { // Create Sample Sudoku Board for testing

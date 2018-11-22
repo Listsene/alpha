@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
     private Toolbar mToolbar;
     TextView timerTv;
+    private SudokuGridFragment sudokuGridFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
     @Override
     public void sendInput(String text){
-        SudokuGridFragment sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
+        sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
         sudokuGridFragment.getInput(text);
     }
 }
