@@ -7,10 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
+import com.k.hilaris.alpha.models.Memo;
 import com.k.hilaris.alpha.models.Sudoku;
 import com.k.hilaris.alpha.R;
+import com.k.hilaris.alpha.models.SudokuCellData;
 import com.k.hilaris.alpha.models.SudokuVariation;
 
 import java.util.ArrayList;
@@ -18,7 +21,7 @@ import java.util.List;
 
 public class SudokuGridFragment extends Fragment {
     private GridView gridView;
-    private Sudoku grid;
+    private SudokuVariation grid;
     private SudokuGridAdapter Adapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,63 +41,125 @@ public class SudokuGridFragment extends Fragment {
 
         return view;
     }
-    public Sudoku createSudoku() { // Create Sample Sudoku Board for testing
-        grid = new Sudoku();
-        List<String> cellList = new ArrayList<>();
-        String cells =  "5|3| | |7| | | | |" +
-                        "6| | |1|9|5| | | |" +
-                        " |9|8| | | | |6| |" +
-                        "8| | | |6| | | |3|" +
-                        "4| | |8| |3| | |1|" +
-                        "7| | | |2| | | |6|" +
-                        " |6| | | | |2|8| |" +
-                        " | | |4|1|9| | |5|" +
-                        " | | | |8| | |7|9|";
-        String[] array = cells.split("[|]", 0);
-        for(int i = 0; i < array.length; i++) {
-            String cell = array[i];
-            cellList.add(cell);
+    public SudokuVariation createSudoku() { // Create Sample Sudoku Board for testing
+        grid = new SudokuVariation();
+        List<SudokuCellData> cells = new ArrayList<>();
+        SudokuCellData cell;
+        String sudokuCells ="4|6| |8| |5| | |3|" +
+                            " | |3| |7| | | | |" +
+                            " |7|5|9| |1| |6| |" +
+                            " |8|4| | | | |7| |" +
+                            "9| | |7| |6| | |1|" +
+                            " |3| | |2| |6|5| |" +
+                            " |9| |4| |2|8|3| |" +
+                            " | | | |8| |5| | |" +
+                            "3| | |5| |9| |2|7|";
+        String[] sudoku = sudokuCells.split("[|]", 0);
+        for(int i = 0; i < sudoku.length; i++) {
+            cell = new SudokuCellData(sudoku[i]);
+            if(!cell.getInput().equals(" ")) {
+                cell.setSolved(true);
+            }
+            cells.add(cell);
         }
-        grid.setCells(cellList);
+        grid.setCells(cells);
+
+        List<String> solution = new ArrayList<>();
+        String solCells =
+                        "4|6|9|8|2|5|7|1|3|" +
+                        "8|1|3|6|7|4|2|9|5|" +
+                        "2|7|5|9|3|1|4|6|8|" +
+                        "6|8|4|1|5|3|9|7|2|" +
+                        "9|5|2|7|4|6|3|8|1|" +
+                        "7|3|1|2|9|8|6|5|4|" +
+                        "5|9|7|4|1|2|8|3|6|" +
+                        "1|2|6|3|8|7|5|4|9|" +
+                        "3|4|8|5|6|9|1|2|7|";
+        sudoku = solCells.split("[|]", 0);
+        for(int i = 0; i < sudoku.length; i++) {
+            solution.add(sudoku[i]);
+        }
+        grid.setSolution(solution);
         return grid;
     }
 
-    public Sudoku createCompleteSudoku() { // Create Sample Sudoku Board for testing
-        grid = new Sudoku();
-        List<String> cellList = new ArrayList<>();
-        String cells =
-                "4|6|9|8|2|5|7|1|3|" +
-                "8|1|3|6|7|4|2|9|5|" +
-                "2|7|5|9|3|1|4|6|8|" +
-                "6|8|4|1|5|3|9|7|2|" +
-                "9|5|2|7|4|6|3|8|1|" +
-                "7|3|1|2|9|8|6|5|4|" +
-                "5|9|7|4|1|2|8|3|6|" +
-                "1|2|6|3|8|7|5|4|9|" +
-                "3|4|8|5|6|9|1|2|7|";
-        String[] array = cells.split("[|]", 0);
-        for(int i = 0; i < array.length; i++) {
-            String cell = array[i];
-            cellList.add(cell);
-        }
-        grid.setCells(cellList);
-        return grid;
-    }
-
-    public SudokuVariation createVariation(Sudoku sudoku) {
+   /* public SudokuVariation createVariation(Sudoku sudoku) {
         SudokuVariation sv = new SudokuVariation(sudoku);
         sv.setGuid(createGUID(sv));
         sv.setCells(randomizeTokens(sv));
         sv.setCells(scrambleGrid(sv));
         sv.setCells(rotate(sv));
         return sv;
-    }
+    }*/
 
     public void getInput(String input){
         int nSelectedPos = Adapter.getnSelectedPos();
-        List<String> list = grid.getCells();
-        list.set(nSelectedPos, input);
-        Adapter.notifyDataSetChanged();
+        SudokuCellData cellData = new SudokuCellData("");
+        try {
+            cellData = grid.getCells().get(nSelectedPos);
+        } catch(ArrayIndexOutOfBoundsException exception) {
+            Toast.makeText(getActivity(), "Click on a cell!", Toast.LENGTH_SHORT).show();
+        }
+        String number = cellData.getInput();
+
+        if(!(cellData.getSolved() || number.isEmpty() || number.matches("\\s"))) {
+            switch(input)
+            {
+                case "Memo" :
+                    List<Memo> memo = cellData.getMemo();
+                    Boolean exists = false;
+                    int position = 0;
+                    int memoActiveCount = 0;
+                    for(int i = 0; i < memo.size(); i++) {
+                        if(memo.get(i).getActive()) {
+                            memoActiveCount++;
+                        }
+                        if(memoExists(number, memo.get(i))) {
+                            position = i;
+                            exists = true;
+                        }
+                    }
+                    if(exists) {
+                        removeMemo(memo.get(position), memoActiveCount, cellData);
+                    }
+                    else {
+                        cellData.addMemo(number, true);
+                    }
+                    Adapter.notifyDataSetChanged();
+                    break;
+                case "Clear" :
+                    cellData.clearMemo();
+                    cellData.setInput("");
+                    Adapter.notifyDataSetChanged();
+                    break;
+                case "Enter" :
+                    if(number.equals(grid.getSolution().get(nSelectedPos))) {
+                        cellData.clearMemo();
+                        cellData.setSolved(true);
+                    }
+                    else {
+                        Toast.makeText(getActivity(), "Incorrect!", Toast.LENGTH_SHORT).show();
+                        cellData.setInput("");
+                    }
+                    Adapter.notifyDataSetChanged();
+                    break;
+                default:
+                    cellData.setInput(input);
+            }
+        }
+    }
+
+    private boolean memoExists(String number, Memo memo) {
+        return memo.getNumber().equals(number);
+    }
+
+    private void removeMemo(Memo memo, int memoActiveCount, SudokuCellData cellData) {
+        memo.setActive(!memo.getActive()); // if memo is active then deactivate or vice-versa
+
+        if(memoActiveCount == 1 && !memo.getActive()) {
+            cellData.clearMemo();
+            cellData.setInput("");
+        }
     }
 
     private String createGUID(SudokuVariation sv) {
@@ -102,7 +167,7 @@ public class SudokuGridFragment extends Fragment {
         // makes unique guid
         return guid;
     }
-    private List<String> randomizeTokens(SudokuVariation sv) {
+   /* private List<String> randomizeTokens(SudokuVariation sv) {
         List<String> tokensRandomized = sv.getCells();
         // randomize tokens e.g. remap 123456789 to 356472189
 
@@ -119,6 +184,6 @@ public class SudokuGridFragment extends Fragment {
         // rotates grid; 0, 90, 180, or 270 degrees
 
         return rotated;
-    }
+    }*/
 
 }

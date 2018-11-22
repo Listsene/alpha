@@ -12,7 +12,7 @@ import com.k.hilaris.alpha.R;
 
 import java.util.concurrent.TimeUnit;
 
-public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.TextClicked {
+public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
     private Toolbar mToolbar;
     TextView timerTv;
 
@@ -52,7 +52,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 fiveMinutes = millis;
             }
             public void onFinish() {
-                timerTv.setText("0:00");
+                timerTv.setText(getResources().getText(R.string.Timer_Complete));
             }
         }.start();
         return true;
@@ -60,7 +60,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
 
     @Override
-    public void sendText(String text){
+    public void sendInput(String text){
         SudokuGridFragment sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
         sudokuGridFragment.getInput(text);
     }
