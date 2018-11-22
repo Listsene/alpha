@@ -102,7 +102,10 @@ public class SudokuGridFragment extends Fragment {
         }
         String number = cellData.getInput();
 
-        if(!(cellData.getSolved() || number.isEmpty() || number.matches("\\s"))) {
+        if(solved(cellData) || !validInput(input, number)) {
+            // do nothing
+        }
+        else {
             switch(input)
             {
                 case "Memo" :
@@ -147,6 +150,31 @@ public class SudokuGridFragment extends Fragment {
                     cellData.setInput(input);
             }
         }
+    }
+
+    private Boolean validInput(String input, String number) {
+        switch(input) {
+            case "Memo":
+                if(number.isEmpty() || number.matches("\\s")) {
+                    return false;
+                }
+                else {
+                    break;
+                }
+            case "Enter":
+                if(number.isEmpty() || number.matches("\\s")) {
+                    return false;
+                }
+                else {
+                    break;
+                }
+            default:
+                break;
+        }
+        return true;
+    }
+    private Boolean solved(SudokuCellData cellData) {
+        return cellData.getSolved();
     }
 
     private boolean memoExists(String number, Memo memo) {
