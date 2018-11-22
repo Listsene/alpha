@@ -30,6 +30,10 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
     @Override
     public void onBackPressed(){
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putLong("time",fiveMinutes);
+        editor.commit();
         if(mOnKeyBackPressedListener != null){
             mOnKeyBackPressedListener.onBack();
         }else{
@@ -41,6 +45,8 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sudoku);
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
+        fiveMinutes = sharedPreferences.getLong("time", 300000);
 
 
         FragmentManager fm = getFragmentManager();
