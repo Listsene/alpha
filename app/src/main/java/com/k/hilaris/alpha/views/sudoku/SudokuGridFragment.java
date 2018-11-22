@@ -1,6 +1,9 @@
 package com.k.hilaris.alpha.views.sudoku;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
 import com.k.hilaris.alpha.models.Memo;
 import com.k.hilaris.alpha.models.Sudoku;
@@ -16,13 +21,17 @@ import com.k.hilaris.alpha.R;
 import com.k.hilaris.alpha.models.SudokuCellData;
 import com.k.hilaris.alpha.models.SudokuVariation;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SudokuGridFragment extends Fragment {
+public class SudokuGridFragment extends Fragment implements SudokuActivity.onKeyBackPressedListener{
     private GridView gridView;
     private SudokuVariation grid;
     private SudokuGridAdapter Adapter;
+    String serializedObject;
+    List<SudokuCellData> cellList = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +41,17 @@ public class SudokuGridFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sudoku_grid, container, false);
-        grid = createSudoku();
 
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
+        serializedObject = sharedPreferences.getString("cellDataList", null);
+        Gson gson = new Gson();
+        if(serializedObject != null){
+            Type type = new TypeToken<List<SudokuCellData>>(){}.getType();
+            cellList = gson.fromJson(serializedObject,type);
+        }
+
+
+        grid = createSudoku();
         gridView = view.findViewById(R.id.SudokuGridView);
         Adapter = new SudokuGridAdapter(getContext(), grid);
         gridView.setAdapter(Adapter);
@@ -60,6 +78,23 @@ public class SudokuGridFragment extends Fragment {
                 cell.setSolved(true);
             }
             cells.add(cell);
+    public Sudoku createSerializableSudoku() { // Create Sample Sudoku Board for testing
+        grid = new Sudoku();
+        String cells =  "5|3| | |7| | | | |" +
+                        "6| | |1|9|5| | | |" +
+                        " |9|8| | | | |6| |" +
+                        "8| | | |6| | | |3|" +
+                        "4| | |8| |3| | |1|" +
+                        "7| | | |2| | | |6|" +
+                        " |6| | | | |2|8| |" +
+                        " | | |4|1|9| | |5|" +
+                        " | | | |8| | |7|9|";
+        String[] array = cells.split("[|]", 0);
+        if(serializedObject == null){
+            for(int i = 0; i < array.length; i++) {
+                String cell = array[i];
+                cellList.add(new SudokuCellData(cell));
+            }
         }
         grid.setCells(cells);
 
@@ -186,7 +221,46 @@ public class SudokuGridFragment extends Fragment {
         if(memoActiveCount == 1 && !memo.getActive()) {
             cellData.clearMemo();
             cellData.setInput("");
+            }
         }
+    }
+    @Override
+    public void onBack(){
+        SudokuActivity activity = (SudokuActivity) getActivity();
+        activity.setOnKeyBackPressedListener(null);
+        activity.onBackPressed();
+        saveCellState();
+    }
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        ((SudokuActivity) context).setOnKeyBackPressedListener(this);
+    }
+
+    public void saveCellState(){
+        setList("cellDataList", cellList);
+    }
+
+    public <T> void setList(String key, List<T> list){
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        set(key,json);
+    }
+
+    public void set(String key, String value){
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(key,value);
+        editor.commit();
+    }
+
+    public void newGame(){
+        SharedPreferences pref = this.getActivity().getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.remove("cellDataList").commit();
+        serializedObject = pref.getString("cellDataList", null);
+        cellList = new ArrayList<>();
+        grid = createSudoku();
     }
 
     private String createGUID(SudokuVariation sv) {
