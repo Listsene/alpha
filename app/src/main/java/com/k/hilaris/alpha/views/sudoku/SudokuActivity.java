@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.k.hilaris.alpha.R;
+import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +20,8 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     private Toolbar mToolbar;
     TextView timerTv;
     long fiveMinutes;
-    private SudokuGridFragment sudokuGridFragment;
+    private SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
+    CountDownTimer timer = null;
 
     public interface onKeyBackPressedListener {
         public void onBack();
@@ -51,7 +55,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.SudokuGridFragment, new SudokuGridFragment());
+        ft.add(R.id.SudokuGridFragment, sudokuGridFragment);
         ft.add(R.id.InputButtonsFragment, new InputButtonsGridFragment());
         ft.commit();
         mToolbar = findViewById(R.id.toolbar);
@@ -60,11 +64,26 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Timer();
+
+        Button newGameButton = findViewById(R.id.newGame);
+        newGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timer.cancel();
+                fiveMinutes = 300000;
+                Timer();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                sudokuGridFragment.newGame();
+                ft.replace(R.id.SudokuGridFragment,new SudokuGridFragment());
+                ft.commit();
+            }
+        });
     }
 
 
-    public boolean Timer(){
-        new CountDownTimer(fiveMinutes, 1000) {
+    public void Timer(){
+        timer = new CountDownTimer(fiveMinutes, 1000) {
             public void onTick(long millisUntilFinished) {
                 long millis = millisUntilFinished;
                 String time;
@@ -80,10 +99,11 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 fiveMinutes = millis;
             }
             public void onFinish() {
+                timerTv = findViewById(R.id.timerTextView);
                 timerTv.setText(getResources().getText(R.string.Timer_Complete));
+
             }
         }.start();
-        return true;
     }
 
 

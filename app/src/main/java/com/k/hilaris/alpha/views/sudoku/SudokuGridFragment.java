@@ -43,14 +43,11 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         View view = inflater.inflate(R.layout.fragment_sudoku_grid, container, false);
 
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
-        /*SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.clear();
-        editor.commit();*/
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         serializedObject = sharedPreferences.getString("cellDataList", null);
 
         Gson gson = new Gson();
         if(serializedObject != null){
-            Log.d("serial","!=null");
             Type type = new TypeToken<List<SudokuCellData>>(){}.getType();
             cells = gson.fromJson(serializedObject,type);
         }
@@ -79,7 +76,6 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
                 "3| | |5| |9| |2|7|";
         String[] sudoku = sudokuCells.split("[|]", 0);
         if(serializedObject == null){
-            Log.d("serial","null");
             for(int i = 0; i < sudoku.length; i++) {
                 cell = new SudokuCellData(sudoku[i]);
                 if(!cell.getInput().equals(" ")) {
@@ -229,7 +225,6 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     }
 
     public void saveCellState(){
-        Log.d("aa","aaa");
         setList("cellDataList", cells);
     }
 
@@ -250,9 +245,9 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         SharedPreferences pref = this.getActivity().getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = pref.edit();
         editor.remove("cellDataList").commit();
-        serializedObject = pref.getString("cellDataList", null);
-        cells = new ArrayList<>();
-        grid = createSudoku();
+        //serializedObject = pref.getString("cellDataList", null);
+        //cells = new ArrayList<>();
+        //grid = createSudoku();
     }
 
     private String createGUID(SudokuVariation sv) {

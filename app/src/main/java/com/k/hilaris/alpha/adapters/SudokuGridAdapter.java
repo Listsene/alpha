@@ -23,6 +23,7 @@ public class SudokuGridAdapter extends BaseAdapter {
     private Context mContext;
     private Sudoku sudoku;
     private int nSelectedPos = -1;
+    Button cell;
 
 
     public SudokuGridAdapter(Context mContext, Sudoku sudoku) {
@@ -51,7 +52,7 @@ public class SudokuGridAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.grid_sudoku_cell, null);
         }
 
-        Button cell = convertView.findViewById(R.id.cell);
+        cell = convertView.findViewById(R.id.cell);
 
         if(number.isEmpty() || number.matches("\\s")) { //checks for empty or white space
             cell.setText(" ");
@@ -96,6 +97,9 @@ public class SudokuGridAdapter extends BaseAdapter {
             }
         });
         return convertView;
+    }
+    public void disableCell(){
+
     }
 
     public int getnSelectedPos(){
