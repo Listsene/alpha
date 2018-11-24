@@ -55,12 +55,11 @@ public class SudokuGridAdapter extends BaseAdapter {
 
         if(number.isEmpty() || number.matches("\\s")) { //checks for empty or white space
             cell.setText(" ");
-            cell.setEnabled(true);
+            cell.setBackgroundResource(R.drawable.cell_button);
         }
         else {
             cell.setText(number);
-            cell.setBackgroundColor(convertView.getResources().getColor(R.color.cell_background));
-            //cell.setEnabled(false);
+            cell.setBackgroundResource(R.drawable.cell_button);
         }
 
 
