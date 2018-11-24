@@ -9,18 +9,22 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.k.hilaris.alpha.R;
+import com.k.hilaris.alpha.models.SudokuVariation;
 
 import java.util.concurrent.TimeUnit;
 
 public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
     private Toolbar mToolbar;
-    TextView timerTv;
+    TextView timerTv, scoreTv;
     private SudokuGridFragment sudokuGridFragment;
+    private int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sudoku);
+
+        scoreTv = findViewById(R.id.score);
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -33,11 +37,12 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Timer();
+        Score();
     }
 
     long fiveMinutes = 300000;
 
-    public boolean Timer(){
+    public void Timer(){
         new CountDownTimer(fiveMinutes, 1000) {
             public void onTick(long millisUntilFinished) {
                 long millis = millisUntilFinished;
@@ -48,7 +53,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                     time =  "0"+ (TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))+":"+ (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
                 }
 
-                timerTv = findViewById(R.id.timerTextView);
+                timerTv = findViewById(R.id.timer);
                 timerTv.setText(time);
                 fiveMinutes = millis;
             }
@@ -56,13 +61,17 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 timerTv.setText(getResources().getText(R.string.Timer_Complete));
             }
         }.start();
-        return true;
+    }
+
+    public void Score() {
+        scoreTv.setText(String.valueOf(score));
     }
 
 
     @Override
-    public void sendInput(String text){
+    public void sendInput(String input){
         sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
-        sudokuGridFragment.getInput(text);
+        score = sudokuGridFragment.getInput(input);
+        Score();
     }
 }

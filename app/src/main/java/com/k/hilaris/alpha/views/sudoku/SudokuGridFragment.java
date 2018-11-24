@@ -23,6 +23,7 @@ public class SudokuGridFragment extends Fragment {
     private GridView gridView;
     private SudokuVariation grid;
     private SudokuGridAdapter Adapter;
+    private int score = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +92,7 @@ public class SudokuGridFragment extends Fragment {
         return sv;
     }*/
 
-    public void getInput(String input){
+    public int getInput(String input){
         int nSelectedPos = Adapter.getnSelectedPos();
         SudokuCellData cellData = new SudokuCellData("");
         try {
@@ -138,10 +139,13 @@ public class SudokuGridFragment extends Fragment {
                     if(number.equals(grid.getSolution().get(nSelectedPos))) {
                         cellData.clearMemo();
                         cellData.setSolved(true);
+                        grid.setScore(grid.getScore() + 100);
                     }
                     else {
                         Toast.makeText(getActivity(), "Incorrect!", Toast.LENGTH_SHORT).show();
                         cellData.setInput("");
+                        score = score - 10;
+                        grid.setScore(grid.getScore() - 10);
                     }
                     Adapter.notifyDataSetChanged();
                     break;
@@ -149,6 +153,7 @@ public class SudokuGridFragment extends Fragment {
                     cellData.setInput(input);
             }
         }
+        return grid.getScore();
     }
 
     private Boolean validInput(String input, String number) {

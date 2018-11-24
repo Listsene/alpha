@@ -41,7 +41,6 @@ public class InputButtonsGridFragment extends Fragment {
         Adapter = new InputButtonsGridAdapter(getContext(), prepareInputs(),clickCB);
         gridView.setAdapter(Adapter);
 
-
         return view;
     }
 
