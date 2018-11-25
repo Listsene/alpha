@@ -1,4 +1,4 @@
-package com.l.hilaris.alpha.views;
+package com.l.hilaris.alpha.views.login;
 /*
 Main Activity, first activity opened on application start.
 This activity does nothing but open LoginActivity.

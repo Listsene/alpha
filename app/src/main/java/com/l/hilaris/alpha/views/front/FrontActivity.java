@@ -17,7 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.l.hilaris.alpha.views.MainActivity;
+import com.l.hilaris.alpha.views.login.MainActivity;
 import com.l.hilaris.alpha.views.multiplayer.MultiPlayerMenuActivity;
 import com.l.hilaris.alpha.R;
 import com.l.hilaris.alpha.views.singleplayer.SinglePlayerMenuActivity;

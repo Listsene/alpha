@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name="com.l.hilaris.alpha.views.MainActivity"
+            android:name="com.l.hilaris.alpha.views.login.MainActivity"
             android:label="Sudoku Online">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
