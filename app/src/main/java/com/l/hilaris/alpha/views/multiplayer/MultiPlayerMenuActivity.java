@@ -56,7 +56,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.l.hilaris.alpha.views.sudoku.SudokuActivity;
+import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
 import com.l.hilaris.alpha.R;
 
 public class MultiPlayerMenuActivity extends AppCompatActivity implements View.OnClickListener {
