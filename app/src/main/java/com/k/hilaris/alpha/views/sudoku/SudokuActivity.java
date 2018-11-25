@@ -2,33 +2,64 @@ package com.k.hilaris.alpha.views.sudoku;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.k.hilaris.alpha.R;
 import com.k.hilaris.alpha.models.SudokuVariation;
+import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
 
 import java.util.concurrent.TimeUnit;
 
 public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
     private Toolbar mToolbar;
     TextView timerTv, scoreTv;
-    private SudokuGridFragment sudokuGridFragment;
     private int score;
+    long fiveMinutes;
+    private SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
+    CountDownTimer timer = null;
+
+    public interface onKeyBackPressedListener {
+        public void onBack();
+    }
+    private onKeyBackPressedListener mOnKeyBackPressedListener;
+
+    public void setOnKeyBackPressedListener(onKeyBackPressedListener listener){
+        mOnKeyBackPressedListener = listener;
+    }
+
+    @Override
+    public void onBackPressed(){
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putLong("time",fiveMinutes);
+        editor.commit();
+        if(mOnKeyBackPressedListener != null){
+            mOnKeyBackPressedListener.onBack();
+        }else{
+            super.onBackPressed();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sudoku);
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
+        fiveMinutes = sharedPreferences.getLong("time", 300000);
+
 
         scoreTv = findViewById(R.id.score);
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.SudokuGridFragment, new SudokuGridFragment());
+        ft.add(R.id.SudokuGridFragment, sudokuGridFragment);
         ft.add(R.id.InputButtonsFragment, new InputButtonsGridFragment());
         ft.commit();
         mToolbar = findViewById(R.id.toolbar);
@@ -38,12 +69,27 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Timer();
         Score();
+
+        Button newGameButton = findViewById(R.id.newGame);
+        newGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timer.cancel();
+                fiveMinutes = 300000;
+                Timer();
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                sudokuGridFragment.newGame();
+                ft.replace(R.id.SudokuGridFragment, sudokuGridFragment = new SudokuGridFragment());
+                ft.commit();
+            }
+        });
     }
 
-    long fiveMinutes = 300000;
 
     public void Timer(){
         new CountDownTimer(fiveMinutes, 1000) {
+        timer = new CountDownTimer(fiveMinutes, 1000) {
             public void onTick(long millisUntilFinished) {
                 long millis = millisUntilFinished;
                 String time;
@@ -55,10 +101,13 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
                 timerTv = findViewById(R.id.timer);
                 timerTv.setText(time);
+
                 fiveMinutes = millis;
             }
             public void onFinish() {
+                timerTv = findViewById(R.id.timerTextView);
                 timerTv.setText(getResources().getText(R.string.Timer_Complete));
+
             }
         }.start();
     }

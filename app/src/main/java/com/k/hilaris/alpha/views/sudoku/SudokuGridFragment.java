@@ -1,7 +1,10 @@
 package com.k.hilaris.alpha.views.sudoku;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
 import com.k.hilaris.alpha.models.Memo;
 import com.k.hilaris.alpha.models.Sudoku;
@@ -16,14 +21,18 @@ import com.k.hilaris.alpha.R;
 import com.k.hilaris.alpha.models.SudokuCellData;
 import com.k.hilaris.alpha.models.SudokuVariation;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SudokuGridFragment extends Fragment {
+public class SudokuGridFragment extends Fragment implements SudokuActivity.onKeyBackPressedListener{
     private GridView gridView;
     private SudokuVariation grid;
     private SudokuGridAdapter Adapter;
     private int score = 0;
+    String serializedObject;
+    List<SudokuCellData> cells = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +42,18 @@ public class SudokuGridFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sudoku_grid, container, false);
+
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        serializedObject = sharedPreferences.getString("cellDataList", null);
+
+        Gson gson = new Gson();
+        if(serializedObject != null){
+            Type type = new TypeToken<List<SudokuCellData>>(){}.getType();
+            cells = gson.fromJson(serializedObject,type);
+        }
+
+
         grid = createSudoku();
 
         gridView = view.findViewById(R.id.SudokuGridView);
@@ -43,30 +64,32 @@ public class SudokuGridFragment extends Fragment {
     }
     public SudokuVariation createSudoku() { // Create Sample Sudoku Board for testing
         grid = new SudokuVariation();
-        List<SudokuCellData> cells = new ArrayList<>();
+
         SudokuCellData cell;
         String sudokuCells ="4|6| |8| |5| | |3|" +
-                            " | |3| |7| | | | |" +
-                            " |7|5|9| |1| |6| |" +
-                            " |8|4| | | | |7| |" +
-                            "9| | |7| |6| | |1|" +
-                            " |3| | |2| |6|5| |" +
-                            " |9| |4| |2|8|3| |" +
-                            " | | | |8| |5| | |" +
-                            "3| | |5| |9| |2|7|";
+                " | |3| |7| | | | |" +
+                " |7|5|9| |1| |6| |" +
+                " |8|4| | | | |7| |" +
+                "9| | |7| |6| | |1|" +
+                " |3| | |2| |6|5| |" +
+                " |9| |4| |2|8|3| |" +
+                " | | | |8| |5| | |" +
+                "3| | |5| |9| |2|7|";
         String[] sudoku = sudokuCells.split("[|]", 0);
-        for(int i = 0; i < sudoku.length; i++) {
-            cell = new SudokuCellData(sudoku[i]);
-            if(!cell.getInput().equals(" ")) {
-                cell.setSolved(true);
+        if(serializedObject == null){
+            for(int i = 0; i < sudoku.length; i++) {
+                cell = new SudokuCellData(sudoku[i]);
+                if(!cell.getInput().equals(" ")) {
+                    cell.setSolved(true);
+                }
+                cells.add(cell);
             }
-            cells.add(cell);
         }
         grid.setCells(cells);
 
         List<String> solution = new ArrayList<>();
         String solCells =
-                        "4|6|9|8|2|5|7|1|3|" +
+                "4|6|9|8|2|5|7|1|3|" +
                         "8|1|3|6|7|4|2|9|5|" +
                         "2|7|5|9|3|1|4|6|8|" +
                         "6|8|4|1|5|3|9|7|2|" +
@@ -192,6 +215,44 @@ public class SudokuGridFragment extends Fragment {
             cellData.clearMemo();
             cellData.setInput("");
         }
+    }
+    @Override
+    public void onBack(){
+        SudokuActivity activity = (SudokuActivity) getActivity();
+        activity.setOnKeyBackPressedListener(null);
+        activity.onBackPressed();
+        saveCellState();
+    }
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        ((SudokuActivity) context).setOnKeyBackPressedListener(this);
+    }
+
+    public void saveCellState(){
+        setList("cellDataList", cells);
+    }
+
+    public <T> void setList(String key, List<T> list){
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        set(key,json);
+    }
+
+    public void set(String key, String value){
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(key,value);
+        editor.commit();
+    }
+
+    public void newGame(){
+        SharedPreferences pref = this.getActivity().getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.remove("cellDataList").commit();
+        //serializedObject = pref.getString("cellDataList", null);
+        //cells = new ArrayList<>();
+        //grid = createSudoku();
     }
 
     private String createGUID(SudokuVariation sv) {

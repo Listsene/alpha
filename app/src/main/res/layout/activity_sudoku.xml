@@ -35,6 +35,14 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginStart="60dp"/>
+            <Button
+                android:id="@+id/newGame"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="10sp"
+                android:gravity="center_vertical|center_horizontal"
+                android:textStyle="bold"
+                android:text="New Game"/>
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
