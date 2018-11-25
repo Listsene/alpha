@@ -1,7 +1,6 @@
 package com.k.hilaris.alpha.adapters;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 
 import com.k.hilaris.alpha.R;
-import com.k.hilaris.alpha.views.sudoku.InputButtonsGridFragment;
+import com.k.hilaris.alpha.views.sudoku.singleplayer.InputButtonsGridFragment;
 
 import java.util.List;
 

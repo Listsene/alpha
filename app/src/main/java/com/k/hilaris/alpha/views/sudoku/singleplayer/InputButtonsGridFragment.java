@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha.views.sudoku;
+package com.k.hilaris.alpha.views.sudoku.singleplayer;
 /*
 This fragment holds the View for the Input Buttons used to Solve the Sudoku.
  */

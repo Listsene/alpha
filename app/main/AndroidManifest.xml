@@ -35,7 +35,7 @@
             android:label="Online Session">
         </activity>
         <activity
-            android:name="com.k.hilaris.alpha.views.sudoku.SudokuActivity"
+            android:name="com.k.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity"
             android:label="Sudoku">
         </activity>
     </application>

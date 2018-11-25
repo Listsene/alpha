@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha.views.sudoku;
+package com.k.hilaris.alpha.views.sudoku.singleplayer;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.k.hilaris.alpha.R;
-import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
 import com.k.hilaris.alpha.models.SudokuVariation;
 
 import java.util.concurrent.TimeUnit;

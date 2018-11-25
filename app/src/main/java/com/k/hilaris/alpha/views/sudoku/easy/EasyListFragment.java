@@ -6,18 +6,16 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.k.hilaris.alpha.R;
 import com.k.hilaris.alpha.adapters.SudokuListAdapter;
 import com.k.hilaris.alpha.models.SudokuCellData;
 import com.k.hilaris.alpha.models.SudokuVariation;
 import com.k.hilaris.alpha.utilities.ItemClickSupport;
-import com.k.hilaris.alpha.views.sudoku.SudokuActivity;
+import com.k.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +63,7 @@ public class EasyListFragment extends Fragment {
     private void createSudokus() {
         SudokuVariation grid = new SudokuVariation();
         List<SudokuCellData> cells = new ArrayList<>();
+        List<String> solution = new ArrayList<>();
         SudokuCellData cell;
 
         String sudokuCells =
@@ -87,7 +86,6 @@ public class EasyListFragment extends Fragment {
             }
         grid.setCells(cells);
 
-        List<String> solution = new ArrayList<>();
         String solCells =
                         "4|6|9|8|2|5|7|1|3|" +
                         "8|1|3|6|7|4|2|9|5|" +
@@ -105,6 +103,7 @@ public class EasyListFragment extends Fragment {
         grid.setSolution(solution);
         grid.setId("Sudoku 01");
         sudokus.add(grid);
+
         Adapter.notifyDataSetChanged();
     }
 
