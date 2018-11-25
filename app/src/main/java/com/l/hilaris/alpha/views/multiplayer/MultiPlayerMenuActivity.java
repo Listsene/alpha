@@ -278,7 +278,7 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
     }
     // updates the label that shows my score
     void updateScoreDisplay() {
-        ((TextView) findViewById(R.id.my_score)).setText(formatScore(mScore));
+        //((TextView) findViewById(R.id.my_score)).setText(formatScore(mScore));
     }
 
     // Game tick -- update countdown, check if game ended.
