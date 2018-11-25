@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 구글 플레이 콘솔 id/ events, achievements, leaderboard 세팅 따라 추가가능.
+  -->
+    <string name="app_id">501127257004</string>
     <item name="item_click_support" type="id" />
 </resources>
