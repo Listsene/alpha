@@ -21,6 +21,12 @@
     <!-- MultiPlayer Options -->
     <string name="search">Search</string>
     <string name="create">Create</string>
+    <string name="accept_popup_invite">Accept!</string>
+    <string name="please_wait">Please wait&#8230;</string>
+    <string name="instructions">Match start!</string>
+    <string name="click_me">Click me!</string>
+    <string name="inv_popup_text">Incoming invitation</string>
+    <string name="game_problem">Error occurred while starting game. Please try again.</string>
 
     <!-- Input Buttons -->
     <string name="Clear">Clear</string>

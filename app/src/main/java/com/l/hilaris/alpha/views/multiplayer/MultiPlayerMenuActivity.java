@@ -259,10 +259,9 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         mMultiplayer = multiplayer;
         updateScoreDisplay();
         broadcastScore(false);
-        //switchToScreen(R.id.screen_game);
-        Intent intent = new Intent(this, SudokuActivity.class);
+
+        Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
         startActivity(intent);
-        //findViewById(R.id.button_click_me).setVisibility(View.VISIBLE);
 
         // run the gameTick() method every second to update the game.
         final Handler h = new Handler();
@@ -289,12 +288,8 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         }
 
         // update countdown
-        ((TextView) findViewById(R.id.countdown)).setText("0:" +
-                (mSecondsLeft < 10 ? "0" : "") + String.valueOf(mSecondsLeft));
-
         if (mSecondsLeft <= 0) {
             // finish game
-            findViewById(R.id.button_click_me).setVisibility(View.GONE);
             broadcastScore(true);
         }
     }
