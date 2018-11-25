@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha.views.sudoku.singleplayer;
+package com.k.hilaris.alpha.views.sudoku.multiplayer;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -23,7 +23,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SudokuGridFragment extends Fragment implements SudokuActivity.onKeyBackPressedListener{
+public class MultiplayerSudokuGridFragment extends Fragment implements MultiplayerSudokuActivity.onKeyBackPressedListener{
     private GridView gridView;
     private SudokuVariation grid;
     private SudokuGridAdapter Adapter;
@@ -172,7 +172,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     }
     @Override
     public void onBack(){
-        SudokuActivity activity = (SudokuActivity) getActivity();
+        MultiplayerSudokuActivity activity = (MultiplayerSudokuActivity) getActivity();
         activity.setOnKeyBackPressedListener(null);
         activity.onBackPressed();
         saveCellState();
@@ -181,7 +181,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        ((SudokuActivity) context).setOnKeyBackPressedListener(this);
+        ((MultiplayerSudokuActivity) context).setOnKeyBackPressedListener(this);
     }
 
     public void saveScore(int score){
@@ -227,31 +227,5 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         serializedObject = sharedPreferences.getString("cellDataList", null);
         score = sharedPreferences.getInt("score",0);
     }
-
-    private String createGUID(SudokuVariation sv) {
-        String guid = "0710896a-1959-4d0d-87ba-dd3bcd02c948"; // example
-        // makes unique guid
-        return guid;
-    }
-
-
-   /* private List<String> randomizeTokens(SudokuVariation sv) {
-        List<String> tokensRandomized = sv.getCells();
-        // randomize tokens e.g. remap 123456789 to 356472189
-
-        return tokensRandomized;
-    }
-    private List<String> scrambleGrid(SudokuVariation sv) {
-        List<String> gridScrambled = sv.getCells();
-        // scrambles grid i.e. swap rows and cols
-
-        return gridScrambled;
-    }
-    private List<String> rotate(SudokuVariation sv) {
-        List<String> rotated = sv.getCells();
-        // rotates grid; 0, 90, 180, or 270 degrees
-
-        return rotated;
-    }*/
 
 }

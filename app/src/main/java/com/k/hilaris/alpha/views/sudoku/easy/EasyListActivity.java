@@ -13,6 +13,9 @@ public class EasyListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_easy_list);
 
+        String mode = (String) getIntent().getSerializableExtra("mode");
+        getIntent().putExtra("mode", mode);
+
         // Opens TestListFragment
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();

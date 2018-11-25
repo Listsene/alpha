@@ -15,6 +15,7 @@ import com.k.hilaris.alpha.adapters.SudokuListAdapter;
 import com.k.hilaris.alpha.models.SudokuCellData;
 import com.k.hilaris.alpha.models.SudokuVariation;
 import com.k.hilaris.alpha.utilities.ItemClickSupport;
+import com.k.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
 import com.k.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity;
 
 import java.util.ArrayList;
@@ -108,9 +109,18 @@ public class EasyListFragment extends Fragment {
     }
 
     public void moveActivity(SudokuVariation sudoku) {
-        Intent intent = new Intent(getActivity(), SudokuActivity.class);
-        intent.putExtra("sudoku", sudoku);
-        startActivity(intent);
+        Intent intent = getActivity().getIntent();
+        String mode = (String) intent.getSerializableExtra("mode");
+        if(mode.equals("single")) {
+            intent = new Intent(getActivity(), SudokuActivity.class);
+            intent.putExtra("sudoku", sudoku);
+            startActivity(intent);
+        }
+        else {
+            intent = new Intent(getActivity(), MultiplayerSudokuActivity.class);
+            intent.putExtra("sudoku", sudoku);
+            startActivity(intent);
+        }
     }
 }
 

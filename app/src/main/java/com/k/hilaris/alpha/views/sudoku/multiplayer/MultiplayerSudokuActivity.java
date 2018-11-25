@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.k.hilaris.alpha.R;
 import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
+import com.k.hilaris.alpha.models.SudokuVariation;
 import com.k.hilaris.alpha.views.sudoku.singleplayer.InputButtonsGridFragment;
 import com.k.hilaris.alpha.views.sudoku.singleplayer.SudokuGridFragment;
 
@@ -28,12 +29,12 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
+public class MultiplayerSudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
     private Toolbar mToolbar;
     TextView timerTv, scoreTv;
     private int score;
     long fiveMinutes;
-    private SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
+    private MultiplayerSudokuGridFragment sudokuGridFragment = new MultiplayerSudokuGridFragment();
     CountDownTimer timer = null;
     String time;
 
@@ -70,7 +71,6 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     class ConnectionToServer extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-
             try {
                 try {
                     selector = Selector.open();
@@ -132,6 +132,13 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
             readBuffer.get(buff, 0, length);
             return new String(buff);
         }
+        void writeMessage(String str) {
+            try {
+                channel.write(ByteBuffer.wrap(str.getBytes()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         private void connect(SelectionKey key) throws IOException {
             channel = (SocketChannel) key.channel();
             if (channel.isConnectionPending()) {
@@ -175,6 +182,9 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         fiveMinutes = sharedPreferences.getLong("time", 300000);
 
+        SudokuVariation sudoku = (SudokuVariation) getIntent().getSerializableExtra("sudoku");
+        getIntent().putExtra("sudoku", sudoku);
+
         // server
         connection = new ConnectionToServer();
         connection.execute();
@@ -207,7 +217,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 FragmentManager fm = getFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 sudokuGridFragment.newGame();
-                ft.replace(R.id.SudokuGridFragment, sudokuGridFragment = new SudokuGridFragment());
+                ft.replace(R.id.SudokuGridFragment, sudokuGridFragment = new MultiplayerSudokuGridFragment());
                 ft.commit();
             }
         });
@@ -243,7 +253,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
     @Override
     public void sendInput(String input){
-        sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
+        sudokuGridFragment = (MultiplayerSudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
         score = sudokuGridFragment.getInput(input);
         Score();
     }
