@@ -1,4 +1,4 @@
-package com.l.hilaris.alpha.views.sudoku;
+package com.l.hilaris.alpha.views.sudoku.easy;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -7,18 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.l.hilaris.alpha.R;
 
-public class SudokuActivity extends AppCompatActivity {
+public class EasyListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sudoku);
+        setContentView(R.layout.activity_easy_list);
 
-        //Routine routine= (Routine) getIntent().getSerializableExtra("routine");
-        //getIntent().putExtra("routine", routine);
+        String mode = (String) getIntent().getSerializableExtra("mode");
+        getIntent().putExtra("mode", mode);
 
+        // Opens TestListFragment
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.SudokuGridFragment, new SudokuGridFragment());
+        ft.add(R.id.EasyListFragment, new EasyListFragment());
         ft.commit();
     }
 }

@@ -5,8 +5,6 @@ Login Activity through Google sign in
 
  */
 import android.content.Intent;
-import android.content.res.Resources;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +24,7 @@ import com.l.hilaris.alpha.views.front.FrontActivity;
 import com.l.hilaris.alpha.R;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private GoogleSignInClient mGoogleSignInClient;
     private SignInButton google_sign_in;
     private Button login, signUp;
@@ -131,5 +129,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Prevent user from going back to empty view
+        // Do nothing on back pressed
     }
 }

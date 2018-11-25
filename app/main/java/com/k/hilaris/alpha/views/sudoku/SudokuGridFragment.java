@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha.views.sudoku;
+package com.l.hilaris.alpha.views.sudoku;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
-import com.k.hilaris.alpha.models.Sudoku;
-import com.k.hilaris.alpha.R;
-import com.k.hilaris.alpha.models.SudokuVariation;
+import com.l.hilaris.alpha.adapters.SudokuGridAdapter;
+import com.l.hilaris.alpha.models.Sudoku;
+import com.l.hilaris.alpha.R;
+import com.l.hilaris.alpha.models.SudokuVariation;
 
 import java.util.ArrayList;
 import java.util.List;
