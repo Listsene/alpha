@@ -132,7 +132,7 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
             readBuffer.get(buff, 0, length);
             return new String(buff);
         }
-        void writeMessage(String str) {
+        public void writeMessage(String str) {
             try {
                 channel.write(ByteBuffer.wrap(str.getBytes()));
             } catch (IOException e) {
@@ -205,7 +205,7 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Timer();
-        Score();
+        scoreTv.setText(String.valueOf(score));
 
         Button newGameButton = findViewById(R.id.newGame);
         newGameButton.setOnClickListener(new View.OnClickListener() {
@@ -244,10 +244,6 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
     }
     public void Score() {
         scoreTv.setText(String.valueOf(score));
-//        if(String.valueOf(score).equals("100"))
-//            return true;
-//        else
-//            return false;
     }
 
 
