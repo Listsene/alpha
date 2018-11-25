@@ -16,6 +16,13 @@
     <color name="gray_dark">#505050</color>
     <color name="red">#F44D2C</color>
 
+    <!--matchup colors-->
+    <color name="AccentColor">#cc0000</color>
+    <color name="PopupColor">@color/AccentColor</color>
+    <color name="PopupTextColor">#ffffff</color>
+    <color name="ButtonTextColor">#ffffff</color>
+    <color name="BlurbColor">#a0a0a0</color>
+
     <!--Theme Color-->
     <color name="primary">#4A91CC</color>
     <color name="primary_dark">#000B78</color>
