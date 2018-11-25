@@ -29,5 +29,6 @@
 
     <!-- Sudoku Action Bar -->
     <string name="Timer_Complete">END</string>
+    <string name="Reset">Reset</string>
 
 </resources>

@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.k.hilaris.alpha.R;
-import com.k.hilaris.alpha.models.SudokuVariation;
 import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
 
 import java.util.concurrent.TimeUnit;
@@ -55,8 +54,6 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         fiveMinutes = sharedPreferences.getLong("time", 300000);
 
 
-        scoreTv = findViewById(R.id.score);
-
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.SudokuGridFragment, sudokuGridFragment);
@@ -64,6 +61,9 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         ft.commit();
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+
+        timerTv = findViewById(R.id.timer);
+        scoreTv = findViewById(R.id.score);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -88,7 +88,6 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
 
     public void Timer(){
-        new CountDownTimer(fiveMinutes, 1000) {
         timer = new CountDownTimer(fiveMinutes, 1000) {
             public void onTick(long millisUntilFinished) {
                 long millis = millisUntilFinished;
@@ -98,20 +97,14 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 }else{
                     time =  "0"+ (TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))+":"+ (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
                 }
-
-                timerTv = findViewById(R.id.timer);
                 timerTv.setText(time);
-
                 fiveMinutes = millis;
             }
             public void onFinish() {
-                timerTv = findViewById(R.id.timerTextView);
                 timerTv.setText(getResources().getText(R.string.Timer_Complete));
-
             }
         }.start();
     }
-
     public void Score() {
         scoreTv.setText(String.valueOf(score));
     }
