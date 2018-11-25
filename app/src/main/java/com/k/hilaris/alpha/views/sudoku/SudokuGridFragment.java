@@ -44,9 +44,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sudoku_grid, container, false);
 
-        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        serializedObject = sharedPreferences.getString("cellDataList", null);
+        getSavedState();
 
         Intent i = getActivity().getIntent();
         grid = (SudokuVariation) i.getSerializableExtra("sudoku");
@@ -57,6 +55,8 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
             cells = gson.fromJson(serializedObject,type);
             grid.setCells(cells);
         }
+
+        grid.setScore(score);
 
         gridView = view.findViewById(R.id.SudokuGridView);
         Adapter = new SudokuGridAdapter(getContext(), grid);
@@ -152,6 +152,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
                     if(number.equals(grid.getSolution().get(nSelectedPos))) {
                         cellData.clearMemo();
                         cellData.setSolved(true);
+                        score = score + 100;
                         grid.setScore(grid.getScore() + 100);
                     }
                     else {
@@ -212,11 +213,20 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         activity.setOnKeyBackPressedListener(null);
         activity.onBackPressed();
         saveCellState();
+        saveScore(score);
     }
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
         ((SudokuActivity) context).setOnKeyBackPressedListener(this);
+    }
+
+    public void saveScore(int score){
+        grid.setScore(score);
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("score",score);
+        editor.commit();
     }
 
     public void saveCellState(){
@@ -240,9 +250,16 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         SharedPreferences pref = this.getActivity().getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = pref.edit();
         editor.remove("cellDataList").commit();
+        editor.remove("score").commit();
         //serializedObject = pref.getString("cellDataList", null);
         //cells = new ArrayList<>();
         //grid = createSudoku();
+    }
+
+    public void getSavedState(){
+        SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
+        serializedObject = sharedPreferences.getString("cellDataList", null);
+        score = sharedPreferences.getInt("score",0);
     }
 
     private String createGUID(SudokuVariation sv) {
@@ -250,6 +267,8 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         // makes unique guid
         return guid;
     }
+
+
    /* private List<String> randomizeTokens(SudokuVariation sv) {
         List<String> tokensRandomized = sv.getCells();
         // randomize tokens e.g. remap 123456789 to 356472189

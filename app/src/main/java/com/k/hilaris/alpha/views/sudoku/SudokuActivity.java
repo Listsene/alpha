@@ -39,6 +39,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong("time",fiveMinutes);
+        editor.putInt("score", score);
         editor.commit();
         if(mOnKeyBackPressedListener != null){
             mOnKeyBackPressedListener.onBack();
@@ -53,6 +54,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         setContentView(R.layout.activity_sudoku);
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         fiveMinutes = sharedPreferences.getLong("time", 300000);
+        score = sharedPreferences.getInt("score",0);
 
         SudokuVariation sudoku = (SudokuVariation) getIntent().getSerializableExtra("sudoku");
         getIntent().putExtra("sudoku", sudoku);
@@ -77,16 +79,28 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timer.cancel();
-                fiveMinutes = 300000;
-                Timer();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                sudokuGridFragment.newGame();
-                ft.replace(R.id.SudokuGridFragment, sudokuGridFragment = new SudokuGridFragment());
-                ft.commit();
+                resetTimer();
+                resetGrid();
+                resetScore();
             }
         });
+    }
+
+    public void resetTimer(){
+        timer.cancel();
+        fiveMinutes = 300000;
+        Timer();
+    }
+    public void resetGrid(){
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        sudokuGridFragment.newGame();
+        ft.replace(R.id.SudokuGridFragment, sudokuGridFragment = new SudokuGridFragment());
+        ft.commit();
+    }
+    public void resetScore(){
+        score = 0;
+        scoreTv.setText(String.valueOf(score));
     }
 
 
