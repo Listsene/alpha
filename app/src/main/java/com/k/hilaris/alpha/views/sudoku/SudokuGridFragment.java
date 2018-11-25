@@ -2,6 +2,7 @@ package com.k.hilaris.alpha.views.sudoku;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,14 +48,15 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         SharedPreferences.Editor editor = sharedPreferences.edit();
         serializedObject = sharedPreferences.getString("cellDataList", null);
 
+        Intent i = getActivity().getIntent();
+        grid = (SudokuVariation) i.getSerializableExtra("sudoku");
+
         Gson gson = new Gson();
         if(serializedObject != null){
             Type type = new TypeToken<List<SudokuCellData>>(){}.getType();
             cells = gson.fromJson(serializedObject,type);
+            grid.setCells(cells);
         }
-
-
-        grid = createSudoku();
 
         gridView = view.findViewById(R.id.SudokuGridView);
         Adapter = new SudokuGridAdapter(getContext(), grid);
@@ -62,20 +64,8 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
 
         return view;
     }
-    public SudokuVariation createSudoku() { // Create Sample Sudoku Board for testing
-        grid = new SudokuVariation();
+    /*public SudokuVariation createSudoku(SudokuVariation sudoku) { // Create Sample Sudoku Board for testing
 
-        SudokuCellData cell;
-        String sudokuCells ="4|6| |8| |5| | |3|" +
-                " | |3| |7| | | | |" +
-                " |7|5|9| |1| |6| |" +
-                " |8|4| | | | |7| |" +
-                "9| | |7| |6| | |1|" +
-                " |3| | |2| |6|5| |" +
-                " |9| |4| |2|8|3| |" +
-                " | | | |8| |5| | |" +
-                "3| | |5| |9| |2|7|";
-        String[] sudoku = sudokuCells.split("[|]", 0);
         if(serializedObject == null){
             for(int i = 0; i < sudoku.length; i++) {
                 cell = new SudokuCellData(sudoku[i]);
@@ -105,7 +95,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         grid.setSolution(solution);
         return grid;
     }
-
+*/
    /* public SudokuVariation createVariation(Sudoku sudoku) {
         SudokuVariation sv = new SudokuVariation(sudoku);
         sv.setGuid(createGUID(sv));

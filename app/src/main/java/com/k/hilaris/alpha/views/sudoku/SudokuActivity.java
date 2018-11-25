@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.k.hilaris.alpha.R;
 import com.k.hilaris.alpha.adapters.SudokuGridAdapter;
+import com.k.hilaris.alpha.models.SudokuVariation;
 
 import java.util.concurrent.TimeUnit;
 
@@ -53,6 +54,8 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         fiveMinutes = sharedPreferences.getLong("time", 300000);
 
+        SudokuVariation sudoku = (SudokuVariation) getIntent().getSerializableExtra("sudoku");
+        getIntent().putExtra("sudoku", sudoku);
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();

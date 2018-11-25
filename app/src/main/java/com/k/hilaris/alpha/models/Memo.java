@@ -1,6 +1,8 @@
 package com.k.hilaris.alpha.models;
 
-public class Memo {
+import java.io.Serializable;
+
+public class Memo implements Serializable {
     private String number;
     private Boolean active;
     public Memo(String number, Boolean active) {

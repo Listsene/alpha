@@ -1,9 +1,10 @@
 package com.k.hilaris.alpha.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SudokuCellData {
+public class SudokuCellData implements Serializable {
     String input;
     List<Memo> memo = new ArrayList<>();
     Boolean solved = false;

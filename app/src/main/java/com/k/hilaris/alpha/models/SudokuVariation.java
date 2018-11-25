@@ -1,8 +1,9 @@
 package com.k.hilaris.alpha.models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class SudokuVariation extends Sudoku {
+public class SudokuVariation extends Sudoku implements Serializable {
     public List<String> solution;
     public String guid;
     public int score;
