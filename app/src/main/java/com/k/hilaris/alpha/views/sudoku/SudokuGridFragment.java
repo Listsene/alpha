@@ -62,6 +62,9 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
             cells = gson.fromJson(serializedObject,type);
             grid.setCells(cells);
             Adapter.notifyDataSetChanged();
+        }else if(serializedObject ==null){
+            cells = original;
+            grid.setCells(cells);
         }
 
         return view;
@@ -213,7 +216,8 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         SharedPreferences.Editor editor = pref.edit();
         editor.remove("cellDataList").apply();
         editor.remove("score").apply();
-        grid.setCells(original);
+        cells = original;
+        grid.setCells(cells);
         Adapter.notifyDataSetChanged();
         //serializedObject = pref.getString("cellDataList", null);
         //cells = new ArrayList<>();
