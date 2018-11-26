@@ -56,11 +56,13 @@ public class SudokuGridAdapter extends BaseAdapter {
 
         if(number.isEmpty() || number.matches("\\s")) { //checks for empty or white space
             cell.setText(" ");
-            cell.setBackgroundResource(R.drawable.cell_button);
+            setBackground(cell, position);
+            //cell.setBackgroundResource(R.drawable.cell_button);
         }
         else {
             cell.setText(number);
-            cell.setBackgroundResource(R.drawable.cell_button);
+            setBackground(cell, position);
+            //cell.setBackgroundResource(R.drawable.cell_button);
         }
 
 
@@ -97,8 +99,32 @@ public class SudokuGridAdapter extends BaseAdapter {
         });
         return convertView;
     }
-    public void disableCell(){
-
+    public void setBackground(Button cell, int position){
+        int location = position % 9;
+        int row;
+        if(position < 27) {
+            row = 1;
+        }
+        else if(position < 54) {
+            row = 2;
+        }
+        else {
+            row = 1;
+        }
+        if(row == 1) {
+            if ((location < 6) && (location > 2)) {
+                cell.setBackgroundResource(R.drawable.cell_button_secondary);
+            } else {
+                cell.setBackgroundResource(R.drawable.cell_button);
+            }
+        }
+        else {
+            if ((location < 6) && (location > 2)) {
+                cell.setBackgroundResource(R.drawable.cell_button);
+            } else {
+                cell.setBackgroundResource(R.drawable.cell_button_secondary);
+            }
+        }
     }
 
     public int getnSelectedPos(){
