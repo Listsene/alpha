@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Sudoku Online</string>
+
+    <!-- API Keys -->
+    <string name="google_api">AIzaSyCbo-WoI6Rhqr-sKlc4CzzD7cneeG1xvuQ</string>
+
+    <!-- Login Menu Options -->
+    <string name="email_signin">Skip</string>
+    <string name="email_signup">Sign Up</string>
+
+    <!-- Front Menu Options -->
+    <string name="single">Single Player</string>
+    <string name="multi">Muiltiplayer</string>
+    <string name="logoutbutton">Log Out</string>
+
+    <!-- SinglePlayer Options -->
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+
+    <!-- MultiPlayer Options -->
+    <string name="search">Search</string>
+    <string name="create">Create</string>
+    <string name="accept_popup_invite">Accept!</string>
+    <string name="please_wait">Please wait&#8230;</string>
+    <string name="instructions">Match start!</string>
+    <string name="click_me">Click me!</string>
+    <string name="inv_popup_text">Incoming invitation</string>
+    <string name="game_problem">Error occurred while starting game. Please try again.</string>
+
+    <!-- Input Buttons -->
+    <string name="Clear">Clear</string>
+    <string name="Memo">Memo</string>
+    <string name="Submit">Enter</string>
+
+</resources>
