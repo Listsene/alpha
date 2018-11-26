@@ -54,4 +54,8 @@ public class InputButtonsGridFragment extends Fragment {
         inputs.add(getResources().getString(R.string.Submit));
         return inputs;
     }
+
+    public InputButtonsGridAdapter getAdapter(){
+        return Adapter;
+    }
 }

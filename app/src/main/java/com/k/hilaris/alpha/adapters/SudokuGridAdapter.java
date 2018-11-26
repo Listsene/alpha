@@ -1,7 +1,9 @@
 package com.k.hilaris.alpha.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +65,19 @@ public class SudokuGridAdapter extends BaseAdapter {
             cell.setBackgroundResource(R.drawable.cell_button);
         }
 
+        Boolean isFinish;
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("pref",0);
+        isFinish = sharedPreferences.getBoolean("isFinish", false);
+        Log.d("isFinish in Adapter",String.valueOf(isFinish));
+        if(isFinish == true){
+            this.cell.setSelected(false);
+            this.cell.setEnabled(false);
+            this.notifyDataSetChanged();
+        }else if(isFinish==false){
+            this.cell.setEnabled(true);
+            this.notifyDataSetChanged();
+        }
+
 
         if(memo != null){
             for(int i = 0 ; i < memo.size() ; i++){
@@ -97,8 +112,10 @@ public class SudokuGridAdapter extends BaseAdapter {
         });
         return convertView;
     }
-    public void disableCell(){
 
+
+    public void notifyThis(){
+        this.notifyDataSetChanged();
     }
 
     public int getnSelectedPos(){

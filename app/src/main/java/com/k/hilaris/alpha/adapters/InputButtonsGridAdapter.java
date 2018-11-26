@@ -1,7 +1,10 @@
 package com.k.hilaris.alpha.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +50,21 @@ public class InputButtonsGridAdapter extends BaseAdapter {
         Button inputButton = convertView.findViewById(R.id.inputButton);
         inputButton.setText(input);
 
+
+        Boolean isFinish;
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("pref",0);
+        isFinish = sharedPreferences.getBoolean("isFinish", false);
+        Log.d("isFinish in Adapter",String.valueOf(isFinish));
+        if(isFinish == true){
+            inputButton.setEnabled(false);
+            this.notifyDataSetChanged();
+        }else if(isFinish==false){
+            inputButton.setEnabled(true);
+            this.notifyDataSetChanged();
+        }
+
+
+
         inputButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +76,9 @@ public class InputButtonsGridAdapter extends BaseAdapter {
         });
 
         return convertView;
+    }
+    public void notifyThis(){
+        this.notifyDataSetChanged();
     }
 
     @Override
