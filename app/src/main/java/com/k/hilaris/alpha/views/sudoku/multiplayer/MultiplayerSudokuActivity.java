@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -99,6 +100,11 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
                         }
                         if (key.isReadable()) {
                             String str = read(key);
+                            if(!str.equals(score)) {
+                                String nonStrange = str.replaceAll("\\p{Cntrl}", "");
+                                score = Integer.valueOf(nonStrange);
+                                Score();
+                            }
                             Log.d("Received a message", str);
                         }
                     }
@@ -191,6 +197,10 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
         messaging = new AsyncTaskForSendingMessage();
         messaging.execute();
 
+        // Dangerous, allows main thread to execute on thing.
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.SudokuGridFragment, sudokuGridFragment);
@@ -250,7 +260,15 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
     @Override
     public void sendInput(String input){
         sudokuGridFragment = (MultiplayerSudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
-        score = sudokuGridFragment.getInput(input);
-        Score();
+        //score = sudokuGridFragment.getInput(input);
+        if(score != sudokuGridFragment.getInput(input)) {
+            score = sudokuGridFragment.getInput(input);
+            try {
+                channel.write(ByteBuffer.wrap(String.valueOf(score).getBytes()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Score();
+        }
     }
 }
