@@ -21,6 +21,7 @@ public class InputButtonsGridAdapter extends BaseAdapter {
     List<String> inputs;
     InputButtonsGridFragment.InputClicked inputClicked;
     String btNum;
+    Button inputButton;
 
     public InputButtonsGridAdapter(Context mContext, List<String> inputs, InputButtonsGridFragment.InputClicked inputClicked) {
         this.mContext = mContext;
@@ -47,23 +48,10 @@ public class InputButtonsGridAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.grid_input_cell, null);
         }
 
-        Button inputButton = convertView.findViewById(R.id.inputButton);
+        inputButton = convertView.findViewById(R.id.inputButton);
         inputButton.setText(input);
 
-
-        Boolean isFinish;
-        SharedPreferences sharedPreferences = mContext.getSharedPreferences("pref",0);
-        isFinish = sharedPreferences.getBoolean("isFinish", false);
-        Log.d("isFinish in Adapter",String.valueOf(isFinish));
-        if(isFinish == true){
-            inputButton.setEnabled(false);
-            this.notifyDataSetChanged();
-        }else if(isFinish==false){
-            inputButton.setEnabled(true);
-            this.notifyDataSetChanged();
-        }
-
-
+        isFinish();
 
         inputButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +65,20 @@ public class InputButtonsGridAdapter extends BaseAdapter {
 
         return convertView;
     }
+
+    public void isFinish(){
+        Boolean isFinish;
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("pref",0);
+        isFinish = sharedPreferences.getBoolean("isFinish", false);
+        if(isFinish){
+            inputButton.setEnabled(false);
+            this.notifyDataSetChanged();
+        }else{
+            inputButton.setEnabled(true);
+            this.notifyDataSetChanged();
+        }
+    }
+
     public void notifyThis(){
         this.notifyDataSetChanged();
     }
