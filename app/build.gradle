@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'key0'
             keyPassword 'stcu7734'
-            storeFile file('C:/Users/Administrator/Desktop/stable/alpha/basic_samplekey.jks')
+            storeFile file('C:/Users/family/Desktop/real/alpha/basic_samplekey.jks')
             storePassword 'stcu7734'
         }
     }
@@ -38,7 +38,7 @@ dependencies {
     implementation "com.android.support:support-v4:${support_library_version}"
     //게임서비스
     //noinspection GradleCompatible
-    implementation 'com.google.android.gms:play-services-games:15.0.1'
+    implementation 'com.google.android.gms:play-services-games:16.0.0'
     // Google login
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     // Picasso for image handling
