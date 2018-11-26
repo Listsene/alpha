@@ -67,8 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 signIn();
                 break;
             case R.id.skip:
-                Intent intent = new Intent(this, FrontActivity.class);
-                startActivity(intent);
+                moveActivity(false);
                 break;
         }
     }
@@ -111,8 +110,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void updateUI(GoogleSignInAccount account) {
         if(account != null) {
-            Intent intent = new Intent(this, FrontActivity.class);
-            startActivity(intent);
+            moveActivity(true);
         }
         else {
             //Toast.makeText(getBaseContext(), "Sign in Failed", Toast.LENGTH_SHORT).show();
@@ -129,5 +127,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onBackPressed() {
         // Prevent user from going back to empty view
         // Do nothing on back pressed
+    }
+    void moveActivity(boolean loggedIn) {
+        Intent intent = new Intent(this, FrontActivity.class);
+        intent.putExtra("loggedIn", loggedIn);
+        startActivity(intent);
     }
 }

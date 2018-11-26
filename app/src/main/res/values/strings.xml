@@ -9,8 +9,10 @@
 
     <!-- Front Menu Options -->
     <string name="single">Single Player</string>
-    <string name="multi">Muiltiplayer</string>
+    <string name="multi">Multiplayer</string>
+    <string name="multi_disabled"><u>Requires Sign in</u></string>
     <string name="logoutbutton">Log Out</string>
+    <string name="not_logged_in">Return</string>
 
     <!-- SinglePlayer Options -->
     <string name="easy">Easy</string>

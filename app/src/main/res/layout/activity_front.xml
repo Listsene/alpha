@@ -4,29 +4,37 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/singleplayerbutton"
+        android:id="@+id/single"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@color/primary_accent"
+        android:background="@drawable/menu_button"
         android:layout_marginTop="200dp"
         android:text="@string/single" />
     <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="@string/multi"
-        android:id="@+id/multiplayerbutton"
-        android:background="@color/primary_accent"
-        android:layout_below="@+id/singleplayerbutton"
+        android:id="@+id/multi"
+        android:background="@drawable/menu_button"
+        android:layout_below="@+id/single"
         android:layout_marginTop="@dimen/button_vertical_margin"
         android:layout_centerHorizontal = "true" />
-
-    <Button
-        android:id="@+id/logoutbutton"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/primary_accent"
+        android:id="@+id/multi_disabled"
+        android:layout_below="@+id/multi"
+        android:layout_centerHorizontal= "true"
+        android:text="@string/multi_disabled"
+        android:textColor="@color/number_text"
+        android:textSize="12sp"/>
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/menu_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="13dp"
