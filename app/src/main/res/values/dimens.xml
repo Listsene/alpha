@@ -7,6 +7,7 @@
     <dimen name="row_padding_vertical">10dp</dimen>
 
     <!-- Menu Items-->
+    <dimen name="logo_size">300dp</dimen>
     <dimen name="top_margin">33dp</dimen>
 
     <!-- Buttons -->

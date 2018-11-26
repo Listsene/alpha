@@ -5,8 +5,7 @@
     <string name="google_api">AIzaSyCbo-WoI6Rhqr-sKlc4CzzD7cneeG1xvuQ</string>
 
     <!-- Login Menu Options -->
-    <string name="email_signin">Skip</string>
-    <string name="email_signup">Sign Up</string>
+    <string name="skip"><u>Skip</u></string>
 
     <!-- Front Menu Options -->
     <string name="single">Single Player</string>
