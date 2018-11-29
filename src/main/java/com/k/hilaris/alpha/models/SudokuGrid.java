@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha.models;
+package com.l.hilaris.alpha.models;
 
 import java.util.List;
 

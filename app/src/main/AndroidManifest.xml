@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.k.hilaris.alpha">
+    package="com.l.hilaris.alpha">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name="com.k.hilaris.alpha.views.MainActivity"
+            android:name="com.l.hilaris.alpha.views.MainActivity"
             android:label="Sudoku Online">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,31 +23,31 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".views.login.LoginActivity"
+            android:name="com.l.hilaris.alpha.views.login.LoginActivity"
             android:label="Login">
         </activity>
         <activity
-            android:name="com.k.hilaris.alpha.views.front.FrontActivity"
+            android:name="com.l.hilaris.alpha.views.front.FrontActivity"
             android:label="Main Menu">
         </activity>
         <activity
-            android:name="com.k.hilaris.alpha.views.singleplayer.SinglePlayerMenuActivity"
+            android:name="com.l.hilaris.alpha.views.singleplayer.SinglePlayerMenuActivity"
             android:label="Select Difficulty">
         </activity>
         <activity
-            android:name=".views.sudoku.easy.EasyListActivity"
+            android:name="com.l.hilaris.alpha.views.sudoku.easy.EasyListActivity"
             android:label="Select Easy Puzzle">
         </activity>
         <activity
-            android:name="com.k.hilaris.alpha.views.multiplayer.MultiPlayerMenuActivity"
+            android:name="com.l.hilaris.alpha.views.multiplayer.MultiPlayerMenuActivity"
             android:label="Online Session">
         </activity>
         <activity
-            android:name="com.k.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity"
+            android:name="com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity"
             android:label="Sudoku">
         </activity>
         <activity
-            android:name=".views.sudoku.multiplayer.MultiplayerSudokuActivity"
+            android:name="com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity"
             android:label="Sudoku Multiplayer">
         </activity>
     </application>

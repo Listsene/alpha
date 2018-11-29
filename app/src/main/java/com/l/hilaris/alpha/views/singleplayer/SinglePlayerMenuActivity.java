@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.l.hilaris.alpha.R;
-import com.l.hilaris.alpha.views.sudoku.SudokuActivity;
+import com.l.hilaris.alpha.views.sudoku.easy.EasyListActivity;
 
 public class SinglePlayerMenuActivity extends AppCompatActivity implements View.OnClickListener {
     private Button easy, medium, hard;
@@ -29,11 +29,14 @@ public class SinglePlayerMenuActivity extends AppCompatActivity implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.easy:
-                Intent intent = new Intent(this, SudokuActivity.class);
+                Intent intent = new Intent(this, EasyListActivity.class);
+                intent.putExtra("mode", "single");
                 startActivity(intent);
                 break;
             case R.id.medium:
-                // TODO
+                intent = new Intent(this, EasyListActivity.class);
+                intent.putExtra("mode", "multi");
+                startActivity(intent);
                 break;
             case R.id.hard:
                 // TODO
