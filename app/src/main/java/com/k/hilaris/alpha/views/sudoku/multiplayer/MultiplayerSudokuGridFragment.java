@@ -48,7 +48,6 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
         grid = (SudokuVariation) i.getSerializableExtra("sudoku");
 
         grid.setScore(score);
-        original = grid.getCells();
 
         gridView = view.findViewById(R.id.SudokuGridView);
         Adapter = new SudokuGridAdapter(getContext(), grid);
@@ -60,7 +59,7 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
             cells = gson.fromJson(serializedObject,type);
             grid.setCells(cells);
             Adapter.notifyDataSetChanged();
-        }else if(serializedObject ==null){
+        }else {
             cells = original;
             grid.setCells(cells);
         }
@@ -188,8 +187,8 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
         grid.setScore(score);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("score",score);
-        editor.commit();
+        editor.putInt("score", score);
+        editor.apply();
     }
 
     public void saveCellState(){
@@ -206,7 +205,7 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
         SharedPreferences preferences = this.getActivity().getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(key,value);
-        editor.commit();
+        editor.apply();
     }
 
     public void newGame(){
@@ -217,15 +216,22 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
         cells = original;
         grid.setCells(cells);
         Adapter.notifyDataSetChanged();
-        //serializedObject = pref.getString("cellDataList", null);
-        //cells = new ArrayList<>();
-        //grid = createSudoku();
     }
 
     public void getSavedState(){
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
         serializedObject = sharedPreferences.getString("cellDataList", null);
         score = sharedPreferences.getInt("score",0);
+
+        Gson gson = new Gson();
+        String StOriginal;
+        StOriginal = sharedPreferences.getString("original",null);
+        Type type = new TypeToken<List<SudokuCellData>>(){}.getType();
+        original = gson.fromJson(StOriginal,type);
+    }
+
+    public SudokuGridAdapter getAdapter() {
+        return Adapter;
     }
 
 }

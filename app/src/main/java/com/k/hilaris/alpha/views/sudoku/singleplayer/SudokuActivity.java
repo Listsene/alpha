@@ -24,7 +24,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     private SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
     private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
     CountDownTimer timer = null;
-    Boolean isFinish;
+    boolean isFinish;
 
     public interface onKeyBackPressedListener {
         public void onBack();
@@ -41,7 +41,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong("time",fiveMinutes);
         editor.putInt("score", score);
-        editor.commit();
+        editor.apply();
         if(mOnKeyBackPressedListener != null){
             mOnKeyBackPressedListener.onBack();
         }else{
