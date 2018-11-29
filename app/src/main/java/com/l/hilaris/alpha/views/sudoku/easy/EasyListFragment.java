@@ -119,17 +119,18 @@ public class EasyListFragment extends Fragment {
         editor.apply();
 
         // Sudoku 02
+        sudoku = new SudokuVariation();
         cells = new ArrayList<>();
         sudokuCells =
                         " |4| | |7| | |9| |" +
                         " | | | | |9|4| |5|" +
+                        "7| | |4| |1| |6|3|" +
                         "9|5| | |3| | |1|7|" +
                         " | |1| | | |3| | |" +
                         "8|7| | |6| | |5|2|" +
                         "4|8| |5| |3| | |6|" +
-                        " |9| |4| |2|8|3| |" +
-                        " | | | |8| |5| | |" +
-                        "3| | |5| |9| |2|7|";
+                        "1| |5|6| | | | | |" +
+                        " |3| | |2| | |4| |";
         splitCells = sudokuCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             cell = new SudokuCellData(splitCells[i]);
@@ -142,21 +143,50 @@ public class EasyListFragment extends Fragment {
 
         solution = new ArrayList<>();
         solCells =
-                        "4|6|9|8|2|5|7|1|3|" +
-                        "8|1|3|6|7|4|2|9|5|" +
-                        "2|7|5|9|3|1|4|6|8|" +
-                        "6|8|4|1|5|3|9|7|2|" +
-                        "9|5|2|7|4|6|3|8|1|" +
-                        "7|3|1|2|9|8|6|5|4|" +
-                        "5|9|7|4|1|2|8|3|6|" +
-                        "1|2|6|3|8|7|5|4|9|" +
-                        "3|4|8|5|6|9|1|2|7|";
+                        "5|4|2|3|7|6|1|9|8|" +
+                        "3|1|6|2|8|9|4|7|5|" +
+                        "7|9|8|4|5|1|2|6|3|" +
+                        "9|5|4|8|3|2|6|1|7|" +
+                        "2|6|1|7|9|5|3|8|4|" +
+                        "8|7|3|1|6|4|9|5|2|" +
+                        "4|8|9|5|1|3|7|2|6|" +
+                        "1|2|5|6|4|7|8|3|9|" +
+                        "6|3|7|9|2|8|5|4|1|";
         splitCells = solCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             solution.add(splitCells[i]);
         }
         sudoku.setSolution(solution);
         sudoku.setId("Sudoku 02");
+        sudokus.add(sudoku);
+
+        gson = new Gson();
+        json = gson.toJson(cells);
+        editor.putString(sudoku.getId(), json);
+        editor.apply();
+
+        // Sudoku 03
+        sudoku = new SudokuVariation();
+        cells = new ArrayList<>();
+        sudokuCells = "6   3    35 9 1 7  987 65  26     5   42 87   8     31  56 312  2 4 7 86    8   5";
+        splitCells = sudokuCells.split("[|]", 0);
+        for (int i = 0; i < splitCells.length; i++) {
+            cell = new SudokuCellData(splitCells[i]);
+            if (!cell.getInput().equals(" ")) {
+                cell.setSolved(true);
+            }
+            cells.add(cell);
+        }
+        sudoku.setCells(cells);
+
+        solution = new ArrayList<>();
+        solCells = "617835492352941678498726513261369854534218769789564231845693127123457986976182345";
+        splitCells = solCells.split("[|]", 0);
+        for (int i = 0; i < splitCells.length; i++) {
+            solution.add(splitCells[i]);
+        }
+        sudoku.setSolution(solution);
+        sudoku.setId("Sudoku 03");
         sudokus.add(sudoku);
 
         gson = new Gson();

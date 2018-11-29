@@ -42,12 +42,11 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sudoku_grid, container, false);
 
-        getSavedState();
-
         Intent i = getActivity().getIntent();
         sudoku = (SudokuVariation) i.getSerializableExtra("sudoku");
 
         sudoku.setScore(score);
+        getSavedState();
 
         gridView = view.findViewById(R.id.SudokuGridView);
         Adapter = new SudokuGridAdapter(getContext(), sudoku);
@@ -224,7 +223,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
 
         Gson gson = new Gson();
         String StOriginal;
-        StOriginal = sharedPreferences.getString("original",null);
+        StOriginal = sharedPreferences.getString(sudoku.getId(),null);
         Type type = new TypeToken<List<SudokuCellData>>(){}.getType();
         original = gson.fromJson(StOriginal,type);
     }
