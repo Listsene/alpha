@@ -2,6 +2,7 @@ package com.k.hilaris.alpha.views.sudoku.easy;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
 import com.k.hilaris.alpha.R;
 import com.k.hilaris.alpha.adapters.SudokuListAdapter;
 import com.k.hilaris.alpha.models.SudokuCellData;
@@ -87,6 +89,15 @@ public class EasyListFragment extends Fragment {
             }
         grid.setCells(cells);
 
+        Gson gson = new Gson();
+        String json = gson.toJson(cells);
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("original",json);
+        editor.commit();
+
+
+        List<String> solution = new ArrayList<>();
         String solCells =
                         "4|6|9|8|2|5|7|1|3|" +
                         "8|1|3|6|7|4|2|9|5|" +

@@ -6,8 +6,13 @@ import java.util.List;
 
 public class SudokuCellData implements Serializable {
     String input;
+    String number;
     List<Memo> memo = new ArrayList<>();
     Boolean solved = false;
+
+    public void setNumber(String number){ this.number = number; }
+
+    public String getNumber(){ return number; }
 
     public SudokuCellData(String input) {this.input = input;}
 

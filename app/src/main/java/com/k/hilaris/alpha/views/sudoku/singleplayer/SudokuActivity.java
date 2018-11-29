@@ -22,7 +22,9 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     private int score;
     long fiveMinutes;
     private SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
+    private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
     CountDownTimer timer = null;
+    Boolean isFinish;
 
     public interface onKeyBackPressedListener {
         public void onBack();
@@ -54,6 +56,8 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         fiveMinutes = sharedPreferences.getLong("time", 300000);
         score = sharedPreferences.getInt("score",0);
+        isFinish = false;
+
 
         SudokuVariation sudoku = (SudokuVariation) getIntent().getSerializableExtra("sudoku");
         getIntent().putExtra("sudoku", sudoku);
@@ -61,7 +65,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.SudokuGridFragment, sudokuGridFragment);
-        ft.add(R.id.InputButtonsFragment, new InputButtonsGridFragment());
+        ft.add(R.id.InputButtonsFragment, inputButtonsGridFragment);
         ft.commit();
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -78,16 +82,18 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resetTimer();
                 resetGrid();
+                resetTimer();
                 resetScore();
+                isFinish=false;
+                putIsFinish();
             }
         });
     }
 
     public void resetTimer(){
         timer.cancel();
-        fiveMinutes = 300000;
+        fiveMinutes = 5000;
         Timer();
     }
     public void resetGrid(){
@@ -95,6 +101,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         FragmentTransaction ft = fm.beginTransaction();
         sudokuGridFragment.newGame();
         ft.replace(R.id.SudokuGridFragment, sudokuGridFragment = new SudokuGridFragment());
+        ft.replace(R.id.InputButtonsFragment, inputButtonsGridFragment = new InputButtonsGridFragment());
         ft.commit();
     }
     public void resetScore(){
@@ -106,6 +113,10 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     public void Timer(){
         timer = new CountDownTimer(fiveMinutes, 1000) {
             public void onTick(long millisUntilFinished) {
+                isFinish = false;
+                putIsFinish();
+                sudokuGridFragment.getAdapter().notifyThis();
+                inputButtonsGridFragment.getAdapter().notifyThis();
                 long millis = millisUntilFinished;
                 String time;
                 if((TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))<10)){
@@ -118,6 +129,10 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
             }
             public void onFinish() {
                 timerTv.setText(getResources().getText(R.string.Timer_Complete));
+                isFinish=true;
+                putIsFinish();
+                sudokuGridFragment.getAdapter().notifyThis();
+                inputButtonsGridFragment.getAdapter().notifyThis();
             }
         }.start();
     }
@@ -131,5 +146,12 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
         score = sudokuGridFragment.getInput(input);
         Score();
+    }
+
+    public void putIsFinish(){
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isFinish",isFinish);
+        editor.commit();
     }
 }

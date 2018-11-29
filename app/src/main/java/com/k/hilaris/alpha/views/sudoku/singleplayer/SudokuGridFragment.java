@@ -48,7 +48,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         grid = (SudokuVariation) i.getSerializableExtra("sudoku");
 
         grid.setScore(score);
-        original = grid.getCells();
+
 
         gridView = view.findViewById(R.id.SudokuGridView);
         Adapter = new SudokuGridAdapter(getContext(), grid);
@@ -59,7 +59,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
             Type type = new TypeToken<List<SudokuCellData>>(){}.getType();
             cells = gson.fromJson(serializedObject,type);
             grid.setCells(cells);
-            Adapter.notifyDataSetChanged();
+            //Adapter.notifyDataSetChanged();
         }else if(serializedObject ==null){
             cells = original;
             grid.setCells(cells);
@@ -76,7 +76,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         } catch(ArrayIndexOutOfBoundsException exception) {
             Toast.makeText(getActivity(), "Click on a cell!", Toast.LENGTH_SHORT).show();
         }
-        String number = cellData.getInput();
+        String number = cellData.getNumber();
 
         if(solved(cellData) || !validInput(input, number)) {
             // do nothing
@@ -115,6 +115,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
                     if(number.equals(grid.getSolution().get(nSelectedPos))) {
                         cellData.clearMemo();
                         cellData.setSolved(true);
+                        cellData.setInput(cellData.getNumber());
                         score = score + 100;
                         grid.setScore(grid.getScore() + 100);
                     }
@@ -127,7 +128,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
                     Adapter.notifyDataSetChanged();
                     break;
                 default:
-                    cellData.setInput(input);
+                    cellData.setNumber(input);
             }
         }
         return grid.getScore();
@@ -136,14 +137,14 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     private Boolean validInput(String input, String number) {
         switch(input) {
             case "Memo":
-                if(number.isEmpty() || number.matches("\\s")) {
+                if(number==null || number.matches("\\s")) {
                     return false;
                 }
                 else {
                     break;
                 }
             case "Enter":
-                if(number.isEmpty() || number.matches("\\s")) {
+                if(number==null || number.matches("\\s")) {
                     return false;
                 }
                 else {
@@ -185,7 +186,6 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     }
 
     public void saveScore(int score){
-        grid.setScore(score);
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("score",score);
@@ -226,6 +226,16 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
         serializedObject = sharedPreferences.getString("cellDataList", null);
         score = sharedPreferences.getInt("score",0);
+
+        Gson gson = new Gson();
+        String StOriginal;
+        StOriginal = sharedPreferences.getString("original",null);
+        Type type = new TypeToken<List<SudokuCellData>>(){}.getType();
+        original = gson.fromJson(StOriginal,type);
+    }
+
+    public SudokuGridAdapter getAdapter() {
+        return Adapter;
     }
 
     private String createGUID(SudokuVariation sv) {
