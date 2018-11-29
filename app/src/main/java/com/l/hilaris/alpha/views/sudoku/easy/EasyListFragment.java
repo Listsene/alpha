@@ -168,7 +168,15 @@ public class EasyListFragment extends Fragment {
         // Sudoku 03
         sudoku = new SudokuVariation();
         cells = new ArrayList<>();
-        sudokuCells = "6   3    35 9 1 7  987 65  26     5   42 87   8     31  56 312  2 4 7 86    8   5";
+        sudokuCells =   "6| | | |3| | | | |" +
+                        "3|5| |9| |1| |7| |" +
+                        " |9|8|7| |6|5| | |" +
+                        "2|6| | | | | |5| |" +
+                        " | |4|2| |8|7| | |" +
+                        " |8| | | | | |3|1|" +
+                        " | |5|6| |3|1|2| |" +
+                        " |2| |4| |7| |8|6|" +
+                        " | | | |8| | | |5|";
         splitCells = sudokuCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             cell = new SudokuCellData(splitCells[i]);
@@ -180,7 +188,15 @@ public class EasyListFragment extends Fragment {
         sudoku.setCells(cells);
 
         solution = new ArrayList<>();
-        solCells = "617835492352941678498726513261369854534218769789564231845693127123457986976182345";
+        solCells = "6|1|7|8|3|5|4|9|2|" +
+                    "3|5|2|9|4|1|6|7|8|" +
+                    "4|9|8|7|2|6|5|1|3|" +
+                    "2|6|1|3|6|9|8|5|4|" +
+                    "5|3|4|2|1|8|7|6|9|" +
+                    "7|8|9|5|6|4|2|3|1|" +
+                    "8|4|5|6|9|3|1|2|7|" +
+                    "1|2|3|4|5|7|9|8|6|" +
+                    "9|7|6|1|8|2|3|4|5|";
         splitCells = solCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             solution.add(splitCells[i]);
