@@ -97,7 +97,7 @@ public class EasyListFragment extends Fragment {
         editor.commit();
 
 
-        List<String> solution = new ArrayList<>();
+        solution = new ArrayList<>();
         String solCells =
                         "4|6|9|8|2|5|7|1|3|" +
                         "8|1|3|6|7|4|2|9|5|" +

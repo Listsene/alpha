@@ -44,7 +44,8 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
     AsyncTaskForSendingMessage messaging;
     SocketChannel channel;
     Selector selector;
-    final static String HOSTNAME = "10.0.2.2";
+    //final static String HOSTNAME = "10.0.2.2";
+    final static String HOSTNAME = "ec2-13-209-98-37.ap-northeast-2.compute.amazonaws.com";
     final static int PORT = 3000;
 
     class AsyncTaskForSendingMessage extends AsyncTask<Void, Void, Void> {

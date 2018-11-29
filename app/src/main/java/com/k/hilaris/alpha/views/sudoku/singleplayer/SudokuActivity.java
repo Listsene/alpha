@@ -58,7 +58,6 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         score = sharedPreferences.getInt("score",0);
         isFinish = false;
 
-
         SudokuVariation sudoku = (SudokuVariation) getIntent().getSerializableExtra("sudoku");
         getIntent().putExtra("sudoku", sudoku);
 
@@ -93,7 +92,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
     public void resetTimer(){
         timer.cancel();
-        fiveMinutes = 5000;
+        fiveMinutes = 300000;
         Timer();
     }
     public void resetGrid(){

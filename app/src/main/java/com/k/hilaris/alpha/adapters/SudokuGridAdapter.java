@@ -102,32 +102,30 @@ public class SudokuGridAdapter extends BaseAdapter {
         });
         return convertView;
     }
-    public void setBackground(Button cell, int position){
+    public void setBackground(Button cell, int position) {
         int location = position % 9;
         int row;
-        if(position < 27) {
+        if (position < 27) {
             row = 1;
-        }
-        else if(position < 54) {
+        } else if (position < 54) {
             row = 2;
-        }
-        else {
+        } else {
             row = 1;
         }
-        if(row == 1) {
+        if (row == 1) {
             if ((location < 6) && (location > 2)) {
                 cell.setBackgroundResource(R.drawable.cell_button_secondary);
             } else {
                 cell.setBackgroundResource(R.drawable.cell_button);
             }
-        }
-        else {
+        } else {
             if ((location < 6) && (location > 2)) {
                 cell.setBackgroundResource(R.drawable.cell_button);
             } else {
                 cell.setBackgroundResource(R.drawable.cell_button_secondary);
             }
         }
+    }
     public void isFinish(){
         Boolean isFinish;
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("pref",0);
