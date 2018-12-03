@@ -129,4 +129,6 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         }
         findViewById(R.id.invitation_popup).setVisibility(showInvPopup ? View.VISIBLE : View.GONE);
     }
+    void resetGameVars() {
+    }
 }
