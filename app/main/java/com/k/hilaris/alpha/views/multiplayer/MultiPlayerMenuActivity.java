@@ -141,6 +141,10 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         }
         Log.d(TAG, "Select players succeeded.");
 
+        // 초대리스트
+        final ArrayList<String> invitees = data.getStringArrayListExtra(Games.EXTRA_PLAYER_IDS);
+        Log.d(TAG, "Invitee count: " + invitees.size());
+
     }
 
     void startQuickGame() {
