@@ -155,6 +155,19 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
                     minAutoMatchPlayers, maxAutoMatchPlayers, 0);
             Log.d(TAG, "Automatch criteria: " + autoMatchCriteria);
         }
+        // 방생성
+        Log.d(TAG, "Please wait.. we are creating room");
+        switchToScreen(R.id.screen_wait);
+        keepScreenOn();
+        resetGameVars();
+
+        Roomconfig = RoomConfig.builder(mRoomUpdateCallback)
+                .addPlayersToInvite(invitees)
+                .setOnMessageReceivedListener(mOnRealTimeMessageReceivedListener)
+                .setRoomStatusUpdateCallback(mRoomStatusUpdateCallback)
+                .setAutoMatchCriteria(autoMatchCriteria).build();
+        RealtimeMultiplayClient.create(Roomconfig);
+        Log.d(TAG, "Room creation completed");
     }
 
     void startQuickGame() {
