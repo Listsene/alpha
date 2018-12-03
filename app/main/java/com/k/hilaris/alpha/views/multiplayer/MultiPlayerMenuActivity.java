@@ -81,12 +81,30 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.search:
-                // TODO
+                startQuickGame();
                 break;
             case R.id.create:
                 // TODO
                 break;
 
         }
+    }
+
+
+    void startQuickGame() {
+        //1명의 랜덤으로 선택된 적과 게임 시작.
+        final int MIN_OPPONENTS = 1, MAX_OPPONENTS = 1;
+        Bundle autoMatchCriteria = RoomConfig.createAutoMatchCriteria(MIN_OPPONENTS,
+                MAX_OPPONENTS, 0);
+        switchToScreen(R.id.screen_wait);
+        keepScreenOn();
+        resetGameVars();
+
+        Roomconfig = RoomConfig.builder(mRoomUpdateCallback)
+                .setOnMessageReceivedListener(mOnRealTimeMessageReceivedListener)
+                .setRoomStatusUpdateCallback(mRoomStatusUpdateCallback)
+                .setAutoMatchCriteria(autoMatchCriteria)
+                .build();
+        RealtimeMultiplayClient.create(Roomconfig);
     }
 }
