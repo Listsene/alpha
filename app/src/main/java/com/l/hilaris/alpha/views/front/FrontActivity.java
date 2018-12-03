@@ -36,9 +36,9 @@ public class FrontActivity extends AppCompatActivity implements View.OnClickList
 
         loggedIn = (boolean) getIntent().getSerializableExtra("loggedIn");
 
-        single = findViewById(R.id.singleplayerbutton);
-        multi = findViewById(R.id.multiplayerbutton);
-        logoutbutton = findViewById(R.id.logoutbutton);
+        single = findViewById(R.id.single);
+        multi = findViewById(R.id.multi);
+        logoutbutton = findViewById(R.id.logout);
         disabled = findViewById(R.id.multi_disabled);
         disabled.setVisibility(View.INVISIBLE);
 
@@ -56,17 +56,17 @@ public class FrontActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.singleplayerbutton:
+            case R.id.single:
                 Intent intent = new Intent(this, SinglePlayerMenuActivity.class);
                 startActivity(intent);
                 break;
 
-            case R.id.multiplayerbutton:
+            case R.id.multi:
                 intent = new Intent(this, MultiPlayerMenuActivity.class);
                 startActivity(intent);
                 break;
 
-            case R.id.logoutbutton:
+            case R.id.logout:
                 if(loggedIn) {
                     Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                             new ResultCallback<Status>() {
