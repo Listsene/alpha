@@ -16,8 +16,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-<<<<<<< HEAD:app/src/main/java/com/l/hilaris/alpha/views/multiplayer/MultiPlayerMenuActivity.java:app/src/main/java/com/l/hilaris/alpha/views/multiplayer/MultiPlayerMenuActivity.java
-        =======
 import android.view.WindowManager;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.games.Games;
@@ -39,7 +37,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
 
->>>>>>> f6ceb98601346f940324a287fc08b7f1abc794a8:app/main/java/com/k/hilaris/alpha/views/multiplayer/MultiPlayerMenuActivity.java:app/main/java/com/k/hilaris/alpha/views/multiplayer/MultiPlayerMenuActivity.java
 import com.l.hilaris.alpha.R;
 
 public class MultiPlayerMenuActivity extends AppCompatActivity implements View.OnClickListener {
@@ -109,6 +106,15 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             }
         };
     }
+    private void handleException(Exception exception, String details) {
+        int status = 0;
+
+        if (exception instanceof ApiException) {
+            ApiException apiException = (ApiException) exception;
+            status = apiException.getStatusCode();
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
@@ -131,6 +137,31 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         super.onActivityResult(requestCode, resultCode, intent);
     }
 
+    void startGame(boolean multiplayer) {
+        MultiPlayer = multiplayer;
+
+        Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
+        startActivity(intent);
+    }
+
+    // 방나감.
+    void leaveRoom() {
+        Log.d(TAG, "Leaving room.");
+        stopKeepingScreenOn();
+        if (RoomID != null) {
+            RealtimeMultiplayClient.leave(Roomconfig, RoomID)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            RoomID = null;
+                            Roomconfig = null;
+                        }
+                    });
+            switchToScreen(R.id.screen_wait);
+        } else {
+            switchToMainScreen();
+        }
+    }
     //친구초대버
     private void handleSelectPlayersResult(int response, Intent data) {
         if (response != Activity.RESULT_OK) {
@@ -325,6 +356,11 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         @Override
         public void onRoomAutoMatching(Room room) {
             updateRoom(room);
+        }
+
+        @Override
+        public void onPeerInvitedToRoom(@Nullable Room room, @NonNull List<String> list) {
+
         }
 
     };
