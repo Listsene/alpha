@@ -206,4 +206,16 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
     }
     void resetGameVars() {
     }
+
+    private RoomUpdateCallback mRoomUpdateCallback = new RoomUpdateCallback() {
+        //방생성시
+        @Override
+        public void onRoomCreated(int statusCode, Room room) {
+            Log.d(TAG, "onRoomCreated(" + statusCode + ", " + room + ")");
+            if (statusCode != GamesCallbackStatusCodes.OK) {
+                Log.e(TAG, "Error in onRoomCreated, status " + statusCode);
+                showGameError();
+                return;
+            }
+    };
 }
