@@ -1,6 +1,7 @@
 package com.l.hilaris.alpha.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ public class InputButtonsGridAdapter extends BaseAdapter {
     List<String> inputs;
     InputButtonsGridFragment.InputClicked inputClicked;
     String btNum;
+    Button inputButton;
 
     public InputButtonsGridAdapter(Context mContext, List<String> inputs, InputButtonsGridFragment.InputClicked inputClicked) {
         this.mContext = mContext;
@@ -43,8 +45,10 @@ public class InputButtonsGridAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.grid_input_cell, null);
         }
 
-        Button inputButton = convertView.findViewById(R.id.inputButton);
+        inputButton = convertView.findViewById(R.id.inputButton);
         inputButton.setText(input);
+
+        isFinish();
 
         inputButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +61,23 @@ public class InputButtonsGridAdapter extends BaseAdapter {
         });
 
         return convertView;
+    }
+
+    public void isFinish(){
+        Boolean isFinish;
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("pref",0);
+        isFinish = sharedPreferences.getBoolean("isFinish", false);
+        if(isFinish){
+            inputButton.setEnabled(false);
+            this.notifyDataSetChanged();
+        }else{
+            inputButton.setEnabled(true);
+            this.notifyDataSetChanged();
+        }
+    }
+
+    public void notifyThis(){
+        this.notifyDataSetChanged();
     }
 
     @Override

@@ -13,7 +13,7 @@
     <item android:drawable="@color/cell_background"
         android:state_enabled="true" />
 
-    <item android:drawable="@color/cell_background"
+    <item android:drawable="@color/cell_disabled"
         android:state_enabled="false"/>
 
     <item android:drawable="@color/cell_background"

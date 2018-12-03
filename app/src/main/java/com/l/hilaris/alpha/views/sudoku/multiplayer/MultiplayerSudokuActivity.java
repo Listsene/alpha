@@ -33,40 +33,19 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
     private int score;
     long fiveMinutes;
     private MultiplayerSudokuGridFragment sudokuGridFragment = new MultiplayerSudokuGridFragment();
+    private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
     CountDownTimer timer = null;
-    String time;
+    boolean isFinish;
 
     // For connection with server
-    ConnectionToServer connection;
-    AsyncTaskForSendingMessage messaging;
+    Server connection;
     SocketChannel channel;
     Selector selector;
-    final static String HOSTNAME = "10.0.2.2";
+    //final static String HOSTNAME = "10.0.2.2"; // emulator
+    final static String HOSTNAME = "ec2-13-209-98-37.ap-northeast-2.compute.amazonaws.com";
     final static int PORT = 3000;
 
-    class AsyncTaskForSendingMessage extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                while (true){
-                    wait(1000);
-                    writeMessage(time);
-                    break;
-                }
-            } catch (InterruptedException e){
-                e.printStackTrace();
-            }
-            return null;
-        }
-        void writeMessage(String str) {
-            try {
-                channel.write(ByteBuffer.wrap(str.getBytes()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    class ConnectionToServer extends AsyncTask<Void, Void, Void> {
+    class Server extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
@@ -97,11 +76,11 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
                         }
                         if (key.isReadable()) {
                             String str = read(key);
-                            if(!str.equals(score)) {
-                                String nonStrange = str.replaceAll("\\p{Cntrl}", "");
-                                score = Integer.valueOf(nonStrange);
-                                Score();
-                            }
+                        /*if(!str.equals(score)) {
+                            String nonStrange = str.replaceAll("\\p{Cntrl}", ""); // gets rid of special character (diamond question mark)
+                            score = Integer.valueOf(nonStrange);
+                            Score();
+                        }*/
                             Log.d("Received a message", str);
                         }
                     }
@@ -158,10 +137,12 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
             }
         }
     }
+
     public interface onKeyBackPressedListener {
-        public void onBack();
+        void onBack();
     }
     private onKeyBackPressedListener mOnKeyBackPressedListener;
+
     public void setOnKeyBackPressedListener(onKeyBackPressedListener listener){
         mOnKeyBackPressedListener = listener;
     }
@@ -170,7 +151,8 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong("time",fiveMinutes);
-        editor.commit();
+        editor.putInt("score", score);
+        editor.apply();
         if(mOnKeyBackPressedListener != null){
             mOnKeyBackPressedListener.onBack();
         }else{
@@ -184,15 +166,15 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
         setContentView(R.layout.activity_sudoku);
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         fiveMinutes = sharedPreferences.getLong("time", 300000);
+        score = sharedPreferences.getInt("score",0);
+        isFinish = false;
 
         SudokuVariation sudoku = (SudokuVariation) getIntent().getSerializableExtra("sudoku");
         getIntent().putExtra("sudoku", sudoku);
 
         // server
-        connection = new ConnectionToServer();
+        connection = new Server();
         connection.execute();
-        messaging = new AsyncTaskForSendingMessage();
-        messaging.execute();
 
         // Dangerous, allows main thread to execute on thing.
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -201,7 +183,7 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.SudokuGridFragment, sudokuGridFragment);
-        ft.add(R.id.InputButtonsFragment, new InputButtonsGridFragment());
+        ft.add(R.id.InputButtonsFragment, inputButtonsGridFragment);
         ft.commit();
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -218,23 +200,41 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timer.cancel();
-                fiveMinutes = 300000;
-                Timer();
-                FragmentManager fm = getFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                sudokuGridFragment.newGame();
-                ft.replace(R.id.SudokuGridFragment, sudokuGridFragment = new MultiplayerSudokuGridFragment());
-                ft.commit();
+                resetGrid();
+                resetTimer();
+                resetScore();
+                isFinish=false;
+                putIsFinish();
             }
         });
     }
 
-
+    public void resetTimer(){
+        timer.cancel();
+        fiveMinutes = 300000;
+        Timer();
+    }
+    public void resetGrid(){
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        sudokuGridFragment.newGame();
+        ft.replace(R.id.SudokuGridFragment, sudokuGridFragment = new MultiplayerSudokuGridFragment());
+        ft.replace(R.id.InputButtonsFragment, inputButtonsGridFragment = new InputButtonsGridFragment());
+        ft.commit();
+    }
+    public void resetScore(){
+        score = 0;
+        scoreTv.setText(String.valueOf(score));
+    }
     public void Timer(){
         timer = new CountDownTimer(fiveMinutes, 1000) {
             public void onTick(long millisUntilFinished) {
+                isFinish = false;
+                putIsFinish();
+                sudokuGridFragment.getAdapter().notifyThis();
+                inputButtonsGridFragment.getAdapter().notifyThis();
                 long millis = millisUntilFinished;
+                String time;
                 if((TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis))<10)){
                     time =  "0"+ (TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)))+":0"+ (TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
                 }else{
@@ -242,17 +242,19 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
                 }
                 timerTv.setText(time);
                 fiveMinutes = millis;
-//                connection.writeMessage(time);
             }
             public void onFinish() {
                 timerTv.setText(getResources().getText(R.string.Timer_Complete));
+                isFinish=true;
+                putIsFinish();
+                sudokuGridFragment.getAdapter().notifyThis();
+                inputButtonsGridFragment.getAdapter().notifyThis();
             }
         }.start();
     }
     public void Score() {
         scoreTv.setText(String.valueOf(score));
     }
-
 
     @Override
     public void sendInput(String input){
@@ -267,5 +269,11 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
             }
             Score();
         }
+    }
+    public void putIsFinish(){
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isFinish",isFinish);
+        editor.commit();
     }
 }

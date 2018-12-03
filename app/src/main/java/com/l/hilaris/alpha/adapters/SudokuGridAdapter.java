@@ -1,6 +1,10 @@
 package com.l.hilaris.alpha.adapters;
 
 import android.content.Context;
+<<<<<<< HEAD:app/src/main/java/com/l/hilaris/alpha/adapters/SudokuGridAdapter.java
+=======
+import android.content.SharedPreferences;
+>>>>>>> f6ceb98601346f940324a287fc08b7f1abc794a8:app/src/main/java/com/l/hilaris/alpha/adapters/SudokuGridAdapter.java
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,6 +65,8 @@ public class SudokuGridAdapter extends BaseAdapter {
             setBackground(cell, position);
         }
 
+        isFinish();
+
 
         if(memo != null){
             for(int i = 0 ; i < memo.size() ; i++){
@@ -95,32 +101,46 @@ public class SudokuGridAdapter extends BaseAdapter {
         });
         return convertView;
     }
-    public void setBackground(Button cell, int position){
+    public void setBackground(Button cell, int position) {
         int location = position % 9;
         int row;
-        if(position < 27) {
+        if (position < 27) {
             row = 1;
-        }
-        else if(position < 54) {
+        } else if (position < 54) {
             row = 2;
-        }
-        else {
+        } else {
             row = 1;
         }
-        if(row == 1) {
+        if (row == 1) {
             if ((location < 6) && (location > 2)) {
                 cell.setBackgroundResource(R.drawable.cell_button_secondary);
             } else {
                 cell.setBackgroundResource(R.drawable.cell_button);
             }
-        }
-        else {
+        } else {
             if ((location < 6) && (location > 2)) {
                 cell.setBackgroundResource(R.drawable.cell_button);
             } else {
                 cell.setBackgroundResource(R.drawable.cell_button_secondary);
             }
         }
+    }
+    public void isFinish(){
+        Boolean isFinish;
+        SharedPreferences sharedPreferences = mContext.getSharedPreferences("pref",0);
+        isFinish = sharedPreferences.getBoolean("isFinish", false);
+        if(isFinish){
+            this.cell.setSelected(false);
+            this.cell.setEnabled(false);
+            this.notifyDataSetChanged();
+        }else{
+            this.cell.setEnabled(true);
+            this.notifyDataSetChanged();
+        }
+    }
+
+    public void notifyThis(){
+        this.notifyDataSetChanged();
     }
 
     public int getnSelectedPos(){
