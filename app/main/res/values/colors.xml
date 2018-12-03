@@ -46,4 +46,13 @@
     <color name="number_text">#0071BC</color>
     <color name="cell_background">#A9DDF3</color>
     <color name="cell_border">#29ABE2</color>
+    <color name="transparent">#0000</color>
+
+    <!--matchup colors-->
+    <color name="AccentColor">#cc0000</color>
+    <color name="PopupColor">@color/colorAccent</color>
+    <color name="PopupTextColor">#ffffff</color>
+    <color name="ButtonTextColor">#ffffff</color>
+    <color name="BlurbColor">#a0a0a0</color>
+
 </resources>
