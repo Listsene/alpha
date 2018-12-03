@@ -43,8 +43,7 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
     private Button search, create;
     final static String TAG = "Suodoku Online";
     final static int Select_Players_Requset = 10000;
-    final static int Invitation_popup_Reqeust = 10001;
-    final static int Waiting_Room_Request = 10002;
+    final static int Waiting_Room_Request = 10001;
 
     private RealTimeMultiplayerClient RealtimeMultiplayClient = null;
     // 멀티플레이 시스템에 요청하는 클라이언트
@@ -114,11 +113,8 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             //플레이 선택준비 완료시
             handleSelectPlayersResult(resultCode, intent);
 
-        } else if (requestCode == Invitation_popup_Reqeust) {
-            // 초대수락팝업
-            handleInvitationInboxResult(resultCode, intent);
-
-        } else if (requestCode == Waiting_Room_Request) {
+        }
+        else if (requestCode == Waiting_Room_Request) {
             //대기실
             if (resultCode == Activity.RESULT_OK) {
                 // 플레이 시작 준비
