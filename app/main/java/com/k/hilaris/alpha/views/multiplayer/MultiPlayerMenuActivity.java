@@ -282,6 +282,13 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
                 RoomID = room.getRoomId();
             }
         }
+        //연결끊겼을때
+        @Override
+        public void onDisconnectedFromRoom(Room room) {
+            RoomID = null;
+            Roomconfig = null;
+            showGameError();
+        }
     };
 
     OnRealTimeMessageReceivedListener mOnRealTimeMessageReceivedListener = new OnRealTimeMessageReceivedListener() {
