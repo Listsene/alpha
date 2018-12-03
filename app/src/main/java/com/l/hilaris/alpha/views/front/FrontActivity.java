@@ -39,7 +39,7 @@ public class FrontActivity extends AppCompatActivity implements View.OnClickList
         single = findViewById(R.id.singleplayerbutton);
         multi = findViewById(R.id.multiplayerbutton);
         logoutbutton = findViewById(R.id.logoutbutton);
-        //disabled = findViewById(R.id.multi_disabled);
+        disabled = findViewById(R.id.multi_disabled);
         disabled.setVisibility(View.INVISIBLE);
 
         single.setOnClickListener(this);
