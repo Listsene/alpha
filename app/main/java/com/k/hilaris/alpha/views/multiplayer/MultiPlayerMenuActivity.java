@@ -132,6 +132,17 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         super.onActivityResult(requestCode, resultCode, intent);
     }
 
+    //친구초대버
+    private void handleSelectPlayersResult(int response, Intent data) {
+        if (response != Activity.RESULT_OK) {
+            Log.w(TAG, "selecting players cancelled, " + response);
+            switchToMainScreen();
+            return;
+        }
+        Log.d(TAG, "Select players succeeded.");
+
+    }
+
     void startQuickGame() {
         //1명의 랜덤으로 선택된 적과 게임 시작.
         final int MIN_OPPONENTS = 1, MAX_OPPONENTS = 1;
