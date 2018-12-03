@@ -258,4 +258,7 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             String sender = realTimeMessage.getSenderParticipantId();
         }
     };
+    void stopKeepingScreenOn() {
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
 }
