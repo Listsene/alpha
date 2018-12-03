@@ -1,10 +1,7 @@
 package com.l.hilaris.alpha.adapters;
 
 import android.content.Context;
-<<<<<<< HEAD:app/src/main/java/com/l/hilaris/alpha/adapters/SudokuGridAdapter.java
-=======
 import android.content.SharedPreferences;
->>>>>>> f6ceb98601346f940324a287fc08b7f1abc794a8:app/src/main/java/com/l/hilaris/alpha/adapters/SudokuGridAdapter.java
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
