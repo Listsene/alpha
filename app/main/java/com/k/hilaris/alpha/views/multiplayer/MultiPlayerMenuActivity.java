@@ -112,4 +112,21 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             R.id.screen_game, R.id.screen_wait
     };
     int mCurScreen = -1;
+
+    void switchToScreen(int screenId) {
+        for (int id : SCREENS) {
+            findViewById(id).setVisibility(screenId == id ? View.VISIBLE : View.GONE);
+        }
+        mCurScreen = screenId;
+
+        boolean showInvPopup;
+        if (ReceivingInvitationID == null) {
+            showInvPopup = false;
+        } else if (MultiPlayer) {
+            showInvPopup = (mCurScreen == R.id.easy);
+        } else {
+            showInvPopup = (mCurScreen == R.id.easy || mCurScreen == R.id.screen_game);
+        }
+        findViewById(R.id.invitation_popup).setVisibility(showInvPopup ? View.VISIBLE : View.GONE);
+    }
 }
