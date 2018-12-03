@@ -33,7 +33,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-games:16.0.0'
     // Google login
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.5'
     //firebase core
 
     // Picasso for image handling
