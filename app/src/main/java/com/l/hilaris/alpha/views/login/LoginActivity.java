@@ -5,15 +5,12 @@ Login Activity through Google sign in
 
  */
 import android.content.Intent;
-import android.content.res.Resources;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -26,17 +23,17 @@ import com.l.hilaris.alpha.views.front.FrontActivity;
 import com.l.hilaris.alpha.R;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
     private GoogleSignInClient mGoogleSignInClient;
     private SignInButton google_sign_in;
-    private Button login, signUp;
+    private Button login;
     private ImageView logo;
     private static final int RC_SIGN_IN = 9001;  // Google's sign in code thing
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
@@ -49,15 +46,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         logo = findViewById(R.id.logo);
         Picasso.get().load(R.drawable.logo).resize(800, 800).into(logo); // original image is 1890x1417
 
-        //Picasso.get().load(R.drawable.logo).into(logo);
-
-
         google_sign_in = findViewById(R.id.google_sign_in);
         google_sign_in.setOnClickListener(this);
-        login = findViewById(R.id.email_sign_in);
+        login = findViewById(R.id.skip);
         login.setOnClickListener(this);
-        signUp = findViewById(R.id.sign_up);
-        signUp.setOnClickListener(this);
     }
 
     private void signIn() {
@@ -71,13 +63,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.google_sign_in:
                 signIn();
                 break;
-            case R.id.email_sign_in:
-                Intent intent = new Intent(this, FrontActivity.class);
-                startActivity(intent);
+            case R.id.skip:
+                moveActivity(false);
                 break;
-            case R.id.sign_up:
-                // TODO
-                Toast.makeText(getBaseContext(), "Not yet Implemented", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -119,8 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void updateUI(GoogleSignInAccount account) {
         if(account != null) {
-            Intent intent = new Intent(this, FrontActivity.class);
-            startActivity(intent);
+            moveActivity(true);
         }
         else {
             //Toast.makeText(getBaseContext(), "Sign in Failed", Toast.LENGTH_SHORT).show();
@@ -131,5 +118,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Prevent user from going back to empty view
+        // Do nothing on back pressed
+    }
+    void moveActivity(boolean loggedIn) {
+        Intent intent = new Intent(this, FrontActivity.class);
+        intent.putExtra("loggedIn", loggedIn);
+        startActivity(intent);
     }
 }

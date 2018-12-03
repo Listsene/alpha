@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha.views.multiplayer;
+package com.l.hilaris.alpha.views.multiplayer;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -37,7 +37,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
 
-import com.k.hilaris.alpha.R;
+import com.l.hilaris.alpha.R;
 
 public class MultiPlayerMenuActivity extends AppCompatActivity implements View.OnClickListener {
     private Button search, create;

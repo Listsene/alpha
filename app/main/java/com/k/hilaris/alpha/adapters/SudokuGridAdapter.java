@@ -1,4 +1,4 @@
-package com.k.hilaris.alpha.adapters;
+package com.l.hilaris.alpha.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.k.hilaris.alpha.models.Sudoku;
-import com.k.hilaris.alpha.R;
+import com.l.hilaris.alpha.models.Sudoku;
+import com.l.hilaris.alpha.R;
 
 
 public class SudokuGridAdapter extends BaseAdapter {
