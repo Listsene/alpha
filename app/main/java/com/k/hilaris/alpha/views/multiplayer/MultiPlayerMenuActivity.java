@@ -99,6 +99,14 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
 
         }
     }
+    private OnFailureListener createFailureListener(final String string) {
+        return new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                handleException(e, string);
+            }
+        };
+    }
 
 
     void startQuickGame() {
