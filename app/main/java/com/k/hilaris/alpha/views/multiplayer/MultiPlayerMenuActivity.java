@@ -84,7 +84,17 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
                 startQuickGame();
                 break;
             case R.id.create:
-                // TODO
+                // 방생성
+                switchToScreen(R.id.screen_wait);
+                // 플레이어 목록보여주기
+                RealtimeMultiplayClient.getSelectOpponentsIntent(1, 3).addOnSuccessListener(
+                        new OnSuccessListener<Intent>() {
+                            @Override
+                            public void onSuccess(Intent intent) {
+                                startActivityForResult(intent, Select_Players_Requset);
+                            }
+                        }
+                ).addOnFailureListener(createFailureListener("error in selecting players"));
                 break;
 
         }
