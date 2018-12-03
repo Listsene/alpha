@@ -232,5 +232,22 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             }
             updateRoom(room);
         }
+
+        @Override
+        public void onJoinedRoom(int statusCode, Room room) {
+            Log.d(TAG, "onJoinedRoom(" + statusCode + ", " + room + ")");
+            if (statusCode != GamesCallbackStatusCodes.OK) {
+                Log.e(TAG, "Error in onRoomConnected, status " + statusCode);
+                showGameError();
+                return;
+            }
+            showWaitingRoom(room);
+        }
+        //방나갔을때
+        @Override
+        public void onLeftRoom(int statusCode, @NonNull String roomId) {
+            Log.d(TAG, "onLeftRoom, code " + statusCode);
+            switchToMainScreen();
+        }
     };
 }
