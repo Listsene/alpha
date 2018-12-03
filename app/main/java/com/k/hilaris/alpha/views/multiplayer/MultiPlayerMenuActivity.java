@@ -268,6 +268,22 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         }
     };
 
+    private String PlayerId;
+
+    private RoomStatusUpdateCallback mRoomStatusUpdateCallback = new RoomStatusUpdateCallback() {
+        @Override
+        public void onConnectedToRoom(Room room) {
+            Log.d(TAG, "onConnectedToRoom.");
+
+            CurrentParticipants = room.getParticipants();
+            CurrentMyId= room.getParticipantId(PlayerId);
+
+            if (RoomID == null) {
+                RoomID = room.getRoomId();
+            }
+        }
+    };
+
     OnRealTimeMessageReceivedListener mOnRealTimeMessageReceivedListener = new OnRealTimeMessageReceivedListener() {
         @Override
         public void onRealTimeMessageReceived(@NonNull RealTimeMessage realTimeMessage) {
