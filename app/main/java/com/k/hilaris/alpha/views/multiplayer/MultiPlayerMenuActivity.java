@@ -111,4 +111,5 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
     final static int[] SCREENS = {
             R.id.screen_game, R.id.screen_wait
     };
+    int mCurScreen = -1;
 }
