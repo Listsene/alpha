@@ -217,5 +217,8 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
                 showGameError();
                 return;
             }
+            // 방 나갈때
+            showWaitingRoom(room);
+        }
     };
 }
