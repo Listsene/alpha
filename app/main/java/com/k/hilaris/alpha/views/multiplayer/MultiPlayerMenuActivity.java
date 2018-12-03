@@ -263,6 +263,14 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             String sender = realTimeMessage.getSenderParticipantId();
         }
     };
+    // 게임취소시 에러표시, 메인으로 복귀
+    void showGameError() {
+        new AlertDialog.Builder(this)
+                .setMessage(getString(R.string.game_problem))
+                .setNeutralButton(android.R.string.ok, null).create();
+
+        switchToMainScreen();
+    }
     void stopKeepingScreenOn() {
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
