@@ -107,7 +107,30 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             }
         };
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 
+        if (requestCode == Select_Players_Requset) {
+            //플레이 선택준비 완료시
+            handleSelectPlayersResult(resultCode, intent);
+
+        } else if (requestCode == Invitation_popup_Reqeust) {
+            // 초대수락팝업
+            handleInvitationInboxResult(resultCode, intent);
+
+        } else if (requestCode == Waiting_Room_Request) {
+            //대기실
+            if (resultCode == Activity.RESULT_OK) {
+                // 플레이 시작 준비
+                Log.d(TAG, "Start game.");
+                startGame(true);
+            } else if (resultCode == GamesActivityResultCodes.RESULT_LEFT_ROOM) {
+                //방나갈떄
+                leaveRoom();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, intent);
+    }
 
     void startQuickGame() {
         //1명의 랜덤으로 선택된 적과 게임 시작.
