@@ -250,4 +250,12 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             switchToMainScreen();
         }
     };
+
+    OnRealTimeMessageReceivedListener mOnRealTimeMessageReceivedListener = new OnRealTimeMessageReceivedListener() {
+        @Override
+        public void onRealTimeMessageReceived(@NonNull RealTimeMessage realTimeMessage) {
+            byte[] buf = realTimeMessage.getMessageData();
+            String sender = realTimeMessage.getSenderParticipantId();
+        }
+    };
 }
