@@ -289,6 +289,25 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             Roomconfig = null;
             showGameError();
         }
+        @Override
+        public void onRoomConnecting(Room room) {
+            updateRoom(room);
+        }
+        @Override
+        public void onP2PConnected(@NonNull String participant) {
+        }
+        @Override
+        public void onP2PDisconnected(@NonNull String participant) {
+        }
+        @Override
+        public void onPeersConnected(Room room, @NonNull List<String> peers) {
+            updateRoom(room);
+        }
+        @Override
+        public void onPeersDisconnected(Room room, @NonNull List<String> peers) {
+            updateRoom(room);
+        }
+
     };
 
     OnRealTimeMessageReceivedListener mOnRealTimeMessageReceivedListener = new OnRealTimeMessageReceivedListener() {
