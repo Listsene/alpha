@@ -300,6 +300,10 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         public void onP2PDisconnected(@NonNull String participant) {
         }
         @Override
+        public void onPeerDeclined(Room room, @NonNull List<String> arg1) {
+            updateRoom(room);
+        }
+        @Override
         public void onPeersConnected(Room room, @NonNull List<String> peers) {
             updateRoom(room);
         }
@@ -307,9 +311,29 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         public void onPeersDisconnected(Room room, @NonNull List<String> peers) {
             updateRoom(room);
         }
+        @Override
+        public void onPeerJoined(Room room, @NonNull List<String> arg1) {
+            updateRoom(room);
+        }
+        @Override
+        public void onPeerLeft(Room room, @NonNull List<String> peersWhoLeft) {
+            updateRoom(room);
+        }
+        @Override
+        public void onRoomAutoMatching(Room room) {
+            updateRoom(room);
+        }
 
     };
-
+    void updateRoom(Room room) {
+        if (room != null) {
+            CurrentParticipants = room.getParticipants();
+        }
+        if (CurrentParticipants != null) {
+            //play 환경상 실행
+            //점수등
+        }
+    }
     OnRealTimeMessageReceivedListener mOnRealTimeMessageReceivedListener = new OnRealTimeMessageReceivedListener() {
         @Override
         public void onRealTimeMessageReceived(@NonNull RealTimeMessage realTimeMessage) {
