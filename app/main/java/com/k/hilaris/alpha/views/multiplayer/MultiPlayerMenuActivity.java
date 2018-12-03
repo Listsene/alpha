@@ -107,4 +107,8 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
                 .build();
         RealtimeMultiplayClient.create(Roomconfig);
     }
+    // 각 개인스크린
+    final static int[] SCREENS = {
+            R.id.screen_game, R.id.screen_wait
+    };
 }
