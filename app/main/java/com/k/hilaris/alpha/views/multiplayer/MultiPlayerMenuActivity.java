@@ -209,6 +209,18 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             switchToScreen(R.id.google_sign_in);
         }
     }
+    void showWaitingRoom(Room room) {
+        final int MIN_PLAYERS = Integer.MAX_VALUE;
+        RealtimeMultiplayClient.getWaitingRoomIntent(room, MIN_PLAYERS)
+                .addOnSuccessListener(new OnSuccessListener<Intent>() {
+                    @Override
+                    public void onSuccess(Intent intent) {
+                        startActivityForResult(intent, Waiting_Room_Request);
+                    }
+                })
+                .addOnFailureListener(createFailureListener("error in show waiting room"));
+    }
+
     void resetGameVars() {
     }
 
@@ -263,6 +275,7 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             String sender = realTimeMessage.getSenderParticipantId();
         }
     };
+
     // 게임취소시 에러표시, 메인으로 복귀
     void showGameError() {
         new AlertDialog.Builder(this)
