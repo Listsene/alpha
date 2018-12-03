@@ -26,6 +26,12 @@
     <string name="instructions">Match start!</string>
     <string name="game_problem">Error occurred while starting game. Please try again.</string>
 
-    
+    <!-- Input Buttons -->
+    <string name="Clear">Clear</string>
+    <string name="Memo">Memo</string>
+    <string name="Submit">Enter</string>
+
+  
+
 
 </resources>
