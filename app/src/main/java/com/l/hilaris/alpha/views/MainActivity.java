@@ -96,9 +96,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             //handleSignInResult(task);
-            //added --->
+            //added ---> 추가
             try {
-                // Google Sign In was successful, authenticate with Firebase
+                // 파이어베이스 기반
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
@@ -117,12 +117,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
+                            // 지금 업데이트 타입다르다고 오류나는데 원인파악후수정함
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            //updateUI(user);
+                            updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
+                            // 실패시
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             updateUI(null);
                         }
@@ -132,13 +132,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-
+    //일단 제외
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
-            updateUI(account);
+            //updateUI(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -152,14 +152,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        //modified to ->
+        //modified to -> 수정되었소
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         //updateUI(currentUser);
         super.onStart();
     }
 
-    private void updateUI(GoogleSignInAccount account) {
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+    //GoogleSignInAccount account->to firebased user
+    private void updateUI(FirebaseUser account) {
         if(account != null) {
             moveActivity(true);
         }
@@ -168,12 +173,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.e("Signed in Check", "Not Signed In");
         }
     }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
     @Override
     public void onBackPressed() {
         // Prevent user from going back to empty view
