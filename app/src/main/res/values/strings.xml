@@ -6,7 +6,7 @@
 
     <!-- Login Menu Options -->
     <string name="skip"><u>Skip</u></string>
-
+    <string name="webclient">501127257004-bffvd7fn721ihhq89jp1f6c37q0o8831.apps.googleusercontent.com</string>
     <!-- Front Menu Options -->
     <string name="single">Single Player</string>
     <string name="multi">Multiplayer</string>
