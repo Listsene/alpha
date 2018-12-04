@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.l.hilaris.alpha.views.front.FrontActivity;
 import com.l.hilaris.alpha.R;
 import com.squareup.picasso.Picasso;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private GoogleSignInClient mGoogleSignInClient;
