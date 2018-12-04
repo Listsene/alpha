@@ -41,8 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int RC_SIGN_IN = 9001;  // Google's sign in code thing
     public static final String TAG ="MY_TAG";
     private FirebaseAuth mAuth;
-    String webClientId=getString(R.string.webclient);
-
+    //String webClientId=getString(R.string.webclient);
+    //default_web_client_id
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //        .build();
         // -> modified Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(webClientId)
+                .requestIdToken(getString(R.string.webclient))
                 .requestEmail()
                 .build();
 
