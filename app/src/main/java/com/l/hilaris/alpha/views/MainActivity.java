@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button login;
     private ImageView logo;
     private static final int RC_SIGN_IN = 9001;  // Google's sign in code thing
-
+    public static final String TAG ="MY_TAG";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
