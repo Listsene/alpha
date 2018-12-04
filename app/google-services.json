@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "501127257004",
+    "firebase_url": "https://sudokuonline-80413168.firebaseio.com",
+    "project_id": "sudokuonline-80413168",
+    "storage_bucket": "sudokuonline-80413168.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501127257004:android:829049212f8983b9",
+        "android_client_info": {
+          "package_name": "com.l.hilaris.alpha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501127257004-40geplhronesskmu97a2pt63fldkpegn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.l.hilaris.alpha",
+            "certificate_hash": "385cf2190e19a7de660a2e5d6820ee9465733856"
+          }
+        },
+        {
+          "client_id": "501127257004-bffvd7fn721ihhq89jp1f6c37q0o8831.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAadieDMf1bIUGbQAgp2sijammq_3_XHJc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501127257004-bffvd7fn721ihhq89jp1f6c37q0o8831.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
