@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.k.hilaris.alpha"
-        minSdkVersion 24
+        applicationId "com.l.hilaris.alpha"
+        minSdkVersion 23
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -27,10 +27,17 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
-
+    implementation "com.android.support:support-v4:${support_library_version}"
+    //게임서비스
+    //noinspection GradleCompatible
+    implementation 'com.google.android.gms:play-services-games:16.0.0'
     // Google login
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'com.google.firebase:firebase-core:16.0.5'
+    //firebase core
 
     // Picasso for image handling
     implementation 'com.squareup.picasso:picasso:2.71828'
 }
+apply plugin: 'com.google.gms.google-services'
+//firebase -google service
