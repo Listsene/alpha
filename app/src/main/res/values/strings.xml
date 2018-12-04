@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Sudoku Online</string>
 
+    <!-- API Keys -->
+    <string name="google_api">AIzaSyCbo-WoI6Rhqr-sKlc4CzzD7cneeG1xvuQ</string>
+
     <!-- Login Menu Options -->
     <string name="skip"><u>Skip</u></string>
 
@@ -19,6 +22,11 @@
     <!-- MultiPlayer Options -->
     <string name="search">Search</string>
     <string name="create">Create</string>
+    <string name="please_wait">Please wait&#8230;</string>
+    <string name="instructions">Match start!</string>
+    <string name="inv_popup_text">Incoming invitation</string>
+    <string name="game_problem">Error occurred while starting game. Please try again.</string>
+    <string name="accept_popup_invite">Accept!</string>
 
     <!-- Input Buttons -->
     <string name="Clear">Clear</string>
