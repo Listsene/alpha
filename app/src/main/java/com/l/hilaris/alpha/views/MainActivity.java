@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             updateUI(null);
                         }
-
                         // ...
                     }
                 });

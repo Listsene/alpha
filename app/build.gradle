@@ -38,6 +38,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.5'
     // Picasso for image handling
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.firebase:firebase-dynamic-links:16.1.5'
+    //add dynamic link
 }
 apply plugin: 'com.google.gms.google-services'
 //firebase -google service
