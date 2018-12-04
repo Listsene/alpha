@@ -153,9 +153,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         //modified to -> 수정되었소
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-        super.onStart();
+        //FirebaseUser currentUser = mAuth.getCurrentUser();
+        //updateUI(currentUser);
+
     }
 
     @Override
