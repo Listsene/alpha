@@ -29,7 +29,6 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation "com.android.support:support-v4:${support_library_version}"
     //게임서비스
-    //noinspection GradleCompatible
     implementation 'com.google.android.gms:play-services-games:16.0.0'
     // Google login
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
