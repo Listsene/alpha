@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //        .build();
         // -> modified Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken(getString(R.string.web_client))
                 .requestEmail()
                 .build();
 
@@ -158,17 +158,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    //*@Override
-    //*protected void onStart() {
+    @Override
+    protected void onStart() {
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
         //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         //modified to -> 수정되었소
-     //*   super.onStart();
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
         //FirebaseUser currentUser = mAuth.getCurrentUser();
         //updateUI(currentUser);
 
-    //*} //일단제외 쓸려면 *만살리면됌
+    }
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {

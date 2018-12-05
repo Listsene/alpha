@@ -11,7 +11,7 @@ android {
     }
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.l.hilaris.alpha"
+        applicationId "com.a.hilaris.alpha"
         minSdkVersion 23
         targetSdkVersion 27
         versionCode 1
