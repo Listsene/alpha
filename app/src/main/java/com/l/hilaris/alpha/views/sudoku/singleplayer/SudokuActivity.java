@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
     CountDownTimer timer = null;
     boolean isFinish;
+    SudokuVariation Sudoku;
 
     public interface onKeyBackPressedListener {
         public void onBack();
@@ -39,8 +41,9 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     public void onBackPressed(){
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putLong("time",fiveMinutes);
-        editor.putInt("score", score);
+        editor.putLong(Sudoku.getId()+"time",fiveMinutes);
+
+        editor.putInt(Sudoku.getId()+"score", score);
         editor.apply();
         if(mOnKeyBackPressedListener != null){
             mOnKeyBackPressedListener.onBack();
@@ -54,18 +57,22 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sudoku);
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
-        fiveMinutes = sharedPreferences.getLong("time", 300000);
-        score = sharedPreferences.getInt("score",0);
+
+
         isFinish = false;
 
         SudokuVariation sudoku = (SudokuVariation) getIntent().getSerializableExtra("sudoku");
         getIntent().putExtra("sudoku", sudoku);
+
+        Sudoku = sudoku;
+        score = sharedPreferences.getInt(Sudoku.getId()+"score",0);
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.SudokuGridFragment, sudokuGridFragment);
         ft.add(R.id.InputButtonsFragment, inputButtonsGridFragment);
         ft.commit();
+        fiveMinutes = sharedPreferences.getLong(Sudoku.getId()+"time", 300000);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
@@ -150,7 +157,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     public void putIsFinish(){
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isFinish",isFinish);
+        editor.putBoolean(Sudoku.getId()+"isFinish",isFinish);
         editor.commit();
     }
 }

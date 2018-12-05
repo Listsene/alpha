@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,8 +46,10 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         Intent i = getActivity().getIntent();
         sudoku = (SudokuVariation) i.getSerializableExtra("sudoku");
 
-        sudoku.setScore(score);
         getSavedState();
+        sudoku.setScore(score);
+        //Log.d("score",String.valueOf(sudoku.getScore()));
+
 
         gridView = view.findViewById(R.id.SudokuGridView);
         Adapter = new SudokuGridAdapter(getContext(), sudoku);
@@ -185,12 +188,12 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     public void saveScore(int score){
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt("score", score);
+        editor.putInt(sudoku.getId()+"score", score);
         editor.apply();
     }
 
     public void saveCellState(){
-        setList("cellDataList", cells);
+        setList(sudoku.getId()+"saved", cells);
     }
 
     public <T> void setList(String key, List<T> list){
@@ -209,17 +212,19 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     public void newGame(){
         SharedPreferences pref = this.getActivity().getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = pref.edit();
-        editor.remove("cellDataList").apply();
-        editor.remove("score").apply();
-        cells = original;
-        sudoku.setCells(cells);
-        Adapter.notifyDataSetChanged();
+
+        editor.remove(sudoku.getId()+"saved").apply();
+        editor.remove(sudoku.getId()+"score").apply();
+        //setList(sudoku.getId(),original);
+        //cells = original;
+        //sudoku.setCells(cells);
+        //Adapter.notifyDataSetChanged();
     }
 
     public void getSavedState(){
         SharedPreferences sharedPreferences = this.getActivity().getSharedPreferences("pref",0);
-        serializedObject = sharedPreferences.getString("cellDataList", null);
-        score = sharedPreferences.getInt("score",0);
+        serializedObject = sharedPreferences.getString(sudoku.getId()+"saved", null);
+        score = sharedPreferences.getInt(sudoku.getId()+"score",0);
 
         Gson gson = new Gson();
         String StOriginal;
@@ -231,5 +236,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     public SudokuGridAdapter getAdapter() {
         return Adapter;
     }
+
+
 
 }
