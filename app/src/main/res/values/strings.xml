@@ -6,7 +6,6 @@
 
     <!-- Login Menu Options -->
     <string name="skip"><u>Skip</u></string>
-    <string name="webclient">501127257004-bffvd7fn721ihhq89jp1f6c37q0o8831.apps.googleusercontent.com</string>
     <!-- Front Menu Options -->
     <string name="single">Single Player</string>
     <string name="multi">Multiplayer</string>
@@ -28,6 +27,9 @@
     <string name="game_problem">Error occurred while starting game. Please try again.</string>
     <string name="accept_popup_invite">Accept!</string>
 
+    <!--Google Login-->
+    <string name="web_client">1096273252747-micat5r71baesg1gokmd02ogophlbeur.apps.googleusercontent.com</string>
+
     <!-- Input Buttons -->
     <string name="Clear">Clear</string>
     <string name="Memo">Memo</string>
@@ -36,5 +38,4 @@
     <!-- Sudoku Action Bar -->
     <string name="Timer_Complete">Game Over!</string>
     <string name="Reset">Reset</string>
-
 </resources>

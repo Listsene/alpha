@@ -8,50 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:501127257004:android:c29ba4c3c47176e8",
-        "android_client_info": {
-          "package_name": "com.example.administrator.myapplication"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "501127257004-1qkht6ceoop9vo95fc29ooovd42qd3de.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.administrator.myapplication",
-            "certificate_hash": "474ebbc4da0119611f7bff5ea0426bf99776f1d5"
-          }
-        },
-        {
-          "client_id": "501127257004-bffvd7fn721ihhq89jp1f6c37q0o8831.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyAadieDMf1bIUGbQAgp2sijammq_3_XHJc"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "501127257004-bffvd7fn721ihhq89jp1f6c37q0o8831.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:501127257004:android:829049212f8983b9",
         "android_client_info": {
           "package_name": "com.l.hilaris.alpha"
@@ -59,19 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "501127257004-40geplhronesskmu97a2pt63fldkpegn.apps.googleusercontent.com",
+          "client_id": "501127257004-taub5268uopvdlkihn49i91gp2c78vks.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.l.hilaris.alpha",
-            "certificate_hash": "385cf2190e19a7de660a2e5d6820ee9465733856"
-          }
-        },
-        {
-          "client_id": "501127257004-97tuqu03th207lmini8hcp86ijt794ug.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.l.hilaris.alpha",
-            "certificate_hash": "474ebbc4da0119611f7bff5ea0426bf99776f1d5"
+            "certificate_hash": "26381bb37844619b0150c6509715d42b2ddbbe1a"
           }
         },
         {
