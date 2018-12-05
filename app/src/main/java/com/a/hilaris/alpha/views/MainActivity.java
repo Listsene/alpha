@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.a.hilaris.alpha.views.front.FrontActivity;
 import com.a.hilaris.alpha.R;
+import com.google.firebase.auth.PlayGamesAuthProvider;
 import com.squareup.picasso.Picasso;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -56,11 +57,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          //       .requestEmail()
         //        .build();
         // -> modified Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.web_client))
-                .requestEmail()
+        //!!to here
+        //GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+         //       .requestIdToken(getString(R.string.web_client))
+         //       .requestEmail()
+         //       .build();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
+                .requestServerAuthCode(getString(R.string.web_client))
                 .build();
-
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -108,19 +112,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            //handleSignInResult(task);
+            //Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
             //added ---> 추가
-            try {
+            //try {
                 // 파이어베이스 기반
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuthWithGoogle(account);
-            } catch (ApiException e) {
+            //    GoogleSignInAccount account = task.getResult(ApiException.class);
+             //   firebaseAuthWithGoogle(account);
+            //} catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
+             //   Log.w(TAG, "Google sign in failed", e);
                 // ...
-            }
+            //}
+
+            signInSilently();
         }
+    }
+    private void signInSilently() {
+        Log.d(TAG, "signInSilently()");
+
+        mGoogleSignInClient.silentSignIn().addOnCompleteListener(this,
+                new OnCompleteListener<GoogleSignInAccount>() {
+                    @Override
+                    public void onComplete(@NonNull Task<GoogleSignInAccount> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "signInSilently(): success");
+                            GoogleSignInAccount signedInAccount = task.getResult();
+                            firebaseAuthWithPlayGames(signedInAccount);
+                        } else {
+                            Log.d(TAG, "signInSilently(): failure", task.getException());
+                        }
+                    }
+                });
     }
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
@@ -185,6 +208,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //Toast.makeText(getBaseContext(), "Sign in Failed", Toast.LENGTH_SHORT).show();
             Log.e("Signed in Check", "Not Signed In");
         }
+    }
+    // Call this both in the silent sign-in task's OnCompleteListener and in the
+// Activity's onActivityResult handler.
+    private void firebaseAuthWithPlayGames(GoogleSignInAccount acct) {
+        Log.d(TAG, "firebaseAuthWithPlayGames:" + acct.getId());
+
+        AuthCredential credential = PlayGamesAuthProvider.getCredential(acct.getServerAuthCode());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            updateUI(null);
+                        }
+
+                        // ...
+                    }
+                });
     }
     @Override
     public void onBackPressed() {
