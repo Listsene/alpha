@@ -37,5 +37,9 @@
             android:name="com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity"
             android:label="Sudoku">
         </activity>
+        <activity
+            android:name="com.l.hilaris.alpha.views.sudoku.easy.EasyListActivity"
+            android:label="Select Easy Puzzle">
+        </activity>
     </application>
 </manifest>
