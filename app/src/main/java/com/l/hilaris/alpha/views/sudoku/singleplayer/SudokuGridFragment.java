@@ -29,6 +29,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     private SudokuVariation sudoku;
     private SudokuGridAdapter Adapter;
     private int score = 0;
+    private int scoreCount=0;
     String serializedObject;
     List<SudokuCellData> cells = new ArrayList<>();
     List<SudokuCellData> original = new ArrayList<>();
@@ -48,7 +49,6 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
 
         getSavedState();
         sudoku.setScore(score);
-        //Log.d("score",String.valueOf(sudoku.getScore()));
 
 
         gridView = view.findViewById(R.id.SudokuGridView);
@@ -117,13 +117,14 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
                         cellData.setSolved(true);
                         cellData.setInput(cellData.getNumber());
                         score = score + 100;
-                        sudoku.setScore(sudoku.getScore() + 100);
+                        scoreCount=0;
+                        sudoku.setScore(score);
                     }
                     else {
                         Toast.makeText(getActivity(), "Incorrect!", Toast.LENGTH_SHORT).show();
                         cellData.setInput("");
-                        score = score - 10;
-                        sudoku.setScore(sudoku.getScore() - 10);
+                        decreaseScore();
+                        sudoku.setScore(score);
                     }
                     Adapter.notifyDataSetChanged();
                     break;
@@ -236,6 +237,15 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     public SudokuGridAdapter getAdapter() {
         return Adapter;
     }
+
+    public void decreaseScore(){
+        Double d = Math.pow(2, scoreCount);
+        int minus = 10*(d.intValue());
+
+        score = score-minus;
+        scoreCount++;
+    }
+
 
 
 

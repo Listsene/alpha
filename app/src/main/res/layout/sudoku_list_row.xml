@@ -23,13 +23,19 @@
     <TextView
         android:id="@+id/scoreInList"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_alignEnd="@id/name"
-        android:gravity="center_vertical"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginStart="160dp"
-        android:text="score"
+        android:layout_alignTop="@+id/name"
+        android:textSize="15sp"
         />
+    <TextView
+        android:id="@+id/timeInList"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignEnd="@id/name"
+        android:layout_alignBottom="@id/name"
+        android:textSize="15sp"
+    />
+
 
 </RelativeLayout>
