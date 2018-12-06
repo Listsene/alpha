@@ -97,6 +97,7 @@ public class ItemClickSupport {
     }
 
     public interface OnItemLongClickListener {
+
         boolean onItemLongClicked(RecyclerView recyclerView, int position, View v);
     }
 }
