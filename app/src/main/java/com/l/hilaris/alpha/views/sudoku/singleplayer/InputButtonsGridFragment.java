@@ -1,5 +1,7 @@
-package com.l.hilaris.alpha.views.sudoku;
-
+package com.l.hilaris.alpha.views.sudoku.singleplayer;
+/*
+This fragment holds the View for the Input Buttons used to Solve the Sudoku.
+ */
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,9 +19,9 @@ public class InputButtonsGridFragment extends Fragment {
     private GridView gridView;
     private InputButtonsGridAdapter Adapter;
 
-    TextClicked clickCB;
-    public interface TextClicked{
-        void sendText(String text);
+    InputClicked clickCB;
+    public interface InputClicked{
+        void sendInput(String input);
     }
 
     @Override
@@ -34,11 +36,10 @@ public class InputButtonsGridFragment extends Fragment {
 
         gridView = view.findViewById(R.id.InputGrid);
 
-        clickCB = (TextClicked) getActivity();
+        clickCB = (InputClicked) getActivity();
 
         Adapter = new InputButtonsGridAdapter(getContext(), prepareInputs(),clickCB);
         gridView.setAdapter(Adapter);
-
 
         return view;
     }
@@ -52,5 +53,9 @@ public class InputButtonsGridFragment extends Fragment {
         inputs.add(getResources().getString(R.string.Memo));
         inputs.add(getResources().getString(R.string.Submit));
         return inputs;
+    }
+
+    public InputButtonsGridAdapter getAdapter(){
+        return Adapter;
     }
 }

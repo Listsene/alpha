@@ -34,11 +34,5 @@
             android:verticalSpacing="3dp"
             android:horizontalSpacing="2dp"
             android:stretchMode="columnWidth" />
-        <LinearLayout style="@style/ScoresBox">
-            <TextView android:id="@+id/score0" style="@style/ScoreText" />
-            <TextView android:id="@+id/score1" style="@style/ScoreText" />
-            <TextView android:id="@+id/score2" style="@style/ScoreText" />
-            <TextView android:id="@+id/score3" style="@style/ScoreText" />
-        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

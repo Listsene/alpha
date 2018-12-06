@@ -11,7 +11,9 @@
     <!-- Front Menu Options -->
     <string name="single">Single Player</string>
     <string name="multi">Muiltiplayer</string>
+    <string name="multi_disabled"><u>Requires Sign in</u></string>
     <string name="logoutbutton">Log Out</string>
+    <string name="not_logged_in">Return</string>
 
     <!-- SinglePlayer Options -->
     <string name="easy">Easy</string>
@@ -21,16 +23,21 @@
     <!-- MultiPlayer Options -->
     <string name="search">Search</string>
     <string name="create">Create</string>
-    <string name="accept_popup_invite">Accept!</string>
     <string name="please_wait">Please wait&#8230;</string>
     <string name="instructions">Match start!</string>
     <string name="click_me">Click me!</string>
     <string name="inv_popup_text">Incoming invitation</string>
     <string name="game_problem">Error occurred while starting game. Please try again.</string>
+    <string name="accept_popup_invite">Accept!</string>
 
     <!-- Input Buttons -->
     <string name="Clear">Clear</string>
     <string name="Memo">Memo</string>
     <string name="Submit">Enter</string>
+
+
+    <!-- Sudoku Action Bar -->
+    <string name="Timer_Complete">Game Over!</string>
+    <string name="Reset">Reset</string>
 
 </resources>

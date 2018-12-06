@@ -24,6 +24,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }
@@ -43,4 +44,6 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
     // Picasso for image handling
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

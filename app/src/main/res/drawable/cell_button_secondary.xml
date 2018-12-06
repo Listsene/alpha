@@ -10,13 +10,13 @@
     <item android:drawable="@color/cell_highlight"
         android:state_selected="true" />
 
-    <item android:drawable="@color/cell_background"
+    <item android:drawable="@color/cell_background_secondary"
         android:state_enabled="true" />
 
-    <item android:drawable="@color/cell_disabled"
+    <item android:drawable="@color/cell_background_secondary"
         android:state_enabled="false"/>
 
-    <item android:drawable="@color/cell_background"
+    <item android:drawable="@color/cell_background_secondary"
         android:state_selected="false"/>
 
 </selector>
