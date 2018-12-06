@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.l.hilaris.alpha.R;
@@ -30,10 +31,17 @@ public class EasyListFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private DividerItemDecoration dividerItemDecoration;
     private SudokuListAdapter Adapter;
+    public TextView scoreTv;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -42,7 +50,8 @@ public class EasyListFragment extends Fragment {
         View view = inflater.inflate(R.layout.recycler_view, container, false);
         recyclerView = view.findViewById(R.id.list);
 
-        Adapter = new SudokuListAdapter(sudokus);
+
+        Adapter = new SudokuListAdapter(getContext(),sudokus);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), linearLayoutManager.getOrientation());

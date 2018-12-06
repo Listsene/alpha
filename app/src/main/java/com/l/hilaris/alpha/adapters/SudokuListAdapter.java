@@ -1,6 +1,10 @@
 package com.l.hilaris.alpha.adapters;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +17,27 @@ import java.util.List;
 
 public class SudokuListAdapter extends RecyclerView.Adapter<SudokuListAdapter.MyViewHolder> {
 
+    private Context mContext;
     private List<SudokuVariation> sudokus;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name; // time;
+        public TextView score;
+
 
         public MyViewHolder(View view) {
             super(view);
+
             name = view.findViewById(R.id.name);
+            score = view.findViewById(R.id.scoreInList);
         //    time = view.findViewById(R.id.time);
         }
     }
 
 
-    public SudokuListAdapter(List<SudokuVariation> sudokus) {
+    public SudokuListAdapter(Context mContext,List<SudokuVariation> sudokus) {
         this.sudokus = sudokus;
+        this.mContext = mContext;
     }
 
     @Override
@@ -41,11 +51,19 @@ public class SudokuListAdapter extends RecyclerView.Adapter<SudokuListAdapter.My
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         SudokuVariation sudoku = sudokus.get(position);
+
+        SharedPreferences preferences = mContext.getSharedPreferences("pref",0);
+        int scoreList = preferences.getInt(sudoku.getId()+"score",0);
+
+
         holder.name.setText(sudoku.getId());
+        holder.score.setText("score: "+String.valueOf(scoreList));
+
 
         // TODO
         // holder.time.setText(sudoku.getTime());
     }
+
 
     @Override
     public int getItemCount() {
