@@ -144,6 +144,7 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
 
         Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
         startActivity(intent);
+        switchToScreen(R.id.screen_game);
     }
 
     // 방나감.
@@ -159,7 +160,7 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
                             Roomconfig = null;
                         }
                     });
-            switchToScreen(R.id.screen_wait);
+            //switchToScreen(R.id.screen_wait);
         } else {
             switchToMainScreen();
         }
