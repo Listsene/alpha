@@ -36,6 +36,7 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
     private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
     CountDownTimer timer = null;
     boolean isFinish;
+    SudokuVariation Sudoku;
 
     // For connection with server
     Server connection;
@@ -150,8 +151,9 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
     public void onBackPressed(){
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putLong("time",fiveMinutes);
-        editor.putInt("score", score);
+        editor.putLong(Sudoku.getId()+"time",fiveMinutes);
+
+        editor.putInt(Sudoku.getId()+"score", score);
         editor.apply();
         if(mOnKeyBackPressedListener != null){
             mOnKeyBackPressedListener.onBack();
@@ -165,18 +167,20 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sudoku);
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
-        fiveMinutes = sharedPreferences.getLong("time", 300000);
-        score = sharedPreferences.getInt("score",0);
+
         isFinish = false;
 
         SudokuVariation sudoku = (SudokuVariation) getIntent().getSerializableExtra("sudoku");
         getIntent().putExtra("sudoku", sudoku);
 
+        Sudoku = sudoku;
+        score = sharedPreferences.getInt(Sudoku.getId()+"score",0);
+
         // server
         connection = new Server();
         connection.execute();
 
-        // Dangerous, allows main thread to execute on thing.
+        // Dangerous, allows asynctask to execute on main thread.
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
@@ -185,6 +189,7 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
         ft.add(R.id.SudokuGridFragment, sudokuGridFragment);
         ft.add(R.id.InputButtonsFragment, inputButtonsGridFragment);
         ft.commit();
+        fiveMinutes = sharedPreferences.getLong(Sudoku.getId()+"time", 300000);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
@@ -203,7 +208,7 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
                 resetGrid();
                 resetTimer();
                 resetScore();
-                isFinish=false;
+                isFinish = false;
                 putIsFinish();
             }
         });
@@ -259,7 +264,6 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
     @Override
     public void sendInput(String input){
         sudokuGridFragment = (MultiplayerSudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
-        //score = sudokuGridFragment.getInput(input);
         if(score != sudokuGridFragment.getInput(input)) {
             score = sudokuGridFragment.getInput(input);
             try {
@@ -273,7 +277,7 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
     public void putIsFinish(){
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("isFinish",isFinish);
-        editor.commit();
+        editor.putBoolean(Sudoku.getId()+"isFinish",isFinish);
+        editor.apply();
     }
 }
