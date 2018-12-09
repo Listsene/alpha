@@ -245,4 +245,8 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         score = score-minus;
         scoreCount++;
     }
+
+
+
+
 }
