@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/top_margin"/>
@@ -17,18 +17,11 @@
         android:layout_height="wrap_content"
         android:text="@string/email_signin"
         android:id="@+id/email_sign_in"
-        android:background="@color/primary_accent"
+        android:background="@color/transparent"
+        android:textColor="@color/number_text"
         android:layout_below="@+id/logo"
         android:layout_centerHorizontal = "true" />
-    <Button
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:text="@string/email_signup"
-        android:id="@+id/sign_up"
-        android:background="@color/primary_accent"
-        android:layout_below="@+id/google_sign_in"
-        android:layout_marginTop="@dimen/button_vertical_margin"
-        android:layout_centerHorizontal = "true" />
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/google_sign_in"
         android:layout_width="180dp"

@@ -55,8 +55,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         google_sign_in.setOnClickListener(this);
         login = findViewById(R.id.email_sign_in);
         login.setOnClickListener(this);
-        signUp = findViewById(R.id.sign_up);
-        signUp.setOnClickListener(this);
+      //  signUp = findViewById(R.id.sign_up);
+      //  signUp.setOnClickListener(this);
     }
 
     private void signIn() {
@@ -74,9 +74,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Intent intent = new Intent(this, FrontActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.sign_up:
-                // TODO
-                Toast.makeText(getBaseContext(), "Not yet Implemented", Toast.LENGTH_SHORT).show();
         }
     }
 

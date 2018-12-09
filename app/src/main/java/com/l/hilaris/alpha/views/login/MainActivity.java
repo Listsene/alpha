@@ -52,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         google_sign_in.setOnClickListener(this);
         login = findViewById(R.id.email_sign_in);
         login.setOnClickListener(this);
-        signUp = findViewById(R.id.sign_up);
-        signUp.setOnClickListener(this);
+      //  signUp = findViewById(R.id.sign_up);
+      //  signUp.setOnClickListener(this);
     }
 
     private void signIn() {
@@ -68,12 +68,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 signIn();
                 break;
             case R.id.email_sign_in:
-                Intent intent = new Intent(this, FrontActivity.class);
-                startActivity(intent);
+                moveActivity(false);
                 break;
-            case R.id.sign_up:
-                // TODO
-                Toast.makeText(getBaseContext(), "Not yet Implemented", Toast.LENGTH_SHORT).show();
+        //    case R.id.sign_up:
+        //
+        //        Toast.makeText(getBaseContext(), "Not yet Implemented", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -115,8 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void updateUI(GoogleSignInAccount account) {
         if(account != null) {
-            Intent intent = new Intent(this, FrontActivity.class);
-            startActivity(intent);
+            moveActivity(true);
         }
         else {
             //Toast.makeText(getBaseContext(), "Sign in Failed", Toast.LENGTH_SHORT).show();
@@ -127,5 +125,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
+    }
+    void moveActivity(boolean loggedIn) {
+        Intent intent = new Intent(this, FrontActivity.class);
+        intent.putExtra("loggedIn", loggedIn);
+        startActivity(intent);
     }
 }

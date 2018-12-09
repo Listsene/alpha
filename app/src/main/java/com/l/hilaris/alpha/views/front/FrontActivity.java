@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -18,6 +19,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.l.hilaris.alpha.R;
+import com.l.hilaris.alpha.views.login.LoginActivity;
 import com.l.hilaris.alpha.views.login.MainActivity;
 import com.l.hilaris.alpha.views.multiplayer.MultiPlayerMenuActivity;
 import com.l.hilaris.alpha.views.singleplayer.SinglePlayerMenuActivity;
@@ -26,18 +28,32 @@ public class FrontActivity extends AppCompatActivity implements View.OnClickList
     private Button single, multi, logoutbutton;
     private GoogleApiClient mGoogleApiClient;
     private GoogleSignInClient mGoogleSignInClient;
+    private boolean loggedIn;
+    private TextView disabled;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_front);
 
+        loggedIn = (boolean) getIntent().getSerializableExtra("loggedIn");
+
         single = findViewById(R.id.singleplayerbutton);
         single.setOnClickListener(this);
+
         multi = findViewById(R.id.multiplayerbutton);
         multi.setOnClickListener(this);
+
         logoutbutton = findViewById(R.id.logoutbutton);
         logoutbutton.setOnClickListener(this);
 
+        disabled = findViewById(R.id.multi_disabled);
+        disabled.setVisibility(View.INVISIBLE);
+
+        if(!loggedIn) {
+            multi.setEnabled(false);
+            disabled.setVisibility(View.VISIBLE);
+            logoutbutton.setText(getResources().getText(R.string.not_logged_in));
+        }
     }
 
     @Override
@@ -54,16 +70,21 @@ public class FrontActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.logoutbutton:
-                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                        new ResultCallback<Status>() {
-                            @Override
-                            public void onResult(Status status) {
-                                // ...
-                                Toast.makeText(getApplicationContext(),"Logged Out",Toast.LENGTH_SHORT).show();
-                                Intent i=new Intent(getApplicationContext(),MainActivity.class);
-                                startActivity(i);
-                            }
-                        });
+                if(loggedIn) {
+                    Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                            new ResultCallback<Status>() {
+                                @Override
+                                public void onResult(Status status) {
+                                    // ...
+                                    Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show();
+                                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(i);
+                                }
+                            });
+                }else{
+                    intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }

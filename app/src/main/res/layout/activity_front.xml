@@ -21,12 +21,20 @@
         android:layout_below="@+id/singleplayerbutton"
         android:layout_marginTop="@dimen/button_vertical_margin"
         android:layout_centerHorizontal = "true" />
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/multi_disabled"
+        android:layout_below="@+id/multiplayerbutton"
+        android:layout_centerHorizontal= "true"
+        android:text="@string/multi_disabled"
+        android:textColor="@color/number_text"
+        android:textSize="12sp"/>
     <Button
         android:id="@+id/logoutbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/primary_accent"
+        android:background="@drawable/menu_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="13dp"
