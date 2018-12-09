@@ -81,10 +81,12 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         switch (v.getId()) {
             case R.id.search:
                 startQuickGame();
+                Log.d(TAG, "Please wait ...");
                 break;
             case R.id.create:
                 // 방생성
-                switchToScreen(R.id.screen_wait);
+                //switchToScreen(R.id.screen_wait);
+                Log.d(TAG, "Please wait ...");
                 // 플레이어 목록보여주기
                 RealtimeMultiplayClient.getSelectOpponentsIntent(1, 3).addOnSuccessListener(
                         new OnSuccessListener<Intent>() {
@@ -205,7 +207,7 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         final int MIN_OPPONENTS = 1, MAX_OPPONENTS = 1;
         Bundle autoMatchCriteria = RoomConfig.createAutoMatchCriteria(MIN_OPPONENTS,
                 MAX_OPPONENTS, 0);
-        switchToScreen(R.id.screen_wait);
+        //switchToScreen(R.id.screen_wait);
         keepScreenOn();
         resetGameVars();
 

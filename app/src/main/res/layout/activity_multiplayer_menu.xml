@@ -22,6 +22,7 @@
         android:layout_marginTop="10dp"
         android:layout_centerHorizontal = "true" />
 
+    <!-- "PLEASE WAIT" SCREEN -->
     <LinearLayout android:id="@+id/screen_wait" style="@style/LLScreen">
         <TextView style="@style/Blurb" android:text="@string/please_wait" />
     </LinearLayout>

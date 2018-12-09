@@ -13,10 +13,6 @@
             android:text="@string/accept_popup_invite" />
     </LinearLayout>
 
-    <!-- "PLEASE WAIT" SCREEN -->
-    <LinearLayout android:id="@+id/screen_wait" style="@style/LLScreen">
-        <TextView style="@style/Blurb" android:text="@string/please_wait" />
-    </LinearLayout>
 
     <!-- GAMEPLAY SCREEN -->
     <LinearLayout android:id="@+id/screen_game" style="@style/LLScreen">
