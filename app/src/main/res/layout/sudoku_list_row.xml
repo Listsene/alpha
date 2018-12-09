@@ -20,5 +20,22 @@
         android:textSize="18sp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="5dp"/>
+    <TextView
+        android:id="@+id/scoreInList"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignEnd="@id/name"
+        android:layout_alignTop="@+id/name"
+        android:textSize="15sp"
+        />
+    <TextView
+        android:id="@+id/timeInList"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignEnd="@id/name"
+        android:layout_alignBottom="@id/name"
+        android:textSize="15sp"
+    />
+
 
 </RelativeLayout>
