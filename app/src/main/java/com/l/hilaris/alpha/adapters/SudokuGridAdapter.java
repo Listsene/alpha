@@ -125,7 +125,7 @@ public class SudokuGridAdapter extends BaseAdapter {
     public void isFinish(){
         Boolean isFinish;
         SharedPreferences sharedPreferences = mContext.getSharedPreferences("pref",0);
-        isFinish = sharedPreferences.getBoolean("isFinish", false);
+        isFinish = sharedPreferences.getBoolean(sudoku.getId()+"isFinish", false);
         if(isFinish){
             this.cell.setSelected(false);
             this.cell.setEnabled(false);
