@@ -84,14 +84,15 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             case R.id.search:
                 startQuickGame();
                 Log.d(TAG, "Please wait ...");
+                Toast.makeText(getApplicationContext(), "Please wait...", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.create:
                 // 방생성
                 //switchToScreen(R.id.screen_wait);
-                Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please wait...", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Please wait ...");
                 // 플레이어 목록보여주기
-                RealtimeMultiplayClient.getSelectOpponentsIntent(1, 3).addOnSuccessListener(
+                RealtimeMultiplayClient.getSelectOpponentsIntent(1, 1).addOnSuccessListener(
                         new OnSuccessListener<Intent>() {
                             @Override
                             public void onSuccess(Intent intent) {
@@ -100,7 +101,6 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
                         }
                 ).addOnFailureListener(createFailureListener("error in selecting players"));
                 break;
-
         }
     }
     private OnFailureListener createFailureListener(final String string) {
@@ -139,7 +139,6 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         }
         super.onActivityResult(requestCode, resultCode, intent);
     }
-
     void startGame(boolean multiplayer) {
         MultiPlayer = multiplayer;
         Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
@@ -360,12 +359,9 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         public void onRoomAutoMatching(Room room) {
             updateRoom(room);
         }
-
         @Override
         public void onPeerInvitedToRoom(@Nullable Room room, @NonNull List<String> list) {
-
         }
-
     };
     void updateRoom(Room room) {
         if (room != null) {
@@ -383,13 +379,11 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             String sender = realTimeMessage.getSenderParticipantId();
         }
     };
-
     // 게임취소시 에러표시, 메인으로 복귀
     void showGameError() {
         new AlertDialog.Builder(this)
                 .setMessage(getString(R.string.game_problem))
                 .setNeutralButton(android.R.string.ok, null).create();
-
         switchToMainScreen();
     }
     void stopKeepingScreenOn() {
