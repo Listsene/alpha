@@ -39,6 +39,10 @@
             android:label="Select Easy Puzzle">
         </activity>
         <activity
+            android:name="com.l.hilaris.alpha.views.sudoku.medium.MediumListActivity"
+            android:label="Select Medium Puzzle">
+        </activity>
+        <activity
             android:name="com.l.hilaris.alpha.views.sudoku.hard.HardListActivity"
             android:label="Select Hard Puzzle">
         </activity>
