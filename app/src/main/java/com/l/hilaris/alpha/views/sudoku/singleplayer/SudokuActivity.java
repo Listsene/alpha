@@ -101,7 +101,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
     public void resetTimer(){
         timer.cancel();
-        fiveMinutes = 10000;
+        fiveMinutes = 300000;
         Timer();
     }
     public void resetGrid(){
