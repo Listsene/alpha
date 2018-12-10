@@ -55,15 +55,12 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
                     channel.configureBlocking(false);
                     channel.register(selector, SelectionKey.OP_CONNECT);
                     channel.connect(new InetSocketAddress(HOSTNAME, PORT));
-
                 } catch (IOException e) {
                     new IOException("Connection failed. Hostname : " + HOSTNAME + ", port : " + PORT, e).printStackTrace();
                 }
-
                 while (!Thread.interrupted()) {
                     selector.select();
                     Iterator<SelectionKey> keys = selector.selectedKeys().iterator();
-
                     while (keys.hasNext()) {
                         SelectionKey key = keys.next();
                         keys.remove();
