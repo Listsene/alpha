@@ -86,14 +86,14 @@ public class EasyListFragment extends Fragment {
         cells = new ArrayList<>();
         String sudokuCells =
                 "4|6| |8| |5| | |3|" +
-                " | |3| |7| | | | |" +
-                " |7|5|9| |1| |6| |" +
-                " |8|4| | | | |7| |" +
-                "9| | |7| |6| | |1|" +
-                " |3| | |2| |6|5| |" +
-                " |9| |4| |2|8|3| |" +
-                " | | | |8| |5| | |" +
-                "3| | |5| |9| |2|7|";
+                        " | |3| |7| | | | |" +
+                        " |7|5|9| |1| |6| |" +
+                        " |8|4| | | | |7| |" +
+                        "9| | |7| |6| | |1|" +
+                        " |3| | |2| |6|5| |" +
+                        " |9| |4| |2|8|3| |" +
+                        " | | | |8| |5| | |" +
+                        "3| | |5| |9| |2|7|";
         String[] splitCells = sudokuCells.split("[|]", 0);
             for (int i = 0; i < splitCells.length; i++) {
                 cell = new SudokuCellData(splitCells[i]);

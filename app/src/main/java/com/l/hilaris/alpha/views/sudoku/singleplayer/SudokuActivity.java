@@ -137,8 +137,14 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 timerTv.setText(getResources().getText(R.string.Timer_Complete));
                 isFinish=true;
                 putIsFinish();
-                sudokuGridFragment.getAdapter().notifyThis();
-                inputButtonsGridFragment.getAdapter().notifyThis();
+                if(sudokuGridFragment.getAdapter() !=null){
+                    sudokuGridFragment.getAdapter().notifyThis();
+                }
+                if(inputButtonsGridFragment.getAdapter() != null){
+                    inputButtonsGridFragment.getAdapter().notifyThis();
+                }
+
+
             }
         }.start();
     }
@@ -159,5 +165,11 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(Sudoku.getId()+"isFinish",isFinish);
         editor.commit();
+    }
+    public void setFinish(){
+        timer.cancel();
+        fiveMinutes = 0;
+        Timer();
+        timerTv.setText("Success!");
     }
 }
