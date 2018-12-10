@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
     private Toolbar mToolbar;
     TextView timerTv, scoreTv;
-    private int score;
+    private int score, score2;
     long fiveMinutes;
     private SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
     private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
@@ -148,10 +148,13 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
 
     @Override
-    public void sendInput(String input){
+    public void sendInput(String input) {
         sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
-        score = sudokuGridFragment.getInput(input);
-        Score();
+        score2 = sudokuGridFragment.getInput(input);
+        if (score != score2) {
+            score = score2;
+            Score();
+        }
     }
 
     public void putIsFinish(){
