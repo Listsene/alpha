@@ -40,6 +40,9 @@ public class SinglePlayerMenuActivity extends AppCompatActivity implements View.
                 break;
             case R.id.hard:
                 // TODO
+                intent = new Intent(this, EasyListActivity.class);
+                intent.putExtra("mode","single");
+                startActivity(intent);
                 break;
         }
     }

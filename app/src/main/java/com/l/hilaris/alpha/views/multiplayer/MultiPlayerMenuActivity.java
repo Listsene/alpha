@@ -17,6 +17,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import android.view.WindowManager;
+import android.widget.Toast;
+
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesActivityResultCodes;
@@ -86,6 +88,7 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             case R.id.create:
                 // 방생성
                 //switchToScreen(R.id.screen_wait);
+                Toast.makeText(getApplicationContext(), "Logged Out", Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Please wait ...");
                 // 플레이어 목록보여주기
                 RealtimeMultiplayClient.getSelectOpponentsIntent(1, 3).addOnSuccessListener(
@@ -119,11 +122,9 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-
         if (requestCode == Select_Players_Requset) {
             //플레이 선택준비 완료시
             handleSelectPlayersResult(resultCode, intent);
-
         }
         else if (requestCode == Waiting_Room_Request) {
             //대기실
@@ -141,7 +142,6 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
 
     void startGame(boolean multiplayer) {
         MultiPlayer = multiplayer;
-
         Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
         startActivity(intent);
         switchToScreen(R.id.screen_game);
@@ -160,7 +160,7 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
                             Roomconfig = null;
                         }
                     });
-            //switchToScreen(R.id.screen_wait);
+            //witchToScreen(R.id.screen_wait);
         } else {
             switchToMainScreen();
         }
@@ -190,7 +190,7 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         }
         // 방생성
         Log.d(TAG, "Please wait.. we are creating room");
-        switchToScreen(R.id.screen_wait);
+        //switchToScreen(R.id.screen_wait);
         keepScreenOn();
         resetGameVars();
 

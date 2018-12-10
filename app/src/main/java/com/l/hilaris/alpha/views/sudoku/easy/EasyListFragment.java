@@ -50,7 +50,6 @@ public class EasyListFragment extends Fragment {
         View view = inflater.inflate(R.layout.recycler_view, container, false);
         recyclerView = view.findViewById(R.id.list);
 
-
         Adapter = new SudokuListAdapter(getContext(),sudokus);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -68,7 +67,6 @@ public class EasyListFragment extends Fragment {
                         moveActivity(sudoku);
                     }
                 });
-
         createSudokus();
         return view;
     }

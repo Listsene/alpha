@@ -46,7 +46,6 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
 
         Intent i = getActivity().getIntent();
         grid = (SudokuVariation) i.getSerializableExtra("sudoku");
-
         grid.setScore(score);
 
         gridView = view.findViewById(R.id.SudokuGridView);
@@ -233,5 +232,4 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
     public SudokuGridAdapter getAdapter() {
         return Adapter;
     }
-
 }
