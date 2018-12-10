@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.l.hilaris.alpha.R;
 import com.l.hilaris.alpha.models.SudokuVariation;
@@ -27,6 +28,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     CountDownTimer timer = null;
     boolean isFinish;
     SudokuVariation Sudoku;
+    private int testy = 0;
 
     public interface onKeyBackPressedListener {
         public void onBack();
@@ -150,9 +152,9 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     @Override
     public void sendInput(String input) {
         sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
-        score2 = sudokuGridFragment.getInput(input);
-        if (score != score2) {
-            score = score2;
+        SudokuVariation sudoku = sudokuGridFragment.getInput(input);
+        if (score != sudoku.getScore()) { // checks if score is changed
+            score = sudoku.getScore();
             Score();
         }
     }

@@ -68,7 +68,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         return view;
     }
 
-    public int getInput(String input){
+    public SudokuVariation getInput(String input){
         int nSelectedPos = Adapter.getnSelectedPos();
         SudokuCellData cellData = new SudokuCellData("");
         try {
@@ -77,6 +77,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
             Toast.makeText(getActivity(), "Click on a cell!", Toast.LENGTH_SHORT).show();
         }
         String number = cellData.getNumber();
+        sudoku.setPosition(nSelectedPos);
 
         if(solved(cellData) || !validInput(input, number)) {
             // do nothing
@@ -117,7 +118,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
                         cellData.setSolved(true);
                         cellData.setInput(cellData.getNumber());
                         score = score + 100;
-                        scoreCount=0;
+                        scoreCount = 0;
                         sudoku.setScore(score);
                     }
                     else {
@@ -132,7 +133,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
                     cellData.setNumber(input);
             }
         }
-        return sudoku.getScore();
+        return sudoku;
     }
 
     private Boolean validInput(String input, String number) {

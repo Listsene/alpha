@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
     private SudokuVariation sudoku;
     private SudokuGridAdapter Adapter;
     private int score = 0;
-    private int scoreCount = 0;
+    private int scoreCount=0;
     String serializedObject;
     List<SudokuCellData> cells = new ArrayList<>();
     List<SudokuCellData> original = new ArrayList<>();
@@ -49,6 +50,7 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
         getSavedState();
         sudoku.setScore(score);
 
+
         gridView = view.findViewById(R.id.SudokuGridView);
         Adapter = new SudokuGridAdapter(getContext(), sudoku);
         gridView.setAdapter(Adapter);
@@ -66,7 +68,7 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
         return view;
     }
 
-    public int getInput(String input){
+    public SudokuVariation getInput(String input){
         int nSelectedPos = Adapter.getnSelectedPos();
         SudokuCellData cellData = new SudokuCellData("");
         try {
@@ -75,6 +77,7 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
             Toast.makeText(getActivity(), "Click on a cell!", Toast.LENGTH_SHORT).show();
         }
         String number = cellData.getNumber();
+        sudoku.setPosition(nSelectedPos);
 
         if(solved(cellData) || !validInput(input, number)) {
             // do nothing
@@ -115,7 +118,7 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
                         cellData.setSolved(true);
                         cellData.setInput(cellData.getNumber());
                         score = score + 100;
-                        scoreCount=0;
+                        scoreCount = 0;
                         sudoku.setScore(score);
                     }
                     else {
@@ -130,7 +133,7 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
                     cellData.setNumber(input);
             }
         }
-        return sudoku.getScore();
+        return sudoku;
     }
 
     private Boolean validInput(String input, String number) {
@@ -214,6 +217,10 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
 
         editor.remove(sudoku.getId()+"saved").apply();
         editor.remove(sudoku.getId()+"score").apply();
+        //setList(sudoku.getId(),original);
+        //cells = original;
+        //sudoku.setCells(cells);
+        //Adapter.notifyDataSetChanged();
     }
 
     public void getSavedState(){
@@ -228,6 +235,10 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
         original = gson.fromJson(StOriginal,type);
     }
 
+    public SudokuGridAdapter getAdapter() {
+        return Adapter;
+    }
+
     public void decreaseScore(){
         Double d = Math.pow(2, scoreCount);
         int minus = 10*(d.intValue());
@@ -236,7 +247,4 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
         scoreCount++;
     }
 
-    public SudokuGridAdapter getAdapter() {
-        return Adapter;
-    }
 }

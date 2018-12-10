@@ -7,6 +7,7 @@ public class SudokuVariation extends Sudoku implements Serializable {
     public List<String> solution;
     public String guid;
     public int score;
+    public int position;
 
     public SudokuVariation() {
         score = 0;
@@ -41,4 +42,11 @@ public class SudokuVariation extends Sudoku implements Serializable {
         this.score = score;
     }
 
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 }

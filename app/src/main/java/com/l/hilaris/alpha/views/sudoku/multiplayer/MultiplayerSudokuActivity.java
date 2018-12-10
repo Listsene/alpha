@@ -15,8 +15,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.l.hilaris.alpha.R;
+import com.l.hilaris.alpha.models.SudokuCellData;
 import com.l.hilaris.alpha.models.SudokuVariation;
 import com.l.hilaris.alpha.views.sudoku.singleplayer.InputButtonsGridFragment;
+import com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuGridFragment;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -77,11 +79,19 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
                         }
                         if (key.isReadable()) {
                             String str = read(key);
-                        /*if(!str.equals(score)) {
-                            String nonStrange = str.replaceAll("\\p{Cntrl}", ""); // gets rid of special character (diamond question mark)
-                            score = Integer.valueOf(nonStrange);
-                            Score();
-                        }*/
+                            str = str.replaceAll("\\p{Cntrl}", ""); // gets rid of special character (diamond question mark)
+                            String type = str.substring(0, 1);
+                            if(type.equals("s")) {
+                                str = str.replaceFirst("s", "");
+                                if(!str.equals(score)) {
+                                    score = Integer.valueOf(str);
+                                    Score();
+                                }
+                            }
+                            else if(type.equals("i")) {
+                                str = str.replaceFirst("i", "");
+                                updateSudoku(str.substring(0,1), str.substring(1,2));
+                            }
                             Log.d("Received a message", str);
                         }
                     }
@@ -214,6 +224,13 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        connection = new Server();
+        connection.execute();
+    }
+
     public void resetTimer(){
         timer.cancel();
         fiveMinutes = 300000;
@@ -260,18 +277,26 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
     public void Score() {
         scoreTv.setText(String.valueOf(score));
     }
+    public void updateSudoku(String input, String position) {
+        int pos = Integer.valueOf(position);
+        Sudoku.getCells().get(pos).clearMemo();
+        Sudoku.getCells().get(pos).setSolved(true);
+        Sudoku.getCells().get(pos).setInput(input);
+    }
 
     @Override
     public void sendInput(String input){
         sudokuGridFragment = (MultiplayerSudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
-        if(score != sudokuGridFragment.getInput(input)) {
-            score = sudokuGridFragment.getInput(input);
-            try {
-                channel.write(ByteBuffer.wrap(String.valueOf(score).getBytes()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        SudokuVariation sudoku = sudokuGridFragment.getInput(input);
+        if (score != sudoku.getScore()) { // checks if score is changed
+            score = sudoku.getScore();
+            //channel.write(ByteBuffer.wrap(String.valueOf(score).getBytes()));
+            connection.writeMessage("s" + String.valueOf(score));
             Score();
+        }
+        String cell = sudoku.getCells().get(sudoku.getPosition()).getInput();
+        if (!(cell.isEmpty() || cell.matches("\\s"))) { // checks if new solved cell
+            connection.writeMessage("i" + String.valueOf(cell) + String.valueOf(sudoku.getPosition()));
         }
     }
     public void putIsFinish(){
