@@ -25,7 +25,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     private SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
     private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
     CountDownTimer timer = null;
-    boolean isFinish;
+    boolean isFinish, success;
     SudokuVariation Sudoku;
 
     public interface onKeyBackPressedListener {
@@ -66,6 +66,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
         Sudoku = sudoku;
         score = sharedPreferences.getInt(Sudoku.getId()+"score",0);
+        success = sharedPreferences.getBoolean(Sudoku.getId()+"success",false);
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -92,6 +93,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 resetTimer();
                 resetScore();
                 isFinish=false;
+                success=false;
                 putIsFinish();
             }
         });
@@ -99,7 +101,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
     public void resetTimer(){
         timer.cancel();
-        fiveMinutes = 300000;
+        fiveMinutes = 10000;
         Timer();
     }
     public void resetGrid(){
@@ -134,7 +136,13 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 fiveMinutes = millis;
             }
             public void onFinish() {
-                timerTv.setText(getResources().getText(R.string.Timer_Complete));
+
+                if(success){
+                    timerTv.setText("Success!");
+                }else{
+                    timerTv.setText(getResources().getText(R.string.Timer_Complete));
+                }
+
                 isFinish=true;
                 putIsFinish();
                 if(sudokuGridFragment.getAdapter() !=null){
@@ -164,12 +172,19 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(Sudoku.getId()+"isFinish",isFinish);
+        editor.putBoolean(Sudoku.getId()+"success",success);
         editor.commit();
     }
     public void setFinish(){
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        success = true;
+        editor.putBoolean(Sudoku.getId()+"success",success);
+        editor.commit();
+
         timer.cancel();
         fiveMinutes = 0;
         Timer();
-        timerTv.setText("Success!");
     }
 }
