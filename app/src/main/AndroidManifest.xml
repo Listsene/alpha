@@ -30,7 +30,7 @@
             android:label="Select Difficulty">
         </activity>
         <activity
-            android:name="com.l.hilaris.alpha.views.multiplayer.MultiPlayerMenuActivity"
+            android:name="com.l.hilaris.alpha.views.multiplayer.TeamMultiPlayerMenuActivity"
             android:label="Online Session">
         </activity>
         <activity
@@ -53,5 +53,26 @@
             android:name="com.l.hilaris.alpha.views.multiplayer.ModeSelectActivity"
             android:label="Select Multiplay Mode">
         </activity>
+        <activity
+            android:name="com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity"
+            android:label="Select Multiplay Mode">
+        </activity>
+        <activity
+            android:name="com.l.hilaris.alpha.views.sudoku.multiplayer.TeamMatchMultiplayerSudokuActivity"
+            android:label="Select Multiplay Mode">
+        </activity>
+        <activity
+            android:name="com.l.hilaris.alpha.views.sudoku.multiplayer.VersusMultiplayerSudokuActivity"
+            android:label="Select Multiplay Mode">
+        </activity>
+        <activity
+            android:name="com.l.hilaris.alpha.views.multiplayer.TeamMatchMultiplayerMenuActivity"
+            android:label="Select Multiplay Mode">
+        </activity>
+        <activity
+            android:name="com.l.hilaris.alpha.views.multiplayer.VersusMultiplayerMenuActivity"
+            android:label="Select Multiplay Mode">
+        </activity>
+
     </application>
 </manifest>

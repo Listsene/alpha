@@ -41,7 +41,7 @@ import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
 
 import com.l.hilaris.alpha.R;
 
-public class MultiPlayerMenuActivity extends AppCompatActivity implements View.OnClickListener {
+public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements View.OnClickListener {
     private Button search, create;
     final static String TAG = "Suodoku Online";
     final static int Select_Players_Requset = 10000;
