@@ -140,10 +140,10 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
     }
     void startGame(boolean multiplayer) {
         MultiPlayer = multiplayer;
+        switchToScreen(R.id.screen_game);
         Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
         startActivity(intent);
 
-        //switchToScreen(R.id.easy);
     }
     // 방나감.
     void leaveRoom() {
