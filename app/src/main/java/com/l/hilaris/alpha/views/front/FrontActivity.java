@@ -19,6 +19,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.l.hilaris.alpha.views.login.LoginActivity;
+import com.l.hilaris.alpha.views.multiplayer.DifficultySelectActivity;
+import com.l.hilaris.alpha.views.multiplayer.GameSelectActivity;
 import com.l.hilaris.alpha.views.multiplayer.MultiPlayerMenuActivity;
 import com.l.hilaris.alpha.R;
 import com.l.hilaris.alpha.views.singleplayer.SinglePlayerMenuActivity;
@@ -45,12 +47,13 @@ public class FrontActivity extends AppCompatActivity implements View.OnClickList
         single.setOnClickListener(this);
         logoutbutton.setOnClickListener(this);
         multi.setOnClickListener(this);
-
+/*
         if(!loggedIn) {
             multi.setEnabled(false);
             disabled.setVisibility(View.VISIBLE);
             logoutbutton.setText(getResources().getText(R.string.not_logged_in));
         }
+        */
     }
 
     @Override
@@ -62,7 +65,7 @@ public class FrontActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.multi:
-                intent = new Intent(this, MultiPlayerMenuActivity.class);
+                intent = new Intent(this, DifficultySelectActivity.class);
                 startActivity(intent);
                 break;
 

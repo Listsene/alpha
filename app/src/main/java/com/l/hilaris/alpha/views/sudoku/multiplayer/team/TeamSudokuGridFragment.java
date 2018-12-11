@@ -1,4 +1,4 @@
-package com.l.hilaris.alpha.views.sudoku.multiplayer;
+package com.l.hilaris.alpha.views.sudoku.multiplayer.team;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -24,7 +24,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiplayerSudokuGridFragment extends Fragment implements MultiplayerSudokuActivity.onKeyBackPressedListener {
+public class TeamSudokuGridFragment extends Fragment implements TeamActivity.onKeyBackPressedListener {
     private GridView gridView;
     private SudokuVariation sudoku;
     private SudokuGridAdapter Adapter;
@@ -175,7 +175,7 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
     }
     @Override
     public void onBack() {
-        MultiplayerSudokuActivity activity = (MultiplayerSudokuActivity) getActivity();
+        TeamActivity activity = (TeamActivity) getActivity();
         activity.setOnKeyBackPressedListener(null);
         activity.onBackPressed();
 
@@ -185,7 +185,7 @@ public class MultiplayerSudokuGridFragment extends Fragment implements Multiplay
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        ((MultiplayerSudokuActivity) context).setOnKeyBackPressedListener(this);
+        ((TeamActivity) context).setOnKeyBackPressedListener(this);
 
     }
 

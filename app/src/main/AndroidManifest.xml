@@ -39,6 +39,14 @@
             android:label="Select Difficulty">
         </activity>
         <activity
+            android:name=".views.multiplayer.GameSelectActivity"
+            android:label="Select Game Mode">
+        </activity>
+        <activity
+            android:name=".views.multiplayer.DifficultySelectActivity"
+            android:label="Select Difficulty">
+        </activity>
+        <activity
             android:name="com.l.hilaris.alpha.views.sudoku.easy.EasyListActivity"
             android:label="Select Easy Puzzle">
         </activity>
@@ -62,6 +70,15 @@
             android:name="com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity"
             android:label="Sudoku Multiplayer">
         </activity>
+        <activity
+            android:name=".views.sudoku.multiplayer.versus.VersusActivity"
+            android:label="Versus">
+        </activity>
+        <activity
+            android:name=".views.sudoku.multiplayer.team.TeamActivity"
+            android:label="Team">
+        </activity>
+
     </application>
 
 </manifest>

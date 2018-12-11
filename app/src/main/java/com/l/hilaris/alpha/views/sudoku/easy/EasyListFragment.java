@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,7 @@ import com.l.hilaris.alpha.adapters.SudokuListAdapter;
 import com.l.hilaris.alpha.models.SudokuCellData;
 import com.l.hilaris.alpha.models.SudokuVariation;
 import com.l.hilaris.alpha.utilities.ItemClickSupport;
-import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
+import com.l.hilaris.alpha.views.multiplayer.GameSelectActivity;
 import com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity;
 
 import java.util.ArrayList;
@@ -546,7 +545,7 @@ public class EasyListFragment extends Fragment {
             intent.putExtra("sudoku", sudoku);
             startActivity(intent);
         } else {
-            intent = new Intent(getActivity(), MultiplayerSudokuActivity.class);
+            intent = new Intent(getActivity(), GameSelectActivity.class);
             intent.putExtra("sudoku", sudoku);
             startActivity(intent);
         }

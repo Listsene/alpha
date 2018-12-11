@@ -18,6 +18,7 @@ import com.l.hilaris.alpha.adapters.SudokuListAdapter;
 import com.l.hilaris.alpha.models.SudokuCellData;
 import com.l.hilaris.alpha.models.SudokuVariation;
 import com.l.hilaris.alpha.utilities.ItemClickSupport;
+import com.l.hilaris.alpha.views.multiplayer.GameSelectActivity;
 import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
 import com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity;
 
@@ -544,13 +545,12 @@ public class HardListFragment extends Fragment {
     public void moveActivity(SudokuVariation sudoku) {
         Intent intent = getActivity().getIntent();
         String mode = (String) intent.getSerializableExtra("mode");
-        if(mode.equals("single")) {
+        if (mode.equals("single")) {
             intent = new Intent(getActivity(), SudokuActivity.class);
             intent.putExtra("sudoku", sudoku);
             startActivity(intent);
-        }
-        else {
-            intent = new Intent(getActivity(), MultiplayerSudokuActivity.class);
+        } else {
+            intent = new Intent(getActivity(), GameSelectActivity.class);
             intent.putExtra("sudoku", sudoku);
             startActivity(intent);
         }

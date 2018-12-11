@@ -18,7 +18,7 @@
         android:text="@string/team"
         android:id="@+id/team"
         android:background="@drawable/menu_button"
-        android:layout_below="@+id/single"
+        android:layout_below="@+id/versus"
         android:layout_marginTop="@dimen/button_vertical_margin"
         android:layout_centerHorizontal = "true" />
 
