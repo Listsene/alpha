@@ -14,6 +14,10 @@
     <string name="logoutbutton">Log Out</string>
     <string name="not_logged_in">Return</string>
 
+    <!-- Game Select Options -->
+    <string name="team">Team</string>
+    <string name="versus">Versus</string>
+
     <!-- SinglePlayer Options -->
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>

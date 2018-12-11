@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/versus"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/menu_button"
+        android:layout_marginTop="200dp"
+        android:text="@string/versus" />
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/team"
+        android:id="@+id/team"
+        android:background="@drawable/menu_button"
+        android:layout_below="@+id/single"
+        android:layout_marginTop="@dimen/button_vertical_margin"
+        android:layout_centerHorizontal = "true" />
+
+</RelativeLayout>

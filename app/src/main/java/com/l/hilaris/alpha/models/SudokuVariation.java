@@ -6,6 +6,7 @@ import java.util.List;
 public class SudokuVariation extends Sudoku implements Serializable {
     public List<String> solution;
     public String guid;
+    public String mode;
     public int score;
     public int position;
 
@@ -48,5 +49,12 @@ public class SudokuVariation extends Sudoku implements Serializable {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 }
