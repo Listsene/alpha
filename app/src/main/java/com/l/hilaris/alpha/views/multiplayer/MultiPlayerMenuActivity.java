@@ -143,9 +143,9 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
         MultiPlayer = multiplayer;
         Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
         startActivity(intent);
-        switchToScreen(R.id.screen_game);
-    }
 
+        //switchToScreen(R.id.easy);
+    }
     // 방나감.
     void leaveRoom() {
         Log.d(TAG, "Leaving room.");
@@ -286,7 +286,6 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
             }
             updateRoom(room);
         }
-
         @Override
         public void onJoinedRoom(int statusCode, Room room) {
             Log.d(TAG, "onJoinedRoom(" + statusCode + ", " + room + ")");

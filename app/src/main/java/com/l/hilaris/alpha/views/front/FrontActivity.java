@@ -39,7 +39,6 @@ public class FrontActivity extends AppCompatActivity implements View.OnClickList
 
         single = findViewById(R.id.singleplayerbutton);
         single.setOnClickListener(this);
-
         multi = findViewById(R.id.multiplayerbutton);
         multi.setOnClickListener(this);
 
@@ -82,7 +81,7 @@ public class FrontActivity extends AppCompatActivity implements View.OnClickList
                                 }
                             });
                 }else{
-                    intent = new Intent(this, LoginActivity.class);
+                    intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 }
                 break;

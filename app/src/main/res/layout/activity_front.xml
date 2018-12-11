@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="@string/multi"
         android:id="@+id/multiplayerbutton"
-        android:background="@color/primary_accent"
+        android:background="@drawable/menu_button"
         android:layout_below="@+id/singleplayerbutton"
         android:layout_marginTop="@dimen/button_vertical_margin"
         android:layout_centerHorizontal = "true" />
