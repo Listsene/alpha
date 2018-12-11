@@ -29,6 +29,9 @@
     <string name="inv_popup_text">Incoming invitation</string>
     <string name="game_problem">Error occurred while starting game. Please try again.</string>
     <string name="accept_popup_invite">Accept!</string>
+    <string name="team">team</string>
+    <string name="versus">versus</string>
+    <string name="team_match">team match</string>
 
     <!-- Input Buttons -->
     <string name="Clear">Clear</string>

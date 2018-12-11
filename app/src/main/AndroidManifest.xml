@@ -49,5 +49,9 @@
             android:name="com.l.hilaris.alpha.views.sudoku.hard.HardListActivity"
             android:label="Select Hard Puzzle">
         </activity>
+        <activity
+            android:name="com.l.hilaris.alpha.views.multiplayer.ModeSelectActivity"
+            android:label="Select Multiplay Mode">
+        </activity>
     </application>
 </manifest>

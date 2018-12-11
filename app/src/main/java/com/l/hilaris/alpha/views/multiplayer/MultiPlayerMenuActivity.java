@@ -56,7 +56,6 @@ public class MultiPlayerMenuActivity extends AppCompatActivity implements View.O
     String CurrentMyId = null;
     // 현재게임에 내참가아이디
     String ReceivingInvitationID = null;
-
     String RoomID = null;
     // 방생성 번호
     RoomConfig Roomconfig;
