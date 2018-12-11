@@ -9,6 +9,8 @@ import android.widget.Button;
 
 import com.l.hilaris.alpha.R;
 import com.l.hilaris.alpha.views.sudoku.easy.EasyListActivity;
+import com.l.hilaris.alpha.views.sudoku.hard.HardListActivity;
+import com.l.hilaris.alpha.views.sudoku.medium.MediumListActivity;
 
 public class SinglePlayerMenuActivity extends AppCompatActivity implements View.OnClickListener {
     private Button easy, medium, hard;
@@ -34,12 +36,14 @@ public class SinglePlayerMenuActivity extends AppCompatActivity implements View.
                 startActivity(intent);
                 break;
             case R.id.medium:
-                intent = new Intent(this, EasyListActivity.class);
-                intent.putExtra("mode", "multi");
+                intent = new Intent(this, MediumListActivity.class);
+                intent.putExtra("mode", "single");
                 startActivity(intent);
                 break;
             case R.id.hard:
-                // TODO
+                intent = new Intent(this, HardListActivity.class);
+                intent.putExtra("mode", "single");
+                startActivity(intent);
                 break;
         }
     }

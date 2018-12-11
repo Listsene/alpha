@@ -26,7 +26,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
     private SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
     private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
     CountDownTimer timer = null;
-    boolean isFinish;
+    boolean isFinish, success;
     SudokuVariation Sudoku;
     private int testy = 0;
 
@@ -68,6 +68,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
 
         Sudoku = sudoku;
         score = sharedPreferences.getInt(Sudoku.getId()+"score",0);
+        success = sharedPreferences.getBoolean(Sudoku.getId()+"success",false);
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -94,6 +95,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 resetTimer();
                 resetScore();
                 isFinish=false;
+                success=false;
                 putIsFinish();
             }
         });
@@ -136,11 +138,23 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 fiveMinutes = millis;
             }
             public void onFinish() {
-                timerTv.setText(getResources().getText(R.string.Timer_Complete));
+
+                if(success){
+                    timerTv.setText("Success!");
+                }else{
+                    timerTv.setText(getResources().getText(R.string.Timer_Complete));
+                }
+
                 isFinish=true;
                 putIsFinish();
-                sudokuGridFragment.getAdapter().notifyThis();
-                inputButtonsGridFragment.getAdapter().notifyThis();
+                if(sudokuGridFragment.getAdapter() !=null){
+                    sudokuGridFragment.getAdapter().notifyThis();
+                }
+                if(inputButtonsGridFragment.getAdapter() != null){
+                    inputButtonsGridFragment.getAdapter().notifyThis();
+                }
+
+
             }
         }.start();
     }
@@ -163,6 +177,20 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(Sudoku.getId()+"isFinish",isFinish);
+        editor.putBoolean(Sudoku.getId()+"success",success);
         editor.commit();
+    }
+}
+    public void setFinish(){
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        success = true;
+        editor.putBoolean(Sudoku.getId()+"success",success);
+        editor.commit();
+
+        timer.cancel();
+        fiveMinutes = 0;
+        Timer();
     }
 }

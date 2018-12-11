@@ -120,6 +120,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
                         score = score + 100;
                         scoreCount = 0;
                         sudoku.setScore(score);
+                        checkFinish();
                     }
                     else {
                         Toast.makeText(getActivity(), "Incorrect!", Toast.LENGTH_SHORT).show();
@@ -245,6 +246,25 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
 
         score = score-minus;
         scoreCount++;
+    }
+
+    public void checkFinish(){
+        Boolean isFinish=true;
+        for(int i=0; i<81; i++){
+            Boolean bl = cells.get(i).getSolved();
+            if(bl==false){
+                isFinish = false;
+            }
+        }
+        if(isFinish == true){
+            SudokuActivity activity = (SudokuActivity) getActivity();
+            activity.setFinish();
+        }
+
+
+//        SharedPreferences pref = this.getActivity().getSharedPreferences("pref",0);
+//        SharedPreferences.Editor editor = pref.edit();
+//        editor.putBoolean("isFinish",isFinish).apply();
     }
 
 
