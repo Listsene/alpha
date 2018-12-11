@@ -60,7 +60,6 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         setContentView(R.layout.activity_sudoku);
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
 
-
         isFinish = false;
 
         SudokuVariation sudoku = (SudokuVariation) getIntent().getSerializableExtra("sudoku");
@@ -94,8 +93,8 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 resetGrid();
                 resetTimer();
                 resetScore();
-                isFinish=false;
-                success=false;
+                isFinish = false;
+                success = false;
                 putIsFinish();
             }
         });
@@ -173,21 +172,21 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         }
     }
 
-    public void putIsFinish(){
-        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
+    public void putIsFinish() {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref", 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(Sudoku.getId()+"isFinish",isFinish);
-        editor.putBoolean(Sudoku.getId()+"success",success);
-        editor.commit();
+        editor.putBoolean(Sudoku.getId() + "isFinish", isFinish);
+        editor.putBoolean(Sudoku.getId() + "success", success);
+        editor.apply();
     }
-}
+
     public void setFinish(){
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         success = true;
         editor.putBoolean(Sudoku.getId()+"success",success);
-        editor.commit();
+        editor.apply();
 
         timer.cancel();
         fiveMinutes = 0;

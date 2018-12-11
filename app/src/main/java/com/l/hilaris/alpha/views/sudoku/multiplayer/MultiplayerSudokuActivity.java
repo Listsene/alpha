@@ -37,7 +37,7 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
     private MultiplayerSudokuGridFragment sudokuGridFragment = new MultiplayerSudokuGridFragment();
     private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
     CountDownTimer timer = null;
-    boolean isFinish;
+    boolean isFinish, success;
     SudokuVariation Sudoku;
 
     // For connection with server
@@ -185,6 +185,7 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
 
         Sudoku = sudoku;
         score = sharedPreferences.getInt(Sudoku.getId()+"score",0);
+        success = sharedPreferences.getBoolean(Sudoku.getId()+"success",false);
 
         // server
         connection = new Server();
@@ -219,6 +220,7 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
                 resetTimer();
                 resetScore();
                 isFinish = false;
+                success = false;
                 putIsFinish();
             }
         });
@@ -266,11 +268,23 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
                 fiveMinutes = millis;
             }
             public void onFinish() {
-                timerTv.setText(getResources().getText(R.string.Timer_Complete));
+
+                if(success){
+                    timerTv.setText("Success!");
+                }else{
+                    timerTv.setText(getResources().getText(R.string.Timer_Complete));
+                }
+
                 isFinish=true;
                 putIsFinish();
-                sudokuGridFragment.getAdapter().notifyThis();
-                inputButtonsGridFragment.getAdapter().notifyThis();
+                if(sudokuGridFragment.getAdapter() !=null){
+                    sudokuGridFragment.getAdapter().notifyThis();
+                }
+                if(inputButtonsGridFragment.getAdapter() != null){
+                    inputButtonsGridFragment.getAdapter().notifyThis();
+                }
+
+
             }
         }.start();
     }
@@ -303,6 +317,19 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(Sudoku.getId()+"isFinish",isFinish);
+        editor.putBoolean(Sudoku.getId() + "success", success);
         editor.apply();
+    }
+    public void setFinish(){
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        success = true;
+        editor.putBoolean(Sudoku.getId()+"success",success);
+        editor.apply();
+
+        timer.cancel();
+        fiveMinutes = 0;
+        Timer();
     }
 }

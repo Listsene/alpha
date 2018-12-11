@@ -551,8 +551,5 @@ public class EasyListFragment extends Fragment {
             startActivity(intent);
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> gg
+
