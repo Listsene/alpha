@@ -6,40 +6,37 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="212dp"
         android:background="@color/primary_accent"
         android:text="@string/team"
-        android:textSize="12sp"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="142dp" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="144dp"
         android:background="@color/primary_accent"
         android:text="@string/versus"
-        android:textSize="12sp"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="222dp" />
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="240dp"
         android:background="@color/primary_accent"
         android:text="@string/team_match"
-        android:textSize="12sp"
         tools:layout_editor_absoluteX="140dp"
         tools:layout_editor_absoluteY="300dp" />
 

@@ -12,15 +12,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="153dp"
         android:text="@string/search" />
+
     <Button
+        android:id="@+id/create"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="@string/create"
-        android:id="@+id/create"
-        android:background="@color/primary_accent"
         android:layout_below="@+id/search"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:layout_centerHorizontal = "true" />
+        android:background="@color/primary_accent"
+        android:text="@string/invite" />
 
     <!-- "PLEASE WAIT" SCREEN -->
     <LinearLayout android:id="@+id/screen_wait" style="@style/LLScreen">

@@ -21,8 +21,9 @@
     <string name="hard">Hard</string>
 
     <!-- MultiPlayer Options -->
-    <string name="search">Search</string>
+    <string name="search">Search Quick Game</string>
     <string name="create">Create</string>
+    <string name="invite">Invite</string>
     <string name="please_wait">Please wait&#8230;</string>
     <string name="instructions">Match start!</string>
     <string name="click_me">Click me!</string>
