@@ -140,10 +140,9 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
     }
     void startGame(boolean multiplayer) {
         MultiPlayer = multiplayer;
-        Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
-        startActivity(intent);
 
-        //switchToScreen(R.id.easy);
+        //Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
+        //startActivity(intent);
     }
     // 방나감.
     void leaveRoom() {
