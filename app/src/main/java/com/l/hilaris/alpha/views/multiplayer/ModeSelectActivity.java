@@ -39,7 +39,7 @@ public class ModeSelectActivity  extends AppCompatActivity implements View.OnCli
         versus.setOnClickListener(this);
         team_match = findViewById(R.id.button3);
         team_match.setOnClickListener(this);
-
+        Adapter = new SudokuListAdapter(getApplicationContext(),sudokus);
         createSudokus();
         sudoku = sudokus.get(0);
     }
@@ -78,7 +78,7 @@ public class ModeSelectActivity  extends AppCompatActivity implements View.OnCli
         SudokuCellData cell;
 
         Gson gson;
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("pref", 0);
+        SharedPreferences preferences = this.getApplicationContext().getSharedPreferences("pref", 0);
         SharedPreferences.Editor editor = preferences.edit();
 
         cells = new ArrayList<>();
