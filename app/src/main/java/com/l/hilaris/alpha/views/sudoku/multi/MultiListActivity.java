@@ -20,7 +20,7 @@ public class MultiListActivity extends AppCompatActivity {
         // Opens TestListFragment
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.MultiListFragment,new MultiListActivity());
+        ft.add(R.id.MultiListFragment, new MultiListFragment());
         //R.id.MultiListFragment, new MultiListActivity());
         ft.commit();
     }

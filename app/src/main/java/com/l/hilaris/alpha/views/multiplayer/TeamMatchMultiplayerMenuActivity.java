@@ -37,6 +37,7 @@ import com.google.android.gms.games.multiplayer.realtime.RoomUpdateCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.l.hilaris.alpha.views.sudoku.multi.MultiListActivity;
 import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
 
 import com.l.hilaris.alpha.R;
@@ -140,7 +141,9 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
     }
     void startGame(boolean multiplayer) {
         MultiPlayer = multiplayer;
-
+        Intent intent = new Intent(this, MultiListActivity.class);
+        intent.putExtra("mode", "multi");
+        startActivity(intent);
         //Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
         //startActivity(intent);
     }
