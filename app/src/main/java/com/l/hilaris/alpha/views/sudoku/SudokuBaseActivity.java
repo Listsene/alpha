@@ -1,4 +1,4 @@
-package com.l.hilaris.alpha.views.sudoku.singleplayer;
+package com.l.hilaris.alpha.views.sudoku;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -7,58 +7,32 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.l.hilaris.alpha.R;
 import com.l.hilaris.alpha.models.SudokuVariation;
+import com.l.hilaris.alpha.views.sudoku.singleplayer.SinglePlayerSudokuActivity;
 
 import java.util.concurrent.TimeUnit;
 
-public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
-    private Toolbar mToolbar;
-    TextView timerTv, scoreTv;
-    private int score, score2;
-    long fiveMinutes;
-    private SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
-    private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
-    CountDownTimer timer = null;
-    boolean isFinish, success;
-    SudokuVariation Sudoku;
-    private int testy = 0;
-
-    public interface onKeyBackPressedListener {
-        public void onBack();
-    }
-    private onKeyBackPressedListener mOnKeyBackPressedListener;
-
-    public void setOnKeyBackPressedListener(onKeyBackPressedListener listener){
-        mOnKeyBackPressedListener = listener;
-    }
-
-    @Override
-    public void onBackPressed(){
-        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putLong(Sudoku.getId()+"time",fiveMinutes);
-
-        editor.putInt(Sudoku.getId()+"score", score);
-        editor.apply();
-        if(mOnKeyBackPressedListener != null){
-            mOnKeyBackPressedListener.onBack();
-        }else{
-            super.onBackPressed();
-        }
-    }
+public abstract class SudokuBaseActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
+    protected Toolbar mToolbar;
+    protected TextView timerTv, scoreTv;
+    protected int score;
+    protected long fiveMinutes;
+    protected SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
+    protected InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
+    protected CountDownTimer timer = null;
+    protected boolean isFinish, success;
+    protected SudokuVariation Sudoku;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sudoku);
-        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref", 0);
 
         isFinish = false;
 
@@ -66,7 +40,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         getIntent().putExtra("sudoku", sudoku);
 
         Sudoku = sudoku;
-        score = sharedPreferences.getInt(Sudoku.getId()+"score",0);
+        score = sharedPreferences.getInt(Sudoku.getId() + "score", 0);
         success = sharedPreferences.getBoolean(Sudoku.getId()+"success",false);
 
         FragmentManager fm = getFragmentManager();
@@ -74,7 +48,7 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         ft.add(R.id.SudokuGridFragment, sudokuGridFragment);
         ft.add(R.id.InputButtonsFragment, inputButtonsGridFragment);
         ft.commit();
-        fiveMinutes = sharedPreferences.getLong(Sudoku.getId()+"time", 300000);
+        fiveMinutes = sharedPreferences.getLong(Sudoku.getId() + "time", 300000);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
@@ -100,12 +74,13 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         });
     }
 
-    public void resetTimer(){
+    protected void resetTimer() {
         timer.cancel();
         fiveMinutes = 300000;
         Timer();
     }
-    public void resetGrid(){
+
+    protected void resetGrid() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         sudokuGridFragment.newGame();
@@ -113,13 +88,13 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         ft.replace(R.id.InputButtonsFragment, inputButtonsGridFragment = new InputButtonsGridFragment());
         ft.commit();
     }
-    public void resetScore(){
+
+    protected void resetScore() {
         score = 0;
         scoreTv.setText(String.valueOf(score));
     }
 
-
-    public void Timer(){
+    protected void Timer(){
         timer = new CountDownTimer(fiveMinutes, 1000) {
             public void onTick(long millisUntilFinished) {
                 isFinish = false;
@@ -152,15 +127,13 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 if(inputButtonsGridFragment.getAdapter() != null){
                     inputButtonsGridFragment.getAdapter().notifyThis();
                 }
-
-
             }
         }.start();
     }
-    public void Score() {
+
+    protected void Score() {
         scoreTv.setText(String.valueOf(score));
     }
-
 
     @Override
     public void sendInput(String input) {
@@ -180,12 +153,12 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         editor.apply();
     }
 
-    public void setFinish(){
-        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
+    public void setFinish() {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref", 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
         success = true;
-        editor.putBoolean(Sudoku.getId()+"success",success);
+        editor.putBoolean(Sudoku.getId() + "success", success);
         editor.apply();
 
         timer.cancel();

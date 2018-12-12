@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.l.hilaris.alpha.R;
-import com.l.hilaris.alpha.views.sudoku.easy.EasyListActivity;
-import com.l.hilaris.alpha.views.sudoku.hard.HardListActivity;
-import com.l.hilaris.alpha.views.sudoku.medium.MediumListActivity;
+import com.l.hilaris.alpha.views.difficulties.easy.EasyListActivity;
+import com.l.hilaris.alpha.views.difficulties.hard.HardListActivity;
+import com.l.hilaris.alpha.views.difficulties.medium.MediumListActivity;
 
 public class SinglePlayerMenuActivity extends AppCompatActivity implements View.OnClickListener {
     private Button easy, medium, hard;

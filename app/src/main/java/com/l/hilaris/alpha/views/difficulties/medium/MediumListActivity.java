@@ -1,4 +1,4 @@
-package com.l.hilaris.alpha.views.sudoku.medium;
+package com.l.hilaris.alpha.views.difficulties.medium;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.l.hilaris.alpha.R;
-import com.l.hilaris.alpha.views.sudoku.hard.HardListFragment;
+import com.l.hilaris.alpha.views.difficulties.hard.HardListFragment;
 
 public class MediumListActivity extends AppCompatActivity{
     @Override

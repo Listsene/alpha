@@ -47,15 +47,15 @@
             android:label="Select Difficulty">
         </activity>
         <activity
-            android:name="com.l.hilaris.alpha.views.sudoku.easy.EasyListActivity"
+            android:name=".views.difficulties.easy.EasyListActivity"
             android:label="Select Easy Puzzle">
         </activity>
         <activity
-            android:name="com.l.hilaris.alpha.views.sudoku.medium.MediumListActivity"
+            android:name=".views.difficulties.medium.MediumListActivity"
             android:label="Select Medium Puzzle">
         </activity>
         <activity
-            android:name="com.l.hilaris.alpha.views.sudoku.hard.HardListActivity"
+            android:name=".views.difficulties.hard.HardListActivity"
             android:label="Select Hard Puzzle">
         </activity>
         <activity
@@ -63,7 +63,7 @@
             android:label="Online Session">
         </activity>
         <activity
-            android:name="com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity"
+            android:name="com.l.hilaris.alpha.views.sudoku.singleplayer.SinglePlayerSudokuActivity"
             android:label="Sudoku">
         </activity>
         <activity

@@ -1,11 +1,10 @@
-package com.l.hilaris.alpha.views.sudoku.singleplayer;
+package com.l.hilaris.alpha.views.sudoku;
 
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +21,13 @@ import com.l.hilaris.alpha.models.SudokuVariation;
 import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
 import com.l.hilaris.alpha.views.sudoku.multiplayer.team.TeamActivity;
 import com.l.hilaris.alpha.views.sudoku.multiplayer.versus.VersusActivity;
+import com.l.hilaris.alpha.views.sudoku.singleplayer.SinglePlayerSudokuActivity;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SudokuGridFragment extends Fragment implements SudokuActivity.onKeyBackPressedListener, MultiplayerSudokuActivity.onKeyBackPressedListener, VersusActivity.onKeyBackPressedListener, TeamActivity.onKeyBackPressedListener{
+public class SudokuGridFragment extends Fragment implements SinglePlayerSudokuActivity.onKeyBackPressedListener, VersusActivity.onKeyBackPressedListener, TeamActivity.onKeyBackPressedListener{
     private GridView gridView;
     private SudokuVariation sudoku;
     private SudokuGridAdapter Adapter;
@@ -182,24 +182,19 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     public void onBack(){
         switch(mode) {
             case "single":
-                SudokuActivity sudokuaActivity = (SudokuActivity) getActivity();
-                sudokuaActivity.setOnKeyBackPressedListener(null);
+                SinglePlayerSudokuActivity sudokuaActivity = (SinglePlayerSudokuActivity) getActivity();
+                sudokuaActivity.setOnKeyBackPressedListener(this);
                 sudokuaActivity.onBackPressed();
                 break;
             case "versus":
                 VersusActivity versusActivity = (VersusActivity) getActivity();
-                versusActivity.setOnKeyBackPressedListener(null);
+                versusActivity.setOnKeyBackPressedListener(this);
                 versusActivity.onBackPressed();
                 break;
             case "team":
                 TeamActivity teamActivity = (TeamActivity) getActivity();
-                teamActivity.setOnKeyBackPressedListener(null);
+                teamActivity.setOnKeyBackPressedListener(this);
                 teamActivity.onBackPressed();
-                break;
-            default:
-                MultiplayerSudokuActivity multiplayerSudokuActivity = (MultiplayerSudokuActivity) getActivity();
-                multiplayerSudokuActivity.setOnKeyBackPressedListener(null);
-                multiplayerSudokuActivity.onBackPressed();
                 break;
         }
         saveCellState();
@@ -214,16 +209,13 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
 
         switch(mode) {
             case "single":
-                ((SudokuActivity) context).setOnKeyBackPressedListener(this);
+                ((SinglePlayerSudokuActivity) context).setOnKeyBackPressedListener(this);
                 break;
             case "versus":
                 ((VersusActivity) context).setOnKeyBackPressedListener(this);
                 break;
             case "team":
                 ((TeamActivity) context).setOnKeyBackPressedListener(this);
-                break;
-            default:
-                ((MultiplayerSudokuActivity) context).setOnKeyBackPressedListener(this);
                 break;
         }
     }
@@ -297,7 +289,7 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
         if(isFinish){
             switch(mode) {
                 case "single":
-                    SudokuActivity sudokuaActivity = (SudokuActivity) getActivity();
+                    SinglePlayerSudokuActivity sudokuaActivity = (SinglePlayerSudokuActivity) getActivity();
                     sudokuaActivity.setFinish();
                     break;
                 case "versus":
@@ -308,9 +300,6 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
                     TeamActivity teamActivity = (TeamActivity) getActivity();
                     teamActivity.setFinish();
                     break;
-                default:
-                    MultiplayerSudokuActivity multiplayerSudokuActivity = (MultiplayerSudokuActivity) getActivity();
-                    multiplayerSudokuActivity.setFinish();
             }
         }
 

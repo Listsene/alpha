@@ -1,4 +1,4 @@
-package com.l.hilaris.alpha.views.sudoku.medium;
+package com.l.hilaris.alpha.views.difficulties.hard;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -19,13 +19,12 @@ import com.l.hilaris.alpha.models.SudokuCellData;
 import com.l.hilaris.alpha.models.SudokuVariation;
 import com.l.hilaris.alpha.utilities.ItemClickSupport;
 import com.l.hilaris.alpha.views.multiplayer.GameSelectActivity;
-import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
-import com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity;
+import com.l.hilaris.alpha.views.sudoku.singleplayer.SinglePlayerSudokuActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MediumListFragment extends Fragment{
+public class HardListFragment extends Fragment {
     private java.util.List<SudokuVariation> sudokus = new ArrayList<>();
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
@@ -85,15 +84,15 @@ public class MediumListFragment extends Fragment{
 
         cells = new ArrayList<>();
         String sudokuCells =
-                " |4|6|1| | | | | |" +
-                        "2| | |4| | |1| | |" +
-                        " |7| |5|9| |2| | |" +
-                        " |6| | | | | | |9|" +
-                        "8| | |2| |5| | |7|" +
-                        "7| | | | | | |6| |" +
-                        " | |7| |1|4| |5| |" +
-                        " | |1| | |3| | |2|" +
-                        " | | | | |2|4|8| |";
+                " | | | |6|1| |5| |" +
+                        " | |8| | | |2|1| |" +
+                        " | | |2|5| | | |3|" +
+                        "7| | | | | | |3| |" +
+                        " | |3|8|1|5|9| | |" +
+                        " |2| | | | | | |5|" +
+                        "2| | | |8|7| | | |" +
+                        " |3|4| | | |8| | |" +
+                        " |7| |3|9| | | | |";
         String[] splitCells = sudokuCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             cell = new SudokuCellData(splitCells[i]);
@@ -106,21 +105,21 @@ public class MediumListFragment extends Fragment{
 
         solution = new ArrayList<>();
         String solCells =
-                "9|4|6|1|2|8|7|3|5|" +
-                        "2|5|8|4|3|7|1|9|6|" +
-                        "1|7|3|5|9|6|2|4|8|" +
-                        "3|6|5|7|4|1|8|2|9|" +
-                        "8|9|4|2|6|5|3|1|7|" +
-                        "7|1|2|3|8|9|5|6|4|" +
-                        "6|2|7|8|1|4|9|5|3|" +
-                        "4|8|1|9|5|3|6|7|2|" +
-                        "5|3|9|6|7|2|4|8|1|";
+                "3|9|2|4|6|1|7|5|8|" +
+                        "5|6|8|7|3|9|2|1|4|" +
+                        "4|1|7|2|5|8|6|9|3|" +
+                        "7|8|5|9|4|2|1|3|6|" +
+                        "6|4|3|8|1|5|9|2|7|" +
+                        "1|2|9|6|7|3|4|8|5|" +
+                        "2|5|6|1|8|7|3|4|9|" +
+                        "9|3|4|5|2|6|8|7|1|" +
+                        "8|7|1|3|9|4|5|6|2|";
         splitCells = solCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             solution.add(splitCells[i]);
         }
         sudoku.setSolution(solution);
-        sudoku.setId("Sudoku 11");
+        sudoku.setId("Sudoku 21");
         sudokus.add(sudoku);
 
         gson = new Gson();
@@ -128,19 +127,19 @@ public class MediumListFragment extends Fragment{
         editor.putString(sudoku.getId(), json);
         editor.apply();
 
-        // Sudoku 12
+        // Sudoku 02
         sudoku = new SudokuVariation();
         cells = new ArrayList<>();
         sudokuCells =
-                " | | |1| | | |7| |" +
-                        " | | |9| | | | |2|" +
-                        "2|1| | | |7|5| |3|" +
-                        "1| | |5| |9|7|2| |" +
-                        " | |3| |2| |1| | |" +
-                        " |2|5|7| |6| | |4|" +
-                        "6| |1|3| | | |8|9|" +
-                        "4| | | | |8| | | |" +
-                        " |3| | | |1| | | |";
+                " | |3| |5| |4| | |" +
+                        " | | |9| | | |6| |" +
+                        " | | | | |6|2| |9|" +
+                        " |1| | |9| | | |2|" +
+                        "5|3| | |2| | |9|7|" +
+                        "6| | | |3| | |4| |" +
+                        "1| |6|4| | | | | |" +
+                        " |4| | | |1| | | |" +
+                        " | |8| |6| |3| | |";
         splitCells = sudokuCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             cell = new SudokuCellData(splitCells[i]);
@@ -153,21 +152,21 @@ public class MediumListFragment extends Fragment{
 
         solution = new ArrayList<>();
         solCells =
-                "3|4|6|1|5|2|9|7|8|" +
-                        "8|5|7|9|6|3|4|1|2|" +
-                        "2|1|9|4|8|7|5|6|3|" +
-                        "1|8|4|5|3|9|7|2|6|" +
-                        "7|6|3|8|2|4|1|9|5|" +
-                        "9|2|5|7|1|6|8|3|4|" +
-                        "6|7|1|3|4|5|2|8|9|" +
-                        "4|9|2|6|7|8|3|5|1|" +
-                        "5|3|8|2|9|1|6|4|7|";
+                "9|6|3|8|5|2|4|7|1|" +
+                        "4|5|2|9|1|7|8|6|3|" +
+                        "7|8|1|3|4|6|2|5|9|" +
+                        "8|1|7|6|9|4|5|3|2|" +
+                        "5|3|4|1|2|8|6|9|7|" +
+                        "6|2|9|7|3|5|1|4|8|" +
+                        "1|9|6|4|8|3|7|2|5|" +
+                        "3|4|5|2|7|1|9|8|6|" +
+                        "2|7|8|5|6|9|3|1|4|";
         splitCells = solCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             solution.add(splitCells[i]);
         }
         sudoku.setSolution(solution);
-        sudoku.setId("Sudoku 12");
+        sudoku.setId("Sudoku 22");
         sudokus.add(sudoku);
 
         gson = new Gson();
@@ -175,18 +174,18 @@ public class MediumListFragment extends Fragment{
         editor.putString(sudoku.getId(), json);
         editor.apply();
 
-        // Sudoku 13
+        // Sudoku 03
         sudoku = new SudokuVariation();
         cells = new ArrayList<>();
-        sudokuCells =   "8| | |6| | | |4| |" +
-                " |7|6|4| | | | | |" +
-                " | |2|3|1| | |8| |" +
-                " | |7| | | | | |1|" +
-                "9| | |8| |3| | |2|" +
-                "2| | | | | |7| | |" +
-                " |2| | |4|6|3| | |" +
-                " | | | | |8|9|6| |" +
-                " |4| | | |5| | |8|";
+        sudokuCells =   " |6|9|2| | | | | |" +
+                "7| |5| | |4|2| | |" +
+                " | | |3| | | | | |" +
+                "3| | | |2| | | | |" +
+                "4|5| |6| |8| |7|9|" +
+                " | | | |7| | | |1|" +
+                " | | | | |5| | | |" +
+                " | |4|9| | |1| |7|" +
+                " | | | | |2|4|8| |";
         splitCells = sudokuCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             cell = new SudokuCellData(splitCells[i]);
@@ -198,21 +197,21 @@ public class MediumListFragment extends Fragment{
         sudoku.setCells(cells);
 
         solution = new ArrayList<>();
-        solCells = "8|9|3|6|5|2|1|4|7|" +
-                "1|7|6|4|8|9|5|2|3|" +
-                "4|5|2|3|1|7|6|8|9|" +
-                "5|3|7|2|6|4|8|9|1|" +
-                "9|6|1|8|7|3|4|5|2|" +
-                "2|8|4|5|9|1|7|3|6|" +
-                "7|2|8|9|4|6|3|1|5|" +
-                "3|1|5|7|2|8|9|6|4|" +
-                "6|4|9|1|3|5|2|7|8|";
+        solCells = "8|6|9|2|5|1|7|4|3|" +
+                "7|3|5|8|9|4|2|1|6|" +
+                "2|4|1|3|6|7|9|5|8|" +
+                "3|1|7|5|2|9|8|6|4|" +
+                "4|5|2|6|1|8|3|7|9|" +
+                "6|9|8|4|7|3|5|2|1|" +
+                "1|8|3|7|4|5|6|9|2|" +
+                "5|2|4|9|8|6|1|3|7|" +
+                "9|7|6|1|3|2|4|8|5|";
         splitCells = solCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             solution.add(splitCells[i]);
         }
         sudoku.setSolution(solution);
-        sudoku.setId("Sudoku 13");
+        sudoku.setId("Sudoku 23");
         sudokus.add(sudoku);
 
         gson = new Gson();
@@ -220,18 +219,18 @@ public class MediumListFragment extends Fragment{
         editor.putString(sudoku.getId(), json);
         editor.apply();
 
-        // Sudoku 14
+        // Sudoku 04
         sudoku = new SudokuVariation();
         cells = new ArrayList<>();
-        sudokuCells =   "3| | |6|5| |1| | |" +
-                " |2| |4| | |5| | |" +
-                "7| |6|2| | | | | |" +
-                "9| | | | | | |1| |" +
-                " |1| |3| |2| |7| |" +
-                " |8| | | | | | |9|" +
-                " | | | | |5|9| |6|" +
-                " | |5| | |6| |2| |" +
-                " | |2| |8|3| | |1|";
+        sudokuCells =   " | | | |1| | |5| |" +
+                " | | | |7|2|3| | |" +
+                " | |7| | | |1|4| |" +
+                " | |4| |5| | |9|2|" +
+                " | | |3| |9| | | |" +
+                "1|9| | |6| |7| | |" +
+                " |7|8| | | |9| | |" +
+                " | |3|8|4| | | | |" +
+                " |6| | |3| | | | |";
         splitCells = sudokuCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             cell = new SudokuCellData(splitCells[i]);
@@ -243,21 +242,21 @@ public class MediumListFragment extends Fragment{
         sudoku.setCells(cells);
 
         solution = new ArrayList<>();
-        solCells = "3|4|8|6|5|7|1|9|2|" +
-                "1|2|9|4|3|8|5|6|7|" +
-                "7|5|6|2|1|9|8|3|4|" +
-                "9|6|3|8|7|4|2|1|5|" +
-                "5|1|4|3|9|2|6|7|8|" +
-                "2|8|7|5|6|1|3|4|9|" +
-                "4|3|1|7|2|5|9|8|6|" +
-                "8|9|5|1|4|6|7|2|3|" +
-                "6|7|2|9|8|3|4|5|1|";
+        solCells = "6|3|9|4|1|8|2|5|7|" +
+                "8|4|1|5|7|2|3|6|9|" +
+                "2|5|7|6|9|3|1|4|8|" +
+                "3|8|4|7|5|1|6|9|2|" +
+                "7|2|6|3|8|9|4|1|5|" +
+                "1|9|5|2|6|4|7|8|3|" +
+                "5|7|8|1|2|6|9|3|4|" +
+                "9|1|3|8|4|7|5|2|6|" +
+                "4|6|2|9|3|5|8|7|1|";
         splitCells = solCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             solution.add(splitCells[i]);
         }
         sudoku.setSolution(solution);
-        sudoku.setId("Sudoku 14");
+        sudoku.setId("Sudoku 24");
         sudokus.add(sudoku);
 
         gson = new Gson();
@@ -265,18 +264,18 @@ public class MediumListFragment extends Fragment{
         editor.putString(sudoku.getId(), json);
         editor.apply();
 
-        // Sudoku 15
+        // Sudoku 05
         sudoku = new SudokuVariation();
         cells = new ArrayList<>();
-        sudokuCells =   " | | |3|5| | |4| |" +
-                "3|7| | | | |2| | |" +
-                " | | | | |2|6| |3|" +
-                " | | | |4| |7|6|9|" +
-                "7| | | | | | | |8|" +
-                "6|1|4| |9| | | | |" +
-                "9| |5|2| | | | | |" +
-                " | |6| | | | |7|4|" +
-                " |4| | |3|8| | | |";
+        sudokuCells =   " | |9| | | |5| |8|" +
+                " | | | |6|5|7| | |" +
+                " | | | |7| | | |1|" +
+                " | |8| |1| | |2|9|" +
+                " | | |9| |7| | | |" +
+                "9|3| | |4| |6| | |" +
+                "4| | | |2| | | | |" +
+                " | |7|3|8| | | | |" +
+                "6| |2| | | |8| | |";
         splitCells = sudokuCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             cell = new SudokuCellData(splitCells[i]);
@@ -288,21 +287,21 @@ public class MediumListFragment extends Fragment{
         sudoku.setCells(cells);
 
         solution = new ArrayList<>();
-        solCells = "2|6|9|3|5|1|8|4|7|" +
-                "3|7|8|4|6|9|2|5|1|" +
-                "4|5|1|7|8|2|6|9|3|" +
-                "5|8|2|1|4|3|7|6|9|" +
-                "7|9|3|5|2|6|4|1|8|" +
-                "6|1|4|8|9|7|5|3|2|" +
-                "9|3|5|2|7|4|1|8|6|" +
-                "8|2|6|9|1|5|3|7|4|" +
-                "1|4|7|6|3|8|9|2|5|";
+        solCells = "7|6|9|1|3|2|5|4|8|" +
+                "3|1|4|8|6|5|7|9|2|" +
+                "8|2|5|4|7|9|3|6|1|" +
+                "5|7|8|6|1|3|4|2|9|" +
+                "2|4|6|9|5|7|1|8|3|" +
+                "9|3|1|2|4|8|6|7|5|" +
+                "4|8|3|5|2|6|9|1|7|" +
+                "1|9|7|3|8|4|2|5|6|" +
+                "6|5|2|7|9|1|8|3|4|";
         splitCells = solCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             solution.add(splitCells[i]);
         }
         sudoku.setSolution(solution);
-        sudoku.setId("Sudoku 15");
+        sudoku.setId("Sudoku 25");
         sudokus.add(sudoku);
 
         gson = new Gson();
@@ -310,18 +309,18 @@ public class MediumListFragment extends Fragment{
         editor.putString(sudoku.getId(), json);
         editor.apply();
 
-        // Sudoku 16
+        // Sudoku 26
         sudoku = new SudokuVariation();
         cells = new ArrayList<>();
-        sudokuCells =   "5| | |4| | |3| |7|" +
-                "9| | | | |3| |2| |" +
-                " | | | |1|2| | |8|" +
-                " |1|9|6| |5| | |2|" +
-                " | | | |3| | | | |" +
-                "7| | |2| |8|5|1| |" +
-                "1| | |8|7| | | | |" +
-                " |7| |3| | | | |1|" +
-                "6| |4| | |1| | |3|";
+        sudokuCells =   " | | | | |3|8| |1|" +
+                " | | |8| | | |3| |" +
+                "5| | | |6| | | |4|" +
+                " |2| | |8| |1| | |" +
+                " |5|6| |1| |9|8| |" +
+                " | |3| |5| | |4| |" +
+                "7| | | |3| | | |5|" +
+                " |4| | | |2| | | |" +
+                "3| |2|4| | | | | |";
         splitCells = sudokuCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             cell = new SudokuCellData(splitCells[i]);
@@ -333,21 +332,21 @@ public class MediumListFragment extends Fragment{
         sudoku.setCells(cells);
 
         solution = new ArrayList<>();
-        solCells = "5|2|1|4|8|6|3|9|7|" +
-                "9|4|8|7|5|3|1|2|6|" +
-                "3|6|7|9|1|2|4|5|8|" +
-                "8|1|9|6|4|5|7|3|2|" +
-                "4|5|2|1|3|7|6|8|9|" +
-                "7|3|6|2|9|8|5|1|4|" +
-                "1|9|3|8|7|4|2|6|5|" +
-                "2|7|5|3|6|9|8|4|1|" +
-                "6|8|4|5|2|1|9|7|3|";
+        solCells = "2|7|9|5|4|3|8|6|1|" +
+                "1|6|4|8|2|9|5|3|7|" +
+                "5|3|8|7|6|1|2|9|4|" +
+                "9|2|7|3|8|4|1|5|6|" +
+                "4|5|6|2|1|7|9|8|3|" +
+                "8|1|3|9|5|6|7|4|2|" +
+                "7|9|1|6|3|8|4|2|5|" +
+                "6|4|5|1|9|2|3|7|8|" +
+                "3|8|2|4|7|5|6|1|9|";
         splitCells = solCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             solution.add(splitCells[i]);
         }
         sudoku.setSolution(solution);
-        sudoku.setId("Sudoku 16");
+        sudoku.setId("Sudoku 26");
         sudokus.add(sudoku);
 
         gson = new Gson();
@@ -355,65 +354,19 @@ public class MediumListFragment extends Fragment{
         editor.putString(sudoku.getId(), json);
         editor.apply();
 
-        // Sudoku 17
-        sudoku = new SudokuVariation();
-        cells = new ArrayList<>();
-        sudokuCells =
-                "1| |3|4| | |9|6| |" +
-                        " | |9| | |2| | | |" +
-                        " |4| | | |6| | | |" +
-                        "4|9| |2| |1|6| | |" +
-                        "6| | | |9| | | |3|" +
-                        " | |8|5| |4| |9|1|" +
-                        " | | |6| | | |3| |" +
-                        " | | |7| | |8| | |" +
-                        " |7|2| | |3|5| |6|";
-        splitCells = sudokuCells.split("[|]", 0);
-        for (int i = 0; i < splitCells.length; i++) {
-            cell = new SudokuCellData(splitCells[i]);
-            if (!cell.getInput().equals(" ")) {
-                cell.setSolved(true);
-            }
-            cells.add(cell);
-        }
-        sudoku.setCells(cells);
-
-        solution = new ArrayList<>();
-        solCells = "1|5|3|4|7|8|9|6|2|" +
-                "8|6|9|3|5|2|7|1|4|" +
-                "2|4|7|9|1|6|3|8|5|" +
-                "4|9|5|2|3|1|6|7|8|" +
-                "6|2|1|8|9|7|4|5|3|" +
-                "7|3|8|5|6|4|2|9|1|" +
-                "5|8|4|6|2|9|1|3|7|" +
-                "3|1|6|7|4|5|8|2|9|" +
-                "9|7|2|1|8|3|5|4|6|";
-        splitCells = solCells.split("[|]", 0);
-        for (int i = 0; i < splitCells.length; i++) {
-            solution.add(splitCells[i]);
-        }
-        sudoku.setSolution(solution);
-        sudoku.setId("Sudoku 17");
-        sudokus.add(sudoku);
-
-        gson = new Gson();
-        json = gson.toJson(cells);
-        editor.putString(sudoku.getId(), json);
-        editor.apply();
-
-        // Sudoku 18
+        // Sudoku 27
         sudoku = new SudokuVariation();
         cells = new ArrayList<>();
         sudokuCells =
-                " |9| | | | |8| |4|" +
-                        "7| | | |5|8| | | |" +
-                        " |6|8|9| | | | | |" +
-                        "6|4|1| |7| | | | |" +
-                        " | |2| | | |4| | |" +
-                        " | | | |1| |6|7|3|" +
-                        " | | | | |9|1|5| |" +
-                        " | | |2|8| | | |7|" +
-                        "4| |7| | | | |6| |";
+                "8| | | |6| | | |1|" +
+                        " | | | | |3| |4|7|" +
+                        " | | |4| | |3| | |" +
+                        " | |2| |4| | |7| |" +
+                        " |6|8| |7| |4|9| |" +
+                        " |3| | |8| |1| | |" +
+                        " | |1| | |2| | | |" +
+                        "3|2| |1| | | | | |" +
+                        "5| | | |3| | | |8|";
         splitCells = sudokuCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             cell = new SudokuCellData(splitCells[i]);
@@ -425,21 +378,21 @@ public class MediumListFragment extends Fragment{
         sudoku.setCells(cells);
 
         solution = new ArrayList<>();
-        solCells = "5|9|3|1|6|7|8|2|4|" +
-                "7|2|4|3|5|8|9|1|6|" +
-                "1|6|8|9|2|4|7|3|5|" +
-                "6|4|1|8|7|3|5|9|2|" +
-                "3|7|2|6|9|5|4|8|1|" +
-                "8|5|9|4|1|2|6|7|3|" +
-                "2|3|6|7|4|9|1|5|8|" +
-                "9|1|5|2|8|6|3|4|7|" +
-                "4|8|7|5|3|1|2|6|9|";
+        solCells = "8|4|3|5|6|7|9|2|1|" +
+                "2|9|5|8|1|3|6|4|7|" +
+                "7|1|6|4|2|9|3|8|5|" +
+                "9|5|2|3|4|1|8|7|6|" +
+                "1|6|8|2|7|5|4|9|3|" +
+                "4|3|7|9|8|6|1|5|2|" +
+                "6|8|1|7|9|2|5|3|4|" +
+                "3|2|4|1|5|8|7|6|9|" +
+                "5|7|9|6|3|4|2|1|8|";
         splitCells = solCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             solution.add(splitCells[i]);
         }
         sudoku.setSolution(solution);
-        sudoku.setId("Sudoku 18");
+        sudoku.setId("Sudoku 27");
         sudokus.add(sudoku);
 
         gson = new Gson();
@@ -447,19 +400,19 @@ public class MediumListFragment extends Fragment{
         editor.putString(sudoku.getId(), json);
         editor.apply();
 
-        // Sudoku 19
+        // Sudoku 28
         sudoku = new SudokuVariation();
         cells = new ArrayList<>();
         sudokuCells =
-                " | | | | |4|7|1| |" +
-                        "3| |7| | | | |4| |" +
-                        " | | |7|9| | | |8|" +
-                        " | | | |8| |6|3|1|" +
-                        " | |3| | | |2| | |" +
-                        "5|8|1| |6| | | | |" +
-                        "8| | | |7|2| | | |" +
-                        " |1| | | | |8| |3|" +
-                        " |9|6|4| | | | | |";
+                "9|6| |8| | | | | |" +
+                        " | |8| | |9| | | |" +
+                        " |2| | |3| | |4| |" +
+                        "6| | | |9| |7| | |" +
+                        "5| |9| |6| |4| |3|" +
+                        " | |2| |4| | | |8|" +
+                        " |4| | |8| | |1| |" +
+                        " | | |7| | |2| | |" +
+                        " | | | | |2| |8|7|";
         splitCells = sudokuCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             cell = new SudokuCellData(splitCells[i]);
@@ -471,21 +424,21 @@ public class MediumListFragment extends Fragment{
         sudoku.setCells(cells);
 
         solution = new ArrayList<>();
-        solCells = "9|5|8|3|2|4|7|1|6|" +
-                "3|2|7|8|1|6|5|4|9|" +
-                "1|6|4|7|9|5|3|2|8|" +
-                "2|4|9|5|8|7|6|3|1|" +
-                "6|7|3|9|4|1|2|8|5|" +
-                "5|8|1|2|6|3|4|9|7|" +
-                "8|3|5|1|7|2|9|6|4|" +
-                "4|1|2|6|5|9|8|7|3|" +
-                "7|9|6|4|3|8|1|5|2|";
+        solCells = "9|6|3|8|2|4|1|7|5|" +
+                "4|1|8|5|7|9|3|6|2|" +
+                "7|2|5|6|3|1|8|4|9|" +
+                "6|3|4|2|9|8|7|5|1|" +
+                "5|8|9|1|6|7|4|2|3|" +
+                "1|7|2|3|4|5|6|9|8|" +
+                "2|4|7|9|8|3|5|1|6|" +
+                "8|9|1|7|5|6|2|3|4|" +
+                "3|5|6|4|1|2|9|8|7|";
         splitCells = solCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             solution.add(splitCells[i]);
         }
         sudoku.setSolution(solution);
-        sudoku.setId("Sudoku 19");
+        sudoku.setId("Sudoku 28");
         sudokus.add(sudoku);
 
         gson = new Gson();
@@ -493,19 +446,19 @@ public class MediumListFragment extends Fragment{
         editor.putString(sudoku.getId(), json);
         editor.apply();
 
-        // Sudoku 20
+        // Sudoku 29
         sudoku = new SudokuVariation();
         cells = new ArrayList<>();
         sudokuCells =
-                " | |2| | |4| | | |" +
-                        "1| |6|5| | |2|7| |" +
-                        " |5| | | |7| | | |" +
-                        "5|2| |4| |1|7| | |" +
-                        "7| | | |2| | | |6|" +
-                        " | |9|3| |5| |2|1|" +
-                        " | | |7| | | |6| |" +
-                        " |8|4| | |6|3| |7|" +
-                        " | | |8| | |9| | |";
+                " | | | |7|8|9| | |" +
+                        " | | | |4| | | |2|" +
+                        " | |7| | | |4| |3|" +
+                        " | |3| |2| | |8|6|" +
+                        " | | |9| |6| | | |" +
+                        "6|4| | |1| |7| | |" +
+                        "7| |5| | | |6| | |" +
+                        "1| | | |9| | | | |" +
+                        " | |9|5|3| | | | |";
         splitCells = sudokuCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             cell = new SudokuCellData(splitCells[i]);
@@ -517,21 +470,67 @@ public class MediumListFragment extends Fragment{
         sudoku.setCells(cells);
 
         solution = new ArrayList<>();
-        solCells = "9|7|2|6|3|4|8|1|5|" +
-                "1|3|6|5|8|9|2|7|4|" +
-                "4|5|8|2|1|7|6|9|3|" +
-                "5|2|3|4|6|1|7|8|9|" +
-                "7|4|1|9|2|8|5|3|6|" +
-                "8|6|9|3|7|5|4|2|1|" +
-                "3|9|5|7|4|2|1|6|8|" +
-                "2|8|4|1|9|6|3|5|7|" +
-                "6|1|7|8|5|3|9|4|2|";
+        solCells = "3|5|4|2|7|8|9|6|1|" +
+                "9|1|6|3|4|5|8|7|2|" +
+                "2|8|7|1|6|9|4|5|3|" +
+                "5|9|3|7|2|4|1|8|6|" +
+                "8|7|1|9|5|6|3|2|4|" +
+                "6|4|2|8|1|3|7|9|5|" +
+                "7|2|5|4|8|1|6|3|9|" +
+                "1|3|8|6|9|2|5|4|7|" +
+                "4|6|9|5|3|7|2|1|8|";
         splitCells = solCells.split("[|]", 0);
         for (int i = 0; i < splitCells.length; i++) {
             solution.add(splitCells[i]);
         }
         sudoku.setSolution(solution);
-        sudoku.setId("Sudoku 20");
+        sudoku.setId("Sudoku 29");
+        sudokus.add(sudoku);
+
+        gson = new Gson();
+        json = gson.toJson(cells);
+        editor.putString(sudoku.getId(), json);
+        editor.apply();
+
+        // Sudoku 30
+        sudoku = new SudokuVariation();
+        cells = new ArrayList<>();
+        sudokuCells =
+                "3| | |2|7| | | | |" +
+                        "2|6| | | | | |9| |" +
+                        " | |4| |9|3| | | |" +
+                        "4| | | | | |8| | |" +
+                        " |2| |9|1|8| |7| |" +
+                        " | |3| | | | | |2|" +
+                        " | | |4|8| |2| | |" +
+                        " |9| | | | | |4|1|" +
+                        " | | | |5|1| | |8|";
+        splitCells = sudokuCells.split("[|]", 0);
+        for (int i = 0; i < splitCells.length; i++) {
+            cell = new SudokuCellData(splitCells[i]);
+            if (!cell.getInput().equals(" ")) {
+                cell.setSolved(true);
+            }
+            cells.add(cell);
+        }
+        sudoku.setCells(cells);
+
+        solution = new ArrayList<>();
+        solCells = "3|1|9|2|7|6|4|8|5|" +
+                "2|6|7|8|4|5|1|9|3|" +
+                "8|5|4|1|9|3|7|2|6|" +
+                "4|7|1|5|3|2|8|6|9|" +
+                "6|2|5|9|1|8|3|7|4|" +
+                "9|8|3|7|6|4|5|1|2|" +
+                "1|3|6|4|8|9|2|5|7|" +
+                "5|9|8|3|2|7|6|4|1|" +
+                "7|4|2|6|5|1|9|3|8|";
+        splitCells = solCells.split("[|]", 0);
+        for (int i = 0; i < splitCells.length; i++) {
+            solution.add(splitCells[i]);
+        }
+        sudoku.setSolution(solution);
+        sudoku.setId("Sudoku 30");
         sudokus.add(sudoku);
 
         gson = new Gson();
@@ -546,7 +545,7 @@ public class MediumListFragment extends Fragment{
         Intent intent = getActivity().getIntent();
         String mode = (String) intent.getSerializableExtra("mode");
         if (mode.equals("single")) {
-            intent = new Intent(getActivity(), SudokuActivity.class);
+            intent = new Intent(getActivity(), SinglePlayerSudokuActivity.class);
             intent.putExtra("sudoku", sudoku);
             startActivity(intent);
         } else {
