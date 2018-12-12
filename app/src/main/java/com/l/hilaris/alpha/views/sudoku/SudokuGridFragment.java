@@ -1,9 +1,11 @@
 package com.l.hilaris.alpha.views.sudoku;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,10 +56,8 @@ public class SudokuGridFragment extends Fragment implements SinglePlayerSudokuAc
         getSavedState();
         sudoku.setScore(score);
 
-
         gridView = view.findViewById(R.id.SudokuGridView);
-        Adapter = new SudokuGridAdapter(getContext(), sudoku);
-        gridView.setAdapter(Adapter);
+        bindGridView();
 
         Gson gson = new Gson();
         if(serializedObject != null){
@@ -70,6 +70,29 @@ public class SudokuGridFragment extends Fragment implements SinglePlayerSudokuAc
         }
 
         return view;
+    }
+    public void bindGridView() {
+        new SudokuGrid(getActivity(), gridView).execute();
+    }
+
+    class SudokuGrid extends AsyncTask<Void, Void, Void> {
+        GridView mGridView;
+        Activity mContext;
+        public SudokuGrid(Activity mContext, GridView mGridView) {
+            this.mGridView = mGridView;
+            this.mContext = mContext;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            Adapter = new SudokuGridAdapter(getContext(), sudoku);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            gridView.setAdapter(Adapter);
+        }
     }
 
     public SudokuVariation getInput(String input){

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -40,7 +41,6 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
     protected final static int PORT = 3000;
 
     protected class Server implements Runnable {
-
         @Override
         public void run() {
         try {
@@ -165,6 +165,7 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
         uniqueID = UUID.randomUUID().toString();
 
         // server
+        final Handler handler = new Handler();
         connection = new Server();
         new Thread(connection).start();
         //connection.execute();

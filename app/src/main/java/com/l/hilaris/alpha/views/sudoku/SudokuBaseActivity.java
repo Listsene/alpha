@@ -28,7 +28,6 @@ public abstract class SudokuBaseActivity extends AppCompatActivity implements In
     protected boolean isFinish, success;
     protected SudokuVariation Sudoku;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
