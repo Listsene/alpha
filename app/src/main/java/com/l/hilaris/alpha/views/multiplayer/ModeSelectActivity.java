@@ -39,6 +39,7 @@ public class ModeSelectActivity  extends AppCompatActivity implements View.OnCli
         versus.setOnClickListener(this);
         team_match = findViewById(R.id.button3);
         team_match.setOnClickListener(this);
+
         Adapter = new SudokuListAdapter(getApplicationContext(),sudokus);
         createSudokus();
         sudoku = sudokus.get(0);

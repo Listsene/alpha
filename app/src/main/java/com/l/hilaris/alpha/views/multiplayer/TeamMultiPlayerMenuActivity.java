@@ -1,5 +1,6 @@
 package com.l.hilaris.alpha.views.multiplayer;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,10 @@ import com.google.android.gms.games.multiplayer.realtime.RoomUpdateCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
+import com.l.hilaris.alpha.adapters.SudokuListAdapter;
+import com.l.hilaris.alpha.models.SudokuCellData;
+import com.l.hilaris.alpha.models.SudokuVariation;
 import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
 
 import com.l.hilaris.alpha.R;
@@ -46,6 +51,10 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
     final static String TAG = "Suodoku Online";
     final static int Select_Players_Requset = 10000;
     final static int Waiting_Room_Request = 10001;
+
+    private java.util.List<SudokuVariation> sudokus = new ArrayList<>();
+    private SudokuListAdapter Adapter;
+    private SudokuVariation sudoku;
 
     private RealTimeMultiplayerClient RealtimeMultiplayClient = null;
     // 멀티플레이 시스템에 요청하는 클라이언트
@@ -74,6 +83,10 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
         search.setOnClickListener(this);
         create = findViewById(R.id.create);
         create.setOnClickListener(this);
+
+        Adapter = new SudokuListAdapter(getApplicationContext(),sudokus);
+        createSudokus();
+        sudoku = sudokus.get(0);
 
     }
 
@@ -140,10 +153,10 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
     }
     void startGame(boolean multiplayer) {
         MultiPlayer = multiplayer;
-        switchToScreen(R.id.screen_game);
-        //Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
-        //startActivity(intent);
-
+        //switchToScreen(R.id.screen_game);
+        Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
+        intent.putExtra("sudoku", sudoku);
+        startActivity(intent);
     }
     // 방나감.
     void leaveRoom() {
@@ -223,6 +236,64 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
             R.id.screen_game, R.id.screen_wait
     };
     int mCurScreen = -1;
+
+    private void createSudokus() {
+        SudokuVariation sudoku = new SudokuVariation();
+        List<SudokuCellData> cells;
+        List<String> solution;
+        SudokuCellData cell;
+
+        Gson gson;
+        SharedPreferences preferences = this.getApplicationContext().getSharedPreferences("pref", 0);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        cells = new ArrayList<>();
+        String sudokuCells =
+                "4| |9||2||7|1|3|" +
+                        "||3||7||2||5|" +
+                        "2|7||9||1|4||8|" +
+                        "|||1|5||9|7|2|" +
+                        "|5||7|4||3|8|1|" +
+                        "|||||8|||4|" +
+                        "|9||4||2||3|6|" +
+                        "|2|||8||5|4|9|" +
+                        "3|||5||9|||7|";
+        String[] splitCells = sudokuCells.split("[|]", 0);
+        for (int i = 0; i < splitCells.length; i++) {
+            cell = new SudokuCellData(splitCells[i]);
+            if (!cell.getInput().equals(" ")) {
+                cell.setSolved(true);
+            }
+            cells.add(cell);
+        }
+        sudoku.setCells(cells);
+
+        solution = new ArrayList<>();
+        String solCells =
+                "4|6|9|8|2|5|7|1|3|" +
+                        "8|1|3|6|7|4|2|9|5|" +
+                        "2|7|5|9|3|1|4|6|8|" +
+                        "6|8|4|1|5|3|9|7|2|" +
+                        "9|5|2|7|4|6|3|8|1|" +
+                        "7|3|1|2|9|8|6|5|4|" +
+                        "5|9|7|4|1|2|8|3|6|" +
+                        "1|2|6|3|8|7|5|4|9|" +
+                        "3|4|8|5|6|9|1|2|7|";
+        splitCells = solCells.split("[|]", 0);
+        for (int i = 0; i < splitCells.length; i++) {
+            solution.add(splitCells[i]);
+        }
+        sudoku.setSolution(solution);
+        sudoku.setId("Sudoku 01");
+        sudokus.add(sudoku);
+
+        gson = new Gson();
+        String json = gson.toJson(cells);
+        editor.putString(sudoku.getId(), json);
+        editor.apply();
+
+        Adapter.notifyDataSetChanged();
+    }
 
     void switchToScreen(int screenId) {
         for (int id : SCREENS) {
