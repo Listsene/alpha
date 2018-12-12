@@ -36,14 +36,14 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
     protected SocketChannel channel;
     protected Selector selector;
     protected String uniqueID;
-    //final static String HOSTNAME = "10.0.2.2"; // emulator
     protected final static String HOSTNAME = "ec2-13-209-98-37.ap-northeast-2.compute.amazonaws.com";
     protected final static int PORT = 3000;
 
-    protected class Server extends AsyncTask<Void, Void, Void> {
+    protected class Server implements Runnable {
+
         @Override
-        protected Void doInBackground(Void... voids) {
-            try {
+        public void run() {
+        try {
                 try {
                     selector = Selector.open();
                     channel = SocketChannel.open();
@@ -110,7 +110,6 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
             } finally {
                 close();
             }
-            return null;
         }
         private String read(SelectionKey key) throws IOException {
             channel = (SocketChannel) key.channel();
@@ -167,7 +166,8 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
 
         // server
         connection = new Server();
-        connection.execute();
+        new Thread(connection).start();
+        //connection.execute();
 
         // Dangerous, allows asynctask to execute on main thread.
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -178,7 +178,7 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
     protected void onResume() {
         super.onResume();
         connection = new Server();
-        connection.execute();
+        new Thread(connection).start();
     }
 
     protected void updateSudoku(String input, String position) {

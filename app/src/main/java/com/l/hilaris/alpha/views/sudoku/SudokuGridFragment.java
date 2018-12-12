@@ -182,21 +182,22 @@ public class SudokuGridFragment extends Fragment implements SinglePlayerSudokuAc
     public void onBack(){
         switch(mode) {
             case "single":
-                SinglePlayerSudokuActivity sudokuaActivity = (SinglePlayerSudokuActivity) getActivity();
-                sudokuaActivity.setOnKeyBackPressedListener(this);
-                sudokuaActivity.onBackPressed();
+                SinglePlayerSudokuActivity sudokuActivity = (SinglePlayerSudokuActivity) getActivity();
+                sudokuActivity.setOnKeyBackPressedListener(null);
+                sudokuActivity.onBackPressed();
                 break;
             case "versus":
                 VersusActivity versusActivity = (VersusActivity) getActivity();
-                versusActivity.setOnKeyBackPressedListener(this);
+                versusActivity.setOnKeyBackPressedListener(null);
                 versusActivity.onBackPressed();
                 break;
             case "team":
                 TeamActivity teamActivity = (TeamActivity) getActivity();
-                teamActivity.setOnKeyBackPressedListener(this);
+                teamActivity.setOnKeyBackPressedListener(null);
                 teamActivity.onBackPressed();
                 break;
         }
+
         saveCellState();
         saveScore(score);
     }
@@ -218,6 +219,7 @@ public class SudokuGridFragment extends Fragment implements SinglePlayerSudokuAc
                 ((TeamActivity) context).setOnKeyBackPressedListener(this);
                 break;
         }
+
     }
 
     public void saveScore(int score){
