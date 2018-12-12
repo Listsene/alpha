@@ -32,8 +32,8 @@ import java.util.concurrent.TimeUnit;
 
 public class VersusActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
     private Toolbar mToolbar;
-    TextView timerTv, scoreTv;
-    private int score;
+    TextView timerTv, scoreTv, scoreTv2;
+    private int score, score2;
     long fiveMinutes;
     private VersusSudokuGridFragment sudokuGridFragment = new VersusSudokuGridFragment();
     private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
@@ -176,7 +176,7 @@ public class VersusActivity extends AppCompatActivity implements InputButtonsGri
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sudoku);
+        setContentView(R.layout.activity_versus_sudoku);
         SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
 
         isFinish = false;
@@ -207,11 +207,13 @@ public class VersusActivity extends AppCompatActivity implements InputButtonsGri
 
         timerTv = findViewById(R.id.timer);
         scoreTv = findViewById(R.id.score);
+        scoreTv2 = findViewById(R.id.score2);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Timer();
         scoreTv.setText(String.valueOf(score));
+        scoreTv2.setText("1");
 
         Button newGameButton = findViewById(R.id.newGame);
         newGameButton.setOnClickListener(new View.OnClickListener() {
@@ -250,6 +252,7 @@ public class VersusActivity extends AppCompatActivity implements InputButtonsGri
     public void resetScore(){
         score = 0;
         scoreTv.setText(String.valueOf(score));
+        scoreTv2.setText("1");
     }
     public void Timer(){
         timer = new CountDownTimer(fiveMinutes, 1000) {

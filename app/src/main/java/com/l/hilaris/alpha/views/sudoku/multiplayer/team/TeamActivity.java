@@ -91,7 +91,13 @@ public class TeamActivity extends AppCompatActivity implements InputButtonsGridF
                             }
                             else if(type.equals("i")) {
                                 str = str.replaceFirst("i", "");
-                                updateSudoku(str.substring(0,1), str.substring(1,2));
+                                if(str.length() > 2) {
+                                    updateSudoku(str.substring(0,1), str.substring(1,3));
+                                }
+                                else {
+                                    updateSudoku(str.substring(0,1), str.substring(1,2));
+                                }
+
                             }
                             Log.d("Received a message", str);
                         }
