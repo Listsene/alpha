@@ -22,6 +22,7 @@ public abstract class SudokuBaseActivity extends AppCompatActivity implements In
     protected TextView timerTv, scoreTv, scoreTv2;
     protected int score, score2;
     protected long fiveMinutes;
+    protected String mode;
     protected SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
     protected InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
     protected CountDownTimer timer = null;
@@ -40,6 +41,7 @@ public abstract class SudokuBaseActivity extends AppCompatActivity implements In
         getIntent().putExtra("sudoku", sudoku);
 
         Sudoku = sudoku;
+        mode = Sudoku.getMode();
         score = sharedPreferences.getInt(Sudoku.getId() + "score", 0);
         score2 = 0;
         success = sharedPreferences.getBoolean(Sudoku.getId()+"success",false);
@@ -79,7 +81,7 @@ public abstract class SudokuBaseActivity extends AppCompatActivity implements In
 
     protected void resetTimer() {
         timer.cancel();
-        fiveMinutes = 300000;
+        fiveMinutes = 600000;
         Timer();
     }
 

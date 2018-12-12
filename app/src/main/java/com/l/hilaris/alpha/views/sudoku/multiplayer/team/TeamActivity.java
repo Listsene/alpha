@@ -47,6 +47,11 @@ public class TeamActivity extends MultiplayerSudokuActivity implements InputButt
     }
 
     @Override
+    protected void Score() {
+        scoreTv.setText(String.valueOf(score + score2));
+    }
+
+    @Override
     public void sendInput(String input){
         super.sendInput(input);
     }

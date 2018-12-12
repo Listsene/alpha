@@ -32,6 +32,8 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class MultiplayerSudokuActivity extends SudokuBaseActivity implements InputButtonsGridFragment.InputClicked {
+    protected int score2;
+    protected TextView scoreTv2;
     // For connection with server
     protected Server connection;
     protected SocketChannel channel;
@@ -193,11 +195,9 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
     public void sendInput(String input){
         sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
         SudokuVariation sudoku = sudokuGridFragment.getInput(input);
-        if (score != sudoku.getScore()) { // checks if score is changed
-            score = sudoku.getScore();
-            //channel.write(ByteBuffer.wrap(String.valueOf(score).getBytes()));
-            connection.writeMessage("s" + String.valueOf(score));
-            Score();
+        if (input.equals("Enter")) { // checks if score is changed
+            score = score + sudoku.getScore();
+            connection.writeMessage(uniqueID + String.valueOf(score));
         }
         String cell = sudoku.getCells().get(sudoku.getPosition()).getInput();
         if (!(cell.isEmpty() || cell.matches("\\s"))) { // checks if new solved cell
