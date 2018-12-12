@@ -119,7 +119,7 @@ public class MultiListFragment extends Fragment {
             solution.add(splitCells[i]);
         }
         sudoku.setSolution(solution);
-        sudoku.setId("Sudoku 21");
+        sudoku.setId("Room 1");
         sudokus.add(sudoku);
 
         gson = new Gson();

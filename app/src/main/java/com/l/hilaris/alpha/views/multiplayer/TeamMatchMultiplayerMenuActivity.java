@@ -1,5 +1,6 @@
 package com.l.hilaris.alpha.views.multiplayer;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -37,10 +38,15 @@ import com.google.android.gms.games.multiplayer.realtime.RoomUpdateCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.Gson;
+import com.l.hilaris.alpha.adapters.SudokuListAdapter;
+import com.l.hilaris.alpha.models.SudokuCellData;
+import com.l.hilaris.alpha.models.SudokuVariation;
 import com.l.hilaris.alpha.views.sudoku.multi.MultiListActivity;
 import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
 
 import com.l.hilaris.alpha.R;
+import com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity;
 
 public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implements View.OnClickListener {
     private Button search, create;
@@ -63,6 +69,11 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
     // 현재방 구성 .
 
 
+    private java.util.List<SudokuVariation> sudokus = new ArrayList<>();
+    private SudokuListAdapter Adapter;
+    private SudokuVariation sudoku;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +86,10 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
         search.setOnClickListener(this);
         create = findViewById(R.id.create);
         create.setOnClickListener(this);
+
+        Adapter = new SudokuListAdapter(getApplicationContext(),sudokus);
+        createSudokus();
+        sudoku = sudokus.get(0);
 
     }
 
@@ -141,8 +156,8 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
     }
     void startGame(boolean multiplayer) {
         MultiPlayer = multiplayer;
-        Intent intent = new Intent(this, MultiListActivity.class);
-        intent.putExtra("mode", "multi");
+        Intent intent = new Intent(this, SudokuActivity.class);
+        intent.putExtra("sudoku", sudoku);
         startActivity(intent);
         //Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
         //startActivity(intent);
@@ -380,6 +395,64 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
             String sender = realTimeMessage.getSenderParticipantId();
         }
     };
+    private void createSudokus() {
+        SudokuVariation sudoku = new SudokuVariation();
+        List<SudokuCellData> cells;
+        List<String> solution;
+        SudokuCellData cell;
+
+        Gson gson;
+        SharedPreferences preferences = this.getApplicationContext().getSharedPreferences("pref", 0);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        cells = new ArrayList<>();
+        String sudokuCells =
+                "4| |9||2||7|1|3|" +
+                        "||3||7||2||5|" +
+                        "2|7||9||1|4||8|" +
+                        "|||1|5||9|7|2|" +
+                        "|5||7|4||3|8|1|" +
+                        "|||||8|||4|" +
+                        "|9||4||2||3|6|" +
+                        "|2|||8||5|4|9|" +
+                        "3|||5||9|||7|";
+        String[] splitCells = sudokuCells.split("[|]", 0);
+        for (int i = 0; i < splitCells.length; i++) {
+            cell = new SudokuCellData(splitCells[i]);
+            if (!cell.getInput().equals(" ")) {
+                cell.setSolved(true);
+            }
+            cells.add(cell);
+        }
+        sudoku.setCells(cells);
+
+        solution = new ArrayList<>();
+        String solCells =
+                "4|6|9|8|2|5|7|1|3|" +
+                        "8|1|3|6|7|4|2|9|5|" +
+                        "2|7|5|9|3|1|4|6|8|" +
+                        "6|8|4|1|5|3|9|7|2|" +
+                        "9|5|2|7|4|6|3|8|1|" +
+                        "7|3|1|2|9|8|6|5|4|" +
+                        "5|9|7|4|1|2|8|3|6|" +
+                        "1|2|6|3|8|7|5|4|9|" +
+                        "3|4|8|5|6|9|1|2|7|";
+        splitCells = solCells.split("[|]", 0);
+        for (int i = 0; i < splitCells.length; i++) {
+            solution.add(splitCells[i]);
+        }
+        sudoku.setSolution(solution);
+        sudoku.setId("Multiplay 01");
+        sudokus.add(sudoku);
+
+        gson = new Gson();
+        String json = gson.toJson(cells);
+        editor.putString(sudoku.getId(), json);
+        editor.apply();
+
+        Adapter.notifyDataSetChanged();
+    }
+
     // 게임취소시 에러표시, 메인으로 복귀
     void showGameError() {
         new AlertDialog.Builder(this)

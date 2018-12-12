@@ -42,9 +42,11 @@ import com.google.gson.Gson;
 import com.l.hilaris.alpha.adapters.SudokuListAdapter;
 import com.l.hilaris.alpha.models.SudokuCellData;
 import com.l.hilaris.alpha.models.SudokuVariation;
+import com.l.hilaris.alpha.views.sudoku.multi.MultiListActivity;
 import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
 
 import com.l.hilaris.alpha.R;
+import com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity;
 
 public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements View.OnClickListener {
     private Button search, create;
@@ -154,7 +156,8 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
     void startGame(boolean multiplayer) {
         MultiPlayer = multiplayer;
         //switchToScreen(R.id.screen_game);
-        Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
+        //Intent intent = new Intent(this, MultiListActivity.class);
+        Intent intent = new Intent(this, SudokuActivity.class);
         intent.putExtra("sudoku", sudoku);
         startActivity(intent);
     }
