@@ -180,7 +180,7 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
         // 자동매치
         Bundle autoMatchCriteria = null;
         int minAutoMatchPlayers = data.getIntExtra(Multiplayer.EXTRA_MIN_AUTOMATCH_PLAYERS, 0);
-        int maxAutoMatchPlayers = 2;
+        int maxAutoMatchPlayers = 3;
         //data.getIntExtra(Multiplayer.EXTRA_MAX_AUTOMATCH_PLAYERS, 0);
         if (minAutoMatchPlayers > 0 || maxAutoMatchPlayers > 0) {
             autoMatchCriteria = RoomConfig.createAutoMatchCriteria(

@@ -140,7 +140,7 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
     }
     void startGame(boolean multiplayer) {
         MultiPlayer = multiplayer;
-        //switchToScreen(R.id.screen_game);
+        switchToScreen(R.id.screen_game);
         //Intent intent = new Intent(this, MultiplayerSudokuActivity.class);
         //startActivity(intent);
 
@@ -180,7 +180,7 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
         // 자동매치
         Bundle autoMatchCriteria = null;
         int minAutoMatchPlayers = data.getIntExtra(Multiplayer.EXTRA_MIN_AUTOMATCH_PLAYERS, 0);
-        int maxAutoMatchPlayers = 2;
+        int maxAutoMatchPlayers = 1;
                 //data.getIntExtra(Multiplayer.EXTRA_MAX_AUTOMATCH_PLAYERS, 0);
         if (minAutoMatchPlayers > 0 || maxAutoMatchPlayers > 0) {
             autoMatchCriteria = RoomConfig.createAutoMatchCriteria(
