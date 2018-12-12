@@ -40,8 +40,7 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
     protected final static String HOSTNAME = "ec2-13-209-98-37.ap-northeast-2.compute.amazonaws.com";
     protected final static int PORT = 3000;
 
-    protected class Server implements Runnable {
-        @Override
+    protected class Server extends Thread {
         public void run() {
         try {
                 try {
@@ -165,10 +164,7 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
         uniqueID = UUID.randomUUID().toString();
 
         // server
-        final Handler handler = new Handler();
         connection = new Server();
-        new Thread(connection).start();
-        //connection.execute();
 
         // Dangerous, allows asynctask to execute on main thread.
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -176,10 +172,14 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        connection = new Server();
-        new Thread(connection).start();
+        connection.start();
     }
 
     protected void updateSudoku(String input, String position) {
