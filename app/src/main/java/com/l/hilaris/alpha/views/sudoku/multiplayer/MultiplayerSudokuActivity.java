@@ -27,6 +27,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class MultiplayerSudokuActivity extends SudokuBaseActivity implements InputButtonsGridFragment.InputClicked {
@@ -34,6 +35,7 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
     protected Server connection;
     protected SocketChannel channel;
     protected Selector selector;
+    protected String uniqueID;
     //final static String HOSTNAME = "10.0.2.2"; // emulator
     protected final static String HOSTNAME = "ec2-13-209-98-37.ap-northeast-2.compute.amazonaws.com";
     protected final static int PORT = 3000;
@@ -70,6 +72,13 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
                         if (key.isReadable()) {
                             String str = read(key);
                             str = str.replaceAll("\\p{Cntrl}", ""); // gets rid of special character (diamond question mark)
+                            if(str.length() > 30) {
+                                if(!str.substring(0,36).equals(uniqueID)) {
+                                    str = str.replace(str.substring(0, 36), "v");
+                                }
+                                else
+                                    str = str.replace(uniqueID, "s");
+                            }
                             String type = str.substring(0, 1);
                             if(type.equals("s")) {
                                 str = str.replaceFirst("s", "");
@@ -78,9 +87,19 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
                                     Score();
                                 }
                             }
+                            else if(type.equals("v")) {
+                                str = str.replaceFirst("v", "");
+                                score2 = Integer.valueOf(str);
+                                Score();
+                            }
                             else if(type.equals("i")) {
                                 str = str.replaceFirst("i", "");
-                                updateSudoku(str.substring(0,1), str.substring(1,2));
+                                if(str.length() > 2) {
+                                    updateSudoku(str.substring(0,1), str.substring(1,3));
+                                }
+                                else {
+                                    updateSudoku(str.substring(0,1), str.substring(1,2));
+                                }
                             }
                             Log.d("Received a message", str);
                         }
@@ -142,6 +161,9 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // GUID to identify app instance
+        uniqueID = UUID.randomUUID().toString();
 
         // server
         connection = new Server();

@@ -57,6 +57,8 @@ public class VersusActivity extends MultiplayerSudokuActivity implements InputBu
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        scoreTv2.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -66,7 +68,7 @@ public class VersusActivity extends MultiplayerSudokuActivity implements InputBu
         if (score != sudoku.getScore()) { // checks if score is changed
             score = sudoku.getScore();
             //channel.write(ByteBuffer.wrap(String.valueOf(score).getBytes()));
-            connection.writeMessage("s" + String.valueOf(score));
+            connection.writeMessage(uniqueID + String.valueOf(score));
             Score();
         }
         String cell = sudoku.getCells().get(sudoku.getPosition()).getInput();

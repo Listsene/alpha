@@ -19,8 +19,8 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class SudokuBaseActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
     protected Toolbar mToolbar;
-    protected TextView timerTv, scoreTv;
-    protected int score;
+    protected TextView timerTv, scoreTv, scoreTv2;
+    protected int score, score2;
     protected long fiveMinutes;
     protected SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
     protected InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
@@ -41,6 +41,7 @@ public abstract class SudokuBaseActivity extends AppCompatActivity implements In
 
         Sudoku = sudoku;
         score = sharedPreferences.getInt(Sudoku.getId() + "score", 0);
+        score2 = 0;
         success = sharedPreferences.getBoolean(Sudoku.getId()+"success",false);
 
         FragmentManager fm = getFragmentManager();
@@ -54,6 +55,8 @@ public abstract class SudokuBaseActivity extends AppCompatActivity implements In
 
         timerTv = findViewById(R.id.timer);
         scoreTv = findViewById(R.id.score);
+        scoreTv2 = findViewById(R.id.score2);
+        scoreTv2.setVisibility(View.INVISIBLE);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -91,7 +94,8 @@ public abstract class SudokuBaseActivity extends AppCompatActivity implements In
 
     protected void resetScore() {
         score = 0;
-        scoreTv.setText(String.valueOf(score));
+        score2 = 0;
+        Score();
     }
 
     protected void Timer(){
@@ -133,6 +137,7 @@ public abstract class SudokuBaseActivity extends AppCompatActivity implements In
 
     protected void Score() {
         scoreTv.setText(String.valueOf(score));
+        scoreTv2.setText(String.valueOf(score2));
     }
 
     @Override
