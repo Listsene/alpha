@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.l.hilaris.alpha.R;
 import com.l.hilaris.alpha.models.SudokuCellData;
 import com.l.hilaris.alpha.models.SudokuVariation;
-import com.l.hilaris.alpha.views.sudoku.multiplayer.team.TeamSudokuGridFragment;
 import com.l.hilaris.alpha.views.sudoku.singleplayer.InputButtonsGridFragment;
 import com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuGridFragment;
 
@@ -35,7 +34,7 @@ public class TeamActivity extends AppCompatActivity implements InputButtonsGridF
     TextView timerTv, scoreTv;
     private int score;
     long fiveMinutes;
-    private TeamSudokuGridFragment sudokuGridFragment = new TeamSudokuGridFragment();
+    private SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
     private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
     CountDownTimer timer = null;
     boolean isFinish, success;
@@ -249,7 +248,7 @@ public class TeamActivity extends AppCompatActivity implements InputButtonsGridF
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         sudokuGridFragment.newGame();
-        ft.replace(R.id.SudokuGridFragment, sudokuGridFragment = new TeamSudokuGridFragment());
+        ft.replace(R.id.SudokuGridFragment, sudokuGridFragment = new SudokuGridFragment());
         ft.replace(R.id.InputButtonsFragment, inputButtonsGridFragment = new InputButtonsGridFragment());
         ft.commit();
     }
@@ -307,7 +306,7 @@ public class TeamActivity extends AppCompatActivity implements InputButtonsGridF
 
     @Override
     public void sendInput(String input){
-        sudokuGridFragment = (TeamSudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
+        sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
         SudokuVariation sudoku = sudokuGridFragment.getInput(input);
         if (score != sudoku.getScore()) { // checks if score is changed
             score = sudoku.getScore();

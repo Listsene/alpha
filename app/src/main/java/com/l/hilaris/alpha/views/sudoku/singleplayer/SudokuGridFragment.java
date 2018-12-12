@@ -19,17 +19,21 @@ import com.l.hilaris.alpha.models.Memo;
 import com.l.hilaris.alpha.R;
 import com.l.hilaris.alpha.models.SudokuCellData;
 import com.l.hilaris.alpha.models.SudokuVariation;
+import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
+import com.l.hilaris.alpha.views.sudoku.multiplayer.team.TeamActivity;
+import com.l.hilaris.alpha.views.sudoku.multiplayer.versus.VersusActivity;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SudokuGridFragment extends Fragment implements SudokuActivity.onKeyBackPressedListener{
+public class SudokuGridFragment extends Fragment implements SudokuActivity.onKeyBackPressedListener, MultiplayerSudokuActivity.onKeyBackPressedListener, VersusActivity.onKeyBackPressedListener, TeamActivity.onKeyBackPressedListener{
     private GridView gridView;
     private SudokuVariation sudoku;
     private SudokuGridAdapter Adapter;
     private int score = 0;
-    private int scoreCount=0;
+    private int scoreCount = 0;
+    private String mode;
     String serializedObject;
     List<SudokuCellData> cells = new ArrayList<>();
     List<SudokuCellData> original = new ArrayList<>();
@@ -176,16 +180,52 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     }
     @Override
     public void onBack(){
-        SudokuActivity activity = (SudokuActivity) getActivity();
-        activity.setOnKeyBackPressedListener(null);
-        activity.onBackPressed();
+        switch(mode) {
+            case "single":
+                SudokuActivity sudokuaActivity = (SudokuActivity) getActivity();
+                sudokuaActivity.setOnKeyBackPressedListener(null);
+                sudokuaActivity.onBackPressed();
+                break;
+            case "versus":
+                VersusActivity versusActivity = (VersusActivity) getActivity();
+                versusActivity.setOnKeyBackPressedListener(null);
+                versusActivity.onBackPressed();
+                break;
+            case "team":
+                TeamActivity teamActivity = (TeamActivity) getActivity();
+                teamActivity.setOnKeyBackPressedListener(null);
+                teamActivity.onBackPressed();
+                break;
+            default:
+                MultiplayerSudokuActivity multiplayerSudokuActivity = (MultiplayerSudokuActivity) getActivity();
+                multiplayerSudokuActivity.setOnKeyBackPressedListener(null);
+                multiplayerSudokuActivity.onBackPressed();
+                break;
+        }
         saveCellState();
         saveScore(score);
     }
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        ((SudokuActivity) context).setOnKeyBackPressedListener(this);
+        Intent i = getActivity().getIntent();
+        sudoku = (SudokuVariation) i.getSerializableExtra("sudoku");
+        mode = sudoku.getMode();
+
+        switch(mode) {
+            case "single":
+                ((SudokuActivity) context).setOnKeyBackPressedListener(this);
+                break;
+            case "versus":
+                ((VersusActivity) context).setOnKeyBackPressedListener(this);
+                break;
+            case "team":
+                ((TeamActivity) context).setOnKeyBackPressedListener(this);
+                break;
+            default:
+                ((MultiplayerSudokuActivity) context).setOnKeyBackPressedListener(this);
+                break;
+        }
     }
 
     public void saveScore(int score){
@@ -218,10 +258,6 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
 
         editor.remove(sudoku.getId()+"saved").apply();
         editor.remove(sudoku.getId()+"score").apply();
-        //setList(sudoku.getId(),original);
-        //cells = original;
-        //sudoku.setCells(cells);
-        //Adapter.notifyDataSetChanged();
     }
 
     public void getSavedState(){
@@ -249,25 +285,34 @@ public class SudokuGridFragment extends Fragment implements SudokuActivity.onKey
     }
 
     public void checkFinish(){
-        Boolean isFinish=true;
-        for(int i=0; i<81; i++){
-            Boolean bl = cells.get(i).getSolved();
-            if(bl==false){
+        boolean isFinish = true;
+        boolean solved;
+        for(int i = 0; i < 81; i++){
+            solved = cells.get(i).getSolved();
+            if(!solved){
                 isFinish = false;
+                break;
             }
         }
-        if(isFinish == true){
-            SudokuActivity activity = (SudokuActivity) getActivity();
-            activity.setFinish();
+        if(isFinish){
+            switch(mode) {
+                case "single":
+                    SudokuActivity sudokuaActivity = (SudokuActivity) getActivity();
+                    sudokuaActivity.setFinish();
+                    break;
+                case "versus":
+                    VersusActivity versusActivity = (VersusActivity) getActivity();
+                    versusActivity.setFinish();
+                    break;
+                case "team":
+                    TeamActivity teamActivity = (TeamActivity) getActivity();
+                    teamActivity.setFinish();
+                    break;
+                default:
+                    MultiplayerSudokuActivity multiplayerSudokuActivity = (MultiplayerSudokuActivity) getActivity();
+                    multiplayerSudokuActivity.setFinish();
+            }
         }
 
-
-//        SharedPreferences pref = this.getActivity().getSharedPreferences("pref",0);
-//        SharedPreferences.Editor editor = pref.edit();
-//        editor.putBoolean("isFinish",isFinish).apply();
     }
-
-
-
-
 }

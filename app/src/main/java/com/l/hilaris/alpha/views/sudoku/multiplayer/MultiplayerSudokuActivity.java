@@ -18,6 +18,7 @@ import com.l.hilaris.alpha.R;
 import com.l.hilaris.alpha.models.SudokuCellData;
 import com.l.hilaris.alpha.models.SudokuVariation;
 import com.l.hilaris.alpha.views.sudoku.singleplayer.InputButtonsGridFragment;
+import com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity;
 import com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuGridFragment;
 
 import java.io.IOException;
@@ -29,12 +30,12 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-public class MultiplayerSudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
+public class MultiplayerSudokuActivity extends SudokuActivity implements InputButtonsGridFragment.InputClicked {
     private Toolbar mToolbar;
     TextView timerTv, scoreTv;
     private int score;
     long fiveMinutes;
-    private MultiplayerSudokuGridFragment sudokuGridFragment = new MultiplayerSudokuGridFragment();
+    private SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
     private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
     CountDownTimer timer = null;
     boolean isFinish, success;
@@ -242,7 +243,7 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         sudokuGridFragment.newGame();
-        ft.replace(R.id.SudokuGridFragment, sudokuGridFragment = new MultiplayerSudokuGridFragment());
+        ft.replace(R.id.SudokuGridFragment, sudokuGridFragment = new SudokuGridFragment());
         ft.replace(R.id.InputButtonsFragment, inputButtonsGridFragment = new InputButtonsGridFragment());
         ft.commit();
     }
@@ -300,7 +301,7 @@ public class MultiplayerSudokuActivity extends AppCompatActivity implements Inpu
 
     @Override
     public void sendInput(String input){
-        sudokuGridFragment = (MultiplayerSudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
+        sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
         SudokuVariation sudoku = sudokuGridFragment.getInput(input);
         if (score != sudoku.getScore()) { // checks if score is changed
             score = sudoku.getScore();

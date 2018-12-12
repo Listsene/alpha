@@ -540,8 +540,10 @@ public class EasyListFragment extends Fragment {
     public void moveActivity(SudokuVariation sudoku) {
         Intent intent = getActivity().getIntent();
         String mode = (String) intent.getSerializableExtra("mode");
+        sudoku.setMode(mode);
         if (mode.equals("single")) {
             intent = new Intent(getActivity(), SudokuActivity.class);
+
             intent.putExtra("sudoku", sudoku);
             startActivity(intent);
         } else {
