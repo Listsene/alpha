@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.l.hilaris.alpha.R;
-import com.l.hilaris.alpha.views.sudoku.easy.EasyListFragment;
 import com.l.hilaris.alpha.views.sudoku.multi.MultiListFragment;
 
 public class MultiListActivity extends AppCompatActivity {
@@ -21,7 +20,8 @@ public class MultiListActivity extends AppCompatActivity {
         // Opens TestListFragment
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.MultiListFragment, new MultiListActivity());
+        ft.add(R.id.MultiListFragment,new MultiListActivity());
+        //R.id.MultiListFragment, new MultiListActivity());
         ft.commit();
     }
 }

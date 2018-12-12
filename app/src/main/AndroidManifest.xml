@@ -73,6 +73,11 @@
             android:name="com.l.hilaris.alpha.views.multiplayer.VersusMultiplayerMenuActivity"
             android:label="Select Multiplay Mode">
         </activity>
+        <activity
+            android:name="com.l.hilaris.alpha.views.sudoku.multi.MultiListActivity"
+            android:label="Select Multiplay List">
+        </activity>
+
 
     </application>
 </manifest>
