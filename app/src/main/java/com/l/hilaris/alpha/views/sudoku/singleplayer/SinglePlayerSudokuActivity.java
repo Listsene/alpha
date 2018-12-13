@@ -40,13 +40,4 @@ public class SinglePlayerSudokuActivity extends SudokuBaseActivity implements In
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void sendInput(String input) {
-        sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
-        SudokuVariation sudoku = sudokuGridFragment.getInput(input);
-        if (score != sudoku.getScore()) { // checks if score is changed
-            score = sudoku.getScore();
-            Score();
-        }
-    }
 }

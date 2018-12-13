@@ -14,6 +14,7 @@
     <color name="gray_a40">#40818590</color>
     <color name="gray_light">#E0E0E0</color>
     <color name="gray_dark">#505050</color>
+    <color name="green">#4bc700</color>
     <color name="red">#F44D2C</color>
 
     <!--matchup colors-->

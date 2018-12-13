@@ -105,7 +105,6 @@ public class SudokuGridFragment extends Fragment implements SinglePlayerSudokuAc
         }
         String number = cellData.getNumber();
         sudoku.setPosition(nSelectedPos);
-        score = 0;
 
         if(solved(cellData) || !validInput(input, number)) {
             // do nothing

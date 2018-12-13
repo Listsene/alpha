@@ -56,6 +56,11 @@ public class VersusActivity extends MultiplayerSudokuActivity implements InputBu
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         scoreTv2.setVisibility(View.VISIBLE);
     }
 

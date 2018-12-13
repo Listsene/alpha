@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.l.hilaris.alpha.R;
+import com.l.hilaris.alpha.models.SudokuCellData;
 import com.l.hilaris.alpha.models.SudokuVariation;
 import com.l.hilaris.alpha.views.sudoku.InputButtonsGridFragment;
 import com.l.hilaris.alpha.views.sudoku.SudokuBaseActivity;
@@ -32,8 +33,6 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class MultiplayerSudokuActivity extends SudokuBaseActivity implements InputButtonsGridFragment.InputClicked {
-    protected int score2;
-    protected TextView scoreTv2;
     // For connection with server
     protected Server connection;
     protected SocketChannel channel;
@@ -75,32 +74,34 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
                             str = str.replaceAll("\\p{Cntrl}", ""); // gets rid of special character (diamond question mark)
                             if(str.length() > 30) {
                                 if(!str.substring(0,36).equals(uniqueID)) {
-                                    str = str.replace(str.substring(0, 36), "v");
+                                    str = str.replace(str.substring(0, 36), "o");
                                 }
                                 else
-                                    str = str.replace(uniqueID, "s");
+                                    str = str.replace(uniqueID, "m");
                             }
                             String type = str.substring(0, 1);
-                            if(type.equals("s")) {
-                                str = str.replaceFirst("s", "");
-                                if(!str.equals(score)) {
+                            switch (type) {
+                                case "m": // score update
+                                    str = str.replaceFirst("m", "");
                                     score = Integer.valueOf(str);
                                     Score();
-                                }
-                            }
-                            else if(type.equals("v")) {
-                                str = str.replaceFirst("v", "");
-                                score2 = Integer.valueOf(str);
-                                Score();
-                            }
-                            else if(type.equals("i")) {
-                                str = str.replaceFirst("i", "");
-                                if(str.length() > 2) {
-                                    updateSudoku(str.substring(0,1), str.substring(1,3));
-                                }
-                                else {
-                                    updateSudoku(str.substring(0,1), str.substring(1,2));
-                                }
+                                    break;
+                                case "o": // opponent score update
+                                    str = str.replaceFirst("o", "");
+                                    score2 = Integer.valueOf(str);
+                                    Score();
+                                    break;
+                                case "i": // solved cell update
+                                    str = str.replaceFirst("i", "");
+                                    if(str.length() > 2) {
+                                        updateSudoku(str.substring(0,1), str.substring(1,3));
+                                    }
+                                    else {
+                                        updateSudoku(str.substring(0,1), str.substring(1,2));
+                                    }
+                                    break;
+                                default:
+                                    break;
                             }
                             Log.d("Received a message", str);
                         }
@@ -196,12 +197,16 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
         sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
         SudokuVariation sudoku = sudokuGridFragment.getInput(input);
         if (input.equals("Enter")) { // checks if score is changed
-            score = score + sudoku.getScore();
+            score = Sudoku.getScore();
             connection.writeMessage(uniqueID + String.valueOf(score));
         }
         String cell = sudoku.getCells().get(sudoku.getPosition()).getInput();
-        if (!(cell.isEmpty() || cell.matches("\\s"))) { // checks if new solved cell
+        if (!isSolved(cell)) {
             connection.writeMessage("i" + String.valueOf(cell) + String.valueOf(sudoku.getPosition()));
         }
+    }
+
+    private boolean isSolved(String cell) {
+        return (cell.isEmpty() || cell.matches("\\s"));
     }
 }

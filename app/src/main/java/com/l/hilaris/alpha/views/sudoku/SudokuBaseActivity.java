@@ -146,7 +146,7 @@ public abstract class SudokuBaseActivity extends AppCompatActivity implements In
     public void sendInput(String input) {
         sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
         SudokuVariation sudoku = sudokuGridFragment.getInput(input);
-        if (score != sudoku.getScore()) { // checks if score is changed
+        if (input.equals("Enter")) { // checks if score is changed
             score = sudoku.getScore();
             Score();
         }
