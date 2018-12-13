@@ -63,7 +63,6 @@ public class InputButtonsGridAdapter extends BaseAdapter {
                 inputClicked.sendInput(text);
             }
         });
-
         return convertView;
     }
 

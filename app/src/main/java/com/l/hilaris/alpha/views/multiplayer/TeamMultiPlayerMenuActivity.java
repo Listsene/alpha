@@ -89,7 +89,6 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
         Adapter = new SudokuListAdapter(getApplicationContext(),sudokus);
         createSudokus();
         sudoku = sudokus.get(0);
-
     }
 
     @Override
@@ -172,10 +171,8 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
             switchToMainScreen();
             return;
         }
-
         Log.d(TAG, "Invitation succeeded.");
         Invitation invitation = data.getExtras().getParcelable(Multiplayer.EXTRA_INVITATION);
-
         // 초대수락
         if (invitation != null) {
             acceptInviteToRoom(invitation.getInvitationId());

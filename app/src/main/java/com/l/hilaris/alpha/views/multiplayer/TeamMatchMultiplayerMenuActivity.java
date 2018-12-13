@@ -68,11 +68,9 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
     RoomConfig Roomconfig;
     // 현재방 구성 .
 
-
     private java.util.List<SudokuVariation> sudokus = new ArrayList<>();
     private SudokuListAdapter Adapter;
     private SudokuVariation sudoku;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,7 +88,6 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
         Adapter = new SudokuListAdapter(getApplicationContext(),sudokus);
         createSudokus();
         sudoku = sudokus.get(0);
-
     }
 
     @Override
