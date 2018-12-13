@@ -53,7 +53,7 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
     final static String TAG = "Suodoku Online";
     final static int Select_Players_Requset = 10000;
     final static int Waiting_Room_Request = 10001;
-
+    final static int Invitation_IN_BOX=10002;
     private java.util.List<SudokuVariation> sudokus = new ArrayList<>();
     private SudokuListAdapter Adapter;
     private SudokuVariation sudoku;
@@ -151,6 +151,10 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
                 leaveRoom();
             }
         }
+        else if (requestCode == Invitation_IN_BOX) {
+            //초대UI핸들링
+            handleInvitationInboxResult(resultCode, intent);
+        }
         super.onActivityResult(requestCode, resultCode, intent);
     }
     void startGame(boolean multiplayer) {
@@ -161,6 +165,46 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
         intent.putExtra("sudoku", sudoku);
         startActivity(intent);
     }
+    //초대창 핸들
+    private void handleInvitationInboxResult(int response, Intent data) {
+        if (response != Activity.RESULT_OK) {
+            Log.w(TAG, "invitation inbox UI cancelled, " + response);
+            switchToMainScreen();
+            return;
+        }
+
+        Log.d(TAG, "Invitation succeeded.");
+        Invitation invitation = data.getExtras().getParcelable(Multiplayer.EXTRA_INVITATION);
+
+        // 초대수락
+        if (invitation != null) {
+            acceptInviteToRoom(invitation.getInvitationId());
+        }
+    }
+
+    // 초대수락펑션
+    void acceptInviteToRoom(String invitationId) {
+        Log.d(TAG, "Accepting invitation: " + invitationId);
+
+        Roomconfig = RoomConfig.builder(mRoomUpdateCallback)
+                .setInvitationIdToAccept(invitationId)
+                .setOnMessageReceivedListener(mOnRealTimeMessageReceivedListener)
+                .setRoomStatusUpdateCallback(mRoomStatusUpdateCallback)
+                .build();
+
+        switchToScreen(R.id.screen_wait);
+        keepScreenOn();
+        resetGameVars();
+
+        RealtimeMultiplayClient.join(Roomconfig)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Joining room Successed");
+                    }
+                });
+    }
+
     // 방나감.
     void leaveRoom() {
         Log.d(TAG, "Leaving room.");
@@ -196,8 +240,7 @@ public class TeamMultiPlayerMenuActivity extends AppCompatActivity implements Vi
         // 자동매치
         Bundle autoMatchCriteria = null;
         int minAutoMatchPlayers = data.getIntExtra(Multiplayer.EXTRA_MIN_AUTOMATCH_PLAYERS, 0);
-        int maxAutoMatchPlayers = 1;
-                //data.getIntExtra(Multiplayer.EXTRA_MAX_AUTOMATCH_PLAYERS, 0);
+        int maxAutoMatchPlayers = data.getIntExtra(Multiplayer.EXTRA_MAX_AUTOMATCH_PLAYERS, 0);
         if (minAutoMatchPlayers > 0 || maxAutoMatchPlayers > 0) {
             autoMatchCriteria = RoomConfig.createAutoMatchCriteria(
                     minAutoMatchPlayers, maxAutoMatchPlayers, 0);

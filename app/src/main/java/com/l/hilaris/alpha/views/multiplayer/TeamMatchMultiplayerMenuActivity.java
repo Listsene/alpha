@@ -53,7 +53,7 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
     final static String TAG = "Suodoku Online";
     final static int Select_Players_Requset = 10000;
     final static int Waiting_Room_Request = 10001;
-
+    final static int Invitation_IN_BOX =10002;
     private RealTimeMultiplayerClient RealtimeMultiplayClient = null;
     // 멀티플레이 시스템에 요청하는 클라이언트
     boolean MultiPlayer = false;
@@ -150,6 +150,9 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
             } else if (resultCode == GamesActivityResultCodes.RESULT_LEFT_ROOM) {
                 //방나갈떄
                 leaveRoom();
+            }else if (requestCode == Invitation_IN_BOX) {
+                //초대UI핸들링
+                handleInvitationInboxResult(resultCode, intent);
             }
         }
         super.onActivityResult(requestCode, resultCode, intent);
@@ -197,8 +200,7 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
         // 자동매치
         Bundle autoMatchCriteria = null;
         int minAutoMatchPlayers = data.getIntExtra(Multiplayer.EXTRA_MIN_AUTOMATCH_PLAYERS, 0);
-        int maxAutoMatchPlayers = 3;
-        //data.getIntExtra(Multiplayer.EXTRA_MAX_AUTOMATCH_PLAYERS, 0);
+        int maxAutoMatchPlayers = data.getIntExtra(Multiplayer.EXTRA_MAX_AUTOMATCH_PLAYERS, 0);
         if (minAutoMatchPlayers > 0 || maxAutoMatchPlayers > 0) {
             autoMatchCriteria = RoomConfig.createAutoMatchCriteria(
                     minAutoMatchPlayers, maxAutoMatchPlayers, 0);
@@ -218,6 +220,46 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
         RealtimeMultiplayClient.create(Roomconfig);
         Log.d(TAG, "Room creation completed");
     }
+    //초대창 핸들
+    private void handleInvitationInboxResult(int response, Intent data) {
+        if (response != Activity.RESULT_OK) {
+            Log.w(TAG, "invitation inbox UI cancelled, " + response);
+            switchToMainScreen();
+            return;
+        }
+
+        Log.d(TAG, "Invitation succeeded.");
+        Invitation invitation = data.getExtras().getParcelable(Multiplayer.EXTRA_INVITATION);
+
+        // 초대수락
+        if (invitation != null) {
+            acceptInviteToRoom(invitation.getInvitationId());
+        }
+    }
+
+    // 초대수락펑션
+    void acceptInviteToRoom(String invitationId) {
+        Log.d(TAG, "Accepting invitation: " + invitationId);
+
+        Roomconfig = RoomConfig.builder(mRoomUpdateCallback)
+                .setInvitationIdToAccept(invitationId)
+                .setOnMessageReceivedListener(mOnRealTimeMessageReceivedListener)
+                .setRoomStatusUpdateCallback(mRoomStatusUpdateCallback)
+                .build();
+
+        switchToScreen(R.id.screen_wait);
+        keepScreenOn();
+        resetGameVars();
+
+        RealtimeMultiplayClient.join(Roomconfig)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Joining room Successed");
+                    }
+                });
+    }
+
 
     void startQuickGame() {
         //1명의 랜덤으로 선택된 적과 게임 시작.
