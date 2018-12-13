@@ -9,6 +9,7 @@ public class SudokuCellData implements Serializable {
     String number;
     List<Memo> memo = new ArrayList<>();
     Boolean solved = false;
+    int status = 0; // 0: default, 1: solved 2: other solved
 
     public void setNumber(String number){ this.number = number; }
 
@@ -27,6 +28,15 @@ public class SudokuCellData implements Serializable {
     public void setSolved(Boolean solved) {
         this.solved = solved;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public void clearMemo() {
         for(int i = 0; i < memo.size(); i++) {
             memo.get(i).setActive(false);

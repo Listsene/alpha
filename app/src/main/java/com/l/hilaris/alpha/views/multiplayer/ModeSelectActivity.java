@@ -1,14 +1,11 @@
 package com.l.hilaris.alpha.views.multiplayer;
 
-import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 
 import com.google.gson.Gson;
@@ -19,7 +16,6 @@ import com.l.hilaris.alpha.models.SudokuVariation;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity;
 
 public class ModeSelectActivity  extends AppCompatActivity implements View.OnClickListener {
 

@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data android:name="com.google.android.gms.games.APP_ID"
@@ -34,35 +34,29 @@
             android:label="Online Session">
         </activity>
         <activity
-            android:name="com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity"
+            android:name="com.l.hilaris.alpha.views.sudoku.singleplayer.SinglePlayerSudokuActivity"
             android:label="Sudoku">
         </activity>
+        <activity android:name=".views.sudoku.multiplayer.team.TeamActivity"
+            android:label="Team">
+        </activity>
+        <activity android:name=".views.sudoku.multiplayer.versus.VersusActivity"
+            android:label="Versus">
+        </activity>
         <activity
-            android:name="com.l.hilaris.alpha.views.sudoku.easy.EasyListActivity"
+            android:name=".views.difficulties.easy.EasyListActivity"
             android:label="Select Easy Puzzle">
         </activity>
         <activity
-            android:name="com.l.hilaris.alpha.views.sudoku.medium.MediumListActivity"
+            android:name=".views.difficulties.medium.MediumListActivity"
             android:label="Select Medium Puzzle">
         </activity>
         <activity
-            android:name="com.l.hilaris.alpha.views.sudoku.hard.HardListActivity"
+            android:name=".views.difficulties.hard.HardListActivity"
             android:label="Select Hard Puzzle">
         </activity>
         <activity
             android:name="com.l.hilaris.alpha.views.multiplayer.ModeSelectActivity"
-            android:label="Select Multiplay Mode">
-        </activity>
-        <activity
-            android:name="com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity"
-            android:label="Select Multiplay Mode">
-        </activity>
-        <activity
-            android:name="com.l.hilaris.alpha.views.sudoku.multiplayer.TeamMatchMultiplayerSudokuActivity"
-            android:label="Select Multiplay Mode">
-        </activity>
-        <activity
-            android:name="com.l.hilaris.alpha.views.sudoku.multiplayer.VersusMultiplayerSudokuActivity"
             android:label="Select Multiplay Mode">
         </activity>
         <activity

@@ -1,4 +1,4 @@
-package com.l.hilaris.alpha.views.sudoku.singleplayer;
+package com.l.hilaris.alpha.views.sudoku;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,47 +16,23 @@ import com.l.hilaris.alpha.models.SudokuVariation;
 
 import java.util.concurrent.TimeUnit;
 
-public class SudokuActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
-    private Toolbar mToolbar;
-    TextView timerTv, scoreTv;
-    private int score;
-    long fiveMinutes;
-    private SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
-    private InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
-    CountDownTimer timer = null;
-    boolean isFinish;
-    SudokuVariation Sudoku;
-
-    public interface onKeyBackPressedListener {
-        public void onBack();
-    }
-    private onKeyBackPressedListener mOnKeyBackPressedListener;
-
-    public void setOnKeyBackPressedListener(onKeyBackPressedListener listener){
-        mOnKeyBackPressedListener = listener;
-    }
-
-    @Override
-    public void onBackPressed(){
-        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putLong(Sudoku.getId()+"time",fiveMinutes);
-
-        editor.putInt(Sudoku.getId()+"score", score);
-        editor.apply();
-        if(mOnKeyBackPressedListener != null){
-            mOnKeyBackPressedListener.onBack();
-        }else{
-            super.onBackPressed();
-        }
-    }
+public abstract class SudokuBaseActivity extends AppCompatActivity implements InputButtonsGridFragment.InputClicked {
+    protected Toolbar mToolbar;
+    protected TextView timerTv, scoreTv, scoreTv2;
+    protected int score, score2;
+    protected long fiveMinutes;
+    protected String mode;
+    protected SudokuGridFragment sudokuGridFragment = new SudokuGridFragment();
+    protected InputButtonsGridFragment inputButtonsGridFragment = new InputButtonsGridFragment();
+    protected CountDownTimer timer = null;
+    protected boolean isFinish, success;
+    protected SudokuVariation Sudoku;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sudoku);
-        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
-
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref", 0);
 
         isFinish = false;
 
@@ -65,19 +40,24 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         getIntent().putExtra("sudoku", sudoku);
 
         Sudoku = sudoku;
-        score = sharedPreferences.getInt(Sudoku.getId()+"score",0);
+        mode = Sudoku.getMode();
+        score = sharedPreferences.getInt(Sudoku.getId() + "score", 0);
+        score2 = 0;
+        success = sharedPreferences.getBoolean(Sudoku.getId()+"success",false);
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.SudokuGridFragment, sudokuGridFragment);
         ft.add(R.id.InputButtonsFragment, inputButtonsGridFragment);
         ft.commit();
-        fiveMinutes = sharedPreferences.getLong(Sudoku.getId()+"time", 300000);
+        fiveMinutes = sharedPreferences.getLong(Sudoku.getId() + "time", 300000);
         mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         timerTv = findViewById(R.id.timer);
         scoreTv = findViewById(R.id.score);
+        scoreTv2 = findViewById(R.id.score2);
+        scoreTv2.setVisibility(View.INVISIBLE);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -91,18 +71,20 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 resetGrid();
                 resetTimer();
                 resetScore();
-                isFinish=false;
+                isFinish = false;
+                success = false;
                 putIsFinish();
             }
         });
     }
 
-    public void resetTimer(){
+    protected void resetTimer() {
         timer.cancel();
-        fiveMinutes = 300000;
+        fiveMinutes = 600000;
         Timer();
     }
-    public void resetGrid(){
+
+    protected void resetGrid() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         sudokuGridFragment.newGame();
@@ -110,13 +92,14 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
         ft.replace(R.id.InputButtonsFragment, inputButtonsGridFragment = new InputButtonsGridFragment());
         ft.commit();
     }
-    public void resetScore(){
+
+    protected void resetScore() {
         score = 0;
-        scoreTv.setText(String.valueOf(score));
+        score2 = 0;
+        Score();
     }
 
-
-    public void Timer(){
+    protected void Timer(){
         timer = new CountDownTimer(fiveMinutes, 1000) {
             public void onTick(long millisUntilFinished) {
                 isFinish = false;
@@ -134,30 +117,58 @@ public class SudokuActivity extends AppCompatActivity implements InputButtonsGri
                 fiveMinutes = millis;
             }
             public void onFinish() {
-                timerTv.setText(getResources().getText(R.string.Timer_Complete));
+
+                if(success){
+                    timerTv.setText("Success!");
+                }else{
+                    timerTv.setText(getResources().getText(R.string.Timer_Complete));
+                }
+
                 isFinish=true;
                 putIsFinish();
-                sudokuGridFragment.getAdapter().notifyThis();
-                inputButtonsGridFragment.getAdapter().notifyThis();
+                if(sudokuGridFragment.getAdapter() !=null){
+                    sudokuGridFragment.getAdapter().notifyThis();
+                }
+                if(inputButtonsGridFragment.getAdapter() != null){
+                    inputButtonsGridFragment.getAdapter().notifyThis();
+                }
             }
         }.start();
     }
-    public void Score() {
-        scoreTv.setText(String.valueOf(score));
-    }
 
+    protected void Score() {
+        scoreTv.setText(String.valueOf(score));
+        scoreTv2.setText(String.valueOf(score2));
+    }
 
     @Override
-    public void sendInput(String input){
+    public void sendInput(String input) {
         sudokuGridFragment = (SudokuGridFragment) getFragmentManager().findFragmentById(R.id.SudokuGridFragment);
-        score = sudokuGridFragment.getInput(input);
-        Score();
+        SudokuVariation sudoku = sudokuGridFragment.getInput(input);
+        if (input.equals("Enter")) { // checks if score is changed
+            score = sudoku.getScore();
+            Score();
+        }
     }
 
-    public void putIsFinish(){
-        SharedPreferences sharedPreferences = this.getSharedPreferences("pref",0);
+    public void putIsFinish() {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref", 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(Sudoku.getId()+"isFinish",isFinish);
-        editor.commit();
+        editor.putBoolean(Sudoku.getId() + "isFinish", isFinish);
+        editor.putBoolean(Sudoku.getId() + "success", success);
+        editor.apply();
+    }
+
+    public void setFinish() {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("pref", 0);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        success = true;
+        editor.putBoolean(Sudoku.getId() + "success", success);
+        editor.apply();
+
+        timer.cancel();
+        fiveMinutes = 0;
+        Timer();
     }
 }

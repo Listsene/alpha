@@ -1,30 +1,25 @@
 package com.l.hilaris.alpha.views.multiplayer;
 
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import java.util.ArrayList;
-import java.util.List;
 import android.app.Activity;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.tasks.OnCompleteListener;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.GamesActivityResultCodes;
 import com.google.android.gms.games.GamesCallbackStatusCodes;
-import com.google.android.gms.games.InvitationsClient;
 import com.google.android.gms.games.RealTimeMultiplayerClient;
 import com.google.android.gms.games.multiplayer.Invitation;
 import com.google.android.gms.games.multiplayer.Multiplayer;
@@ -35,18 +30,19 @@ import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
 import com.google.android.gms.games.multiplayer.realtime.RoomStatusUpdateCallback;
 import com.google.android.gms.games.multiplayer.realtime.RoomUpdateCallback;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
+import com.l.hilaris.alpha.R;
 import com.l.hilaris.alpha.adapters.SudokuListAdapter;
 import com.l.hilaris.alpha.models.SudokuCellData;
 import com.l.hilaris.alpha.models.SudokuVariation;
-import com.l.hilaris.alpha.views.sudoku.multi.MultiListActivity;
-import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
+import com.l.hilaris.alpha.views.sudoku.singleplayer.SinglePlayerSudokuActivity;
 
-import com.l.hilaris.alpha.R;
-import com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implements View.OnClickListener {
     private Button search, create;
@@ -156,7 +152,7 @@ public class TeamMatchMultiplayerMenuActivity extends AppCompatActivity implemen
     }
     void startGame(boolean multiplayer) {
         MultiPlayer = multiplayer;
-        Intent intent = new Intent(this, SudokuActivity.class);
+        Intent intent = new Intent(this, SinglePlayerSudokuActivity.class);
         intent.putExtra("sudoku", sudoku);
         startActivity(intent);
         //Intent intent = new Intent(this, MultiplayerSudokuActivity.class);

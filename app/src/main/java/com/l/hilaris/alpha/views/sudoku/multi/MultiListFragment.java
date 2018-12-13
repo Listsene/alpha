@@ -19,7 +19,7 @@ import com.l.hilaris.alpha.models.SudokuCellData;
 import com.l.hilaris.alpha.models.SudokuVariation;
 import com.l.hilaris.alpha.utilities.ItemClickSupport;
 import com.l.hilaris.alpha.views.sudoku.multiplayer.MultiplayerSudokuActivity;
-import com.l.hilaris.alpha.views.sudoku.singleplayer.SudokuActivity;
+import com.l.hilaris.alpha.views.sudoku.SudokuBaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,7 +134,7 @@ public class MultiListFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         String mode = (String) intent.getSerializableExtra("mode");
         if(mode.equals("single")) {
-            intent = new Intent(getActivity(), SudokuActivity.class);
+            intent = new Intent(getActivity(), SudokuBaseActivity.class);
             intent.putExtra("sudoku", sudoku);
             startActivity(intent);
         }

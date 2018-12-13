@@ -25,7 +25,6 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:textStyle="bold"
-                android:layout_marginStart="10dp"
                 android:textSize="20sp"/>
             <TextView
                 android:id="@+id/score"
@@ -34,7 +33,16 @@
                 android:gravity="center_vertical"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_marginStart="160dp"/>
+                android:layout_marginStart="170dp"/>
+            <TextView
+                android:id="@+id/score2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:layout_marginStart="110dp"/>
             <Button
                 android:id="@+id/newGame"
                 android:layout_width="wrap_content"
