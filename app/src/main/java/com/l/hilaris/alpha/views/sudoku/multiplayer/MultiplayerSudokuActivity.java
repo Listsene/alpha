@@ -207,10 +207,12 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
 
     protected void updateSudoku(String input, String position, int status) {
         int pos = Integer.valueOf(position);
-        Sudoku.getCells().get(pos).clearMemo();
-        Sudoku.getCells().get(pos).setStatus(status);
-        Sudoku.getCells().get(pos).setSolved(true);
-        Sudoku.getCells().get(pos).setInput(input);
+        if(!Sudoku.getCells().get(pos).getSolved()) {
+            Sudoku.getCells().get(pos).clearMemo();
+            Sudoku.getCells().get(pos).setStatus(status);
+            Sudoku.getCells().get(pos).setSolved(true);
+            Sudoku.getCells().get(pos).setInput(input);
+        }
     }
 
     @Override
