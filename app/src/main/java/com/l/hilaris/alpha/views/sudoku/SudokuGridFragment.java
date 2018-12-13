@@ -143,6 +143,7 @@ public class SudokuGridFragment extends Fragment implements SinglePlayerSudokuAc
                     if(number.equals(sudoku.getSolution().get(nSelectedPos))) {
                         cellData.clearMemo();
                         cellData.setSolved(true);
+                        cellData.setStatus(1);
                         cellData.setInput(cellData.getNumber());
                         score = score + 100;
                         scoreCount = 0;

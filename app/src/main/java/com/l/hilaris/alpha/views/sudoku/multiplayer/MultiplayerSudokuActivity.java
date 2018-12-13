@@ -73,15 +73,25 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
                             String str = read(key);
                             str = str.replaceAll("\\p{Cntrl}", ""); // gets rid of special character (diamond question mark)
                             if(str.length() > 30) {
-                                if(!str.substring(0,36).equals(uniqueID)) {
-                                    str = str.replace(str.substring(0, 36), "o");
+                                if (!str.substring(0, 36).equals(uniqueID)) {
+                                    str = str.replace(str.substring(0, 36), "");
+                                    if (str.substring(0, 1).equals("s")) {
+                                        str = str.replaceFirst("s", "o");
+                                    } else {
+                                        str = str.replaceFirst("i", "r");
+                                    }
+                                } else {
+                                    str = str.replace(uniqueID, "");
+                                    if (str.substring(0, 1).equals("s")) {
+                                        str = str.replaceFirst("s", "m");
+                                    } else {
+                                        str = str.replaceFirst("i", "i");
+                                    }
                                 }
-                                else
-                                    str = str.replace(uniqueID, "m");
                             }
                             String type = str.substring(0, 1);
                             switch (type) {
-                                case "m": // score update
+                                case "m": // my score update
                                     str = str.replaceFirst("m", "");
                                     score = Integer.valueOf(str);
                                     Score();
@@ -91,15 +101,25 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
                                     score2 = Integer.valueOf(str);
                                     Score();
                                     break;
-                                case "i": // solved cell update
+                                case "i": // my solved cell update
                                     str = str.replaceFirst("i", "");
                                     if(str.length() > 2) {
-                                        updateSudoku(str.substring(0,1), str.substring(1,3));
+                                        updateSudoku(str.substring(0,1), str.substring(1,3), 1);
                                     }
                                     else {
-                                        updateSudoku(str.substring(0,1), str.substring(1,2));
+                                        updateSudoku(str.substring(0,1), str.substring(1,2), 1);
                                     }
                                     break;
+                                case "r": // enemy solved cell update
+                                    str = str.replaceFirst("r", "");
+                                    if(str.length() > 2) {
+                                        updateSudoku(str.substring(0,1), str.substring(1,3), 2);
+                                    }
+                                    else {
+                                        updateSudoku(str.substring(0,1), str.substring(1,2), 2);
+                                    }
+                                    break;
+
                                 default:
                                     break;
                             }
@@ -185,9 +205,10 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
         connection.start();
     }
 
-    protected void updateSudoku(String input, String position) {
+    protected void updateSudoku(String input, String position, int status) {
         int pos = Integer.valueOf(position);
         Sudoku.getCells().get(pos).clearMemo();
+        Sudoku.getCells().get(pos).setStatus(status);
         Sudoku.getCells().get(pos).setSolved(true);
         Sudoku.getCells().get(pos).setInput(input);
     }
@@ -198,11 +219,11 @@ public class MultiplayerSudokuActivity extends SudokuBaseActivity implements Inp
         SudokuVariation sudoku = sudokuGridFragment.getInput(input);
         if (input.equals("Enter")) { // checks if score is changed
             score = Sudoku.getScore();
-            connection.writeMessage(uniqueID + String.valueOf(score));
+            connection.writeMessage(uniqueID + "s" + String.valueOf(score));
         }
         String cell = sudoku.getCells().get(sudoku.getPosition()).getInput();
         if (!isSolved(cell)) {
-            connection.writeMessage("i" + String.valueOf(cell) + String.valueOf(sudoku.getPosition()));
+            connection.writeMessage(uniqueID + "i" + String.valueOf(cell) + String.valueOf(sudoku.getPosition()));
         }
     }
 

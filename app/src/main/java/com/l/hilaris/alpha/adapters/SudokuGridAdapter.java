@@ -44,6 +44,7 @@ public class SudokuGridAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, final ViewGroup parent) {
         SudokuCellData cellData = sudoku.getCells().get(position);
         String number = cellData.getInput();
+        int status = cellData.getStatus();
         List<Memo> memo = cellData.getMemo();
 
         if (convertView == null) {
@@ -59,6 +60,14 @@ public class SudokuGridAdapter extends BaseAdapter {
         }
         else {
             cell.setText(number);
+            switch (status) {
+                case 1:
+                    cell.setTextColor(ContextCompat.getColor(convertView.getContext(), R.color.green));
+                    break;
+                case 2:
+                    cell.setTextColor(ContextCompat.getColor(convertView.getContext(), R.color.red));
+                    break;
+            }
             setBackground(cell, position);
         }
 
@@ -98,7 +107,8 @@ public class SudokuGridAdapter extends BaseAdapter {
         });
         return convertView;
     }
-    public void setBackground(Button cell, int position) {
+
+    private void setBackground(Button cell, int position) {
         int location = position % 9;
         int row;
         if (position < 27) {
